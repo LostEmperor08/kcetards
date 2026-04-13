@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ExamEdge — JEE / NEET Mock Test</title>
+<title>KCETards! — Exam Portal</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -29,15 +29,12 @@ html,body{height:100%;font-family:var(--sans);background:var(--bg);color:var(--t
 button{font-family:var(--sans);cursor:pointer}
 input,select{font-family:var(--sans)}
 
-/* ── SCREENS ── */
+/* SCREENS */
 .screen{display:none;height:100vh;overflow:hidden}
 .screen.active{display:flex;flex-direction:column}
 
-/* ══════════════════════════════
-   ADMIN SCREEN
-══════════════════════════════ */
-#s-admin{background:var(--bg);overflow-y:auto;height:auto;min-height:100vh;display:none;flex-direction:column}
-#s-admin.active{display:flex}
+/* ADMIN SCREEN */
+#s-admin{background:var(--bg);overflow-y:auto;height:auto;min-height:100vh}
 .admin-wrap{max-width:860px;margin:0 auto;padding:2rem 1.5rem 4rem}
 .logo{font-size:22px;font-weight:600;letter-spacing:-0.5px;color:var(--text);margin-bottom:2.5rem}
 .logo span{color:var(--accent)}
@@ -46,1250 +43,224 @@ input,select{font-family:var(--sans)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
 label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
-input[type=text],input[type=number],select,textarea{
+input,select,textarea{
   width:100%;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);
   border-radius:6px;color:var(--text);font-size:13px;outline:none;transition:border .15s}
 input:focus,select:focus,textarea:focus{border-color:var(--accent)}
-textarea{resize:vertical;min-height:56px}
 .btn{padding:8px 18px;border-radius:6px;font-size:13px;font-weight:500;border:none;transition:all .15s;cursor:pointer}
 .btn-primary{background:var(--accent);color:#fff}
-.btn-primary:hover{background:#3a6ae8}
 .btn-outline{background:transparent;border:1px solid var(--border2);color:var(--text)}
-.btn-outline:hover{background:var(--surface2)}
-.btn-danger{background:transparent;border:1px solid #f05a5a44;color:var(--red)}
-.btn-danger:hover{background:#f05a5a15}
 .btn-green{background:var(--green);color:#0a1a0f}
-.btn-green:hover{opacity:.9}
-.q-block{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:10px}
-.q-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.q-num{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
-.opt-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.opt-row input[type=text]{flex:1}
-.opt-row input[type=radio]{accent-color:var(--accent);width:15px;height:15px;flex-shrink:0}
-.correct-label{font-size:11px;color:var(--muted)}
-.subject-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
-.stab{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all .15s}
-.stab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-.subject-badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600}
-.divider{border:none;border-top:1px solid var(--border);margin:1.5rem 0}
-.students-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
-.student-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center}
-.student-card .name{font-size:13px;font-weight:500}
-.student-card .code{font-family:var(--mono);font-size:11px;color:var(--accent)}
-#add-student-row{display:flex;gap:8px;margin-bottom:12px}
-#add-student-row input{flex:1}
+.btn-danger{background:transparent;border:1px solid #f05a5a44;color:var(--red)}
 
-/* ══════════════════════════════
-   LOGIN SCREEN
-══════════════════════════════ */
-#s-login{background:var(--bg);justify-content:center;align-items:center;flex-direction:column}
-.login-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2.5rem 2rem;width:100%;max-width:400px}
-.login-logo{font-size:26px;font-weight:600;color:var(--text);margin-bottom:4px;letter-spacing:-0.5px}
-.login-logo span{color:var(--accent)}
-.login-sub{font-size:13px;color:var(--muted);margin-bottom:2rem}
-.login-field{margin-bottom:14px}
-.login-field label{font-size:12px;color:var(--muted);display:block;margin-bottom:5px}
-.login-field input{width:100%;padding:10px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:var(--text);font-size:14px;outline:none}
-.login-field input:focus{border-color:var(--accent)}
-.login-btn{width:100%;padding:11px;background:var(--accent);color:#fff;border:none;border-radius:7px;font-size:14px;font-weight:600;cursor:pointer;margin-top:6px;transition:background .15s}
-.login-btn:hover{background:#3a6ae8}
-.login-err{font-size:12px;color:var(--red);margin-top:8px;min-height:18px}
-.admin-link{font-size:12px;color:var(--muted);text-align:center;margin-top:16px;cursor:pointer}
-.admin-link span{color:var(--accent);cursor:pointer}
-
-/* ══════════════════════════════
-   INSTRUCTIONS SCREEN
-══════════════════════════════ */
-#s-instructions{background:var(--bg);overflow-y:auto;height:auto;min-height:100vh;display:none;flex-direction:column}
-#s-instructions.active{display:flex}
-.inst-wrap{max-width:760px;margin:0 auto;padding:2rem 1.5rem 4rem}
-.inst-title{font-size:22px;font-weight:600;margin-bottom:4px}
-.inst-sub{font-size:13px;color:var(--muted);margin-bottom:1.5rem}
-.inst-block{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.25rem;margin-bottom:1rem}
-.inst-block h3{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
-.legend-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px}
-.dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0}
-.rule-item{display:flex;gap:8px;margin-bottom:8px;font-size:13px;color:var(--muted)}
-.rule-item::before{content:'•';color:var(--accent);flex-shrink:0;margin-top:1px}
-.agree-row{display:flex;align-items:center;gap:10px;margin:1.5rem 0;font-size:13px}
-.agree-row input{accent-color:var(--accent);width:16px;height:16px}
-.start-btn{padding:12px 36px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;transition:background .15s}
-.start-btn:disabled{opacity:.4;cursor:not-allowed}
-.start-btn:not(:disabled):hover{background:#3a6ae8}
-
-/* ══════════════════════════════
-   EXAM SCREEN
-══════════════════════════════ */
-#s-exam{flex-direction:row;height:100vh;overflow:hidden}
-
-/* Top bar */
-.exam-topbar{
-  position:fixed;top:0;left:0;right:0;height:52px;z-index:100;
-  background:var(--surface);border-bottom:1px solid var(--border);
-  display:flex;align-items:center;padding:0 16px;gap:16px
-}
-.exam-logo{font-size:15px;font-weight:600;color:var(--text);letter-spacing:-0.3px;flex-shrink:0}
-.exam-logo span{color:var(--accent)}
-.exam-student{font-size:12px;color:var(--muted);flex:1}
-.exam-timer-wrap{display:flex;align-items:center;gap:8px;flex-shrink:0}
+/* EXAM UI */
+.exam-topbar{position:fixed;top:0;left:0;right:0;height:52px;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:16px}
 .exam-timer{font-family:var(--mono);font-size:18px;font-weight:500;color:var(--text);min-width:80px;text-align:right}
-.exam-timer.warn{color:var(--orange)}
-.exam-timer.danger{color:var(--red);animation:pulse 1s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
-.timer-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
-.submit-top-btn{padding:7px 16px;background:var(--red);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;flex-shrink:0}
-
-/* Subject tabs */
-.subj-bar{
-  position:fixed;top:52px;left:0;right:260px;height:42px;z-index:99;
-  background:var(--bg);border-bottom:1px solid var(--border);
-  display:flex;align-items:center;padding:0 12px;gap:4px;overflow-x:auto
-}
-.subj-bar::-webkit-scrollbar{height:0}
-.subj-btn{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
-.subj-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-
-/* Main question area */
-.exam-main{
-  margin-top:94px;margin-right:260px;
-  height:calc(100vh - 94px);overflow-y:auto;
-  padding:1.5rem 1.5rem 6rem
-}
-.exam-main::-webkit-scrollbar{width:4px}
-.exam-main::-webkit-scrollbar-track{background:transparent}
-.exam-main::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
-
-.q-meta{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
-.q-id{font-family:var(--mono);font-size:12px;color:var(--muted)}
-.q-marks-badge{font-size:11px;padding:2px 8px;border-radius:4px;background:#22c97a18;color:var(--green);border:1px solid #22c97a30}
-.q-neg-badge{font-size:11px;padding:2px 8px;border-radius:4px;background:#f05a5a18;color:var(--red);border:1px solid #f05a5a30}
-.q-type-badge{font-size:11px;padding:2px 8px;border-radius:4px;background:var(--surface2);color:var(--muted)}
-.q-text{font-size:15px;line-height:1.7;color:var(--text);margin-bottom:1.5rem;white-space:pre-line}
-.option{
-  display:flex;align-items:flex-start;gap:12px;padding:12px 14px;
-  border:1px solid var(--border);border-radius:8px;margin-bottom:8px;
-  cursor:pointer;transition:all .15s;background:var(--surface)
-}
+.exam-main{margin-top:94px;margin-right:260px;height:calc(100vh - 94px);overflow-y:auto;padding:1.5rem 6rem}
+.option{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;cursor:pointer;transition:all .15s;background:var(--surface)}
 .option:hover{border-color:var(--border2);background:var(--surface2)}
 .option.chosen{border-color:var(--accent);background:#4f7ef815}
-.option.correct-ans{border-color:var(--green);background:#22c97a15}
-.option.wrong-ans{border-color:var(--red);background:#f05a5a15}
-.opt-circle{
-  width:28px;height:28px;border-radius:50%;border:1px solid var(--border2);
-  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;
-  flex-shrink:0;margin-top:1px;transition:all .15s;color:var(--muted)
-}
-.option.chosen .opt-circle{background:var(--accent);border-color:var(--accent);color:#fff}
-.option.correct-ans .opt-circle{background:var(--green);border-color:var(--green);color:#fff}
-.option.wrong-ans .opt-circle{background:var(--red);border-color:var(--red);color:#fff}
-.opt-text{font-size:14px;line-height:1.6;padding-top:3px}
-
-.q-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border)}
-.btn-review{padding:8px 16px;background:var(--orange);color:#000;border:none;border-radius:6px;font-size:12px;font-weight:600}
-.btn-clear{padding:8px 16px;background:transparent;border:1px solid var(--border2);color:var(--muted);border-radius:6px;font-size:12px;font-weight:500}
-.btn-save-next{padding:8px 20px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600}
-.btn-prev{padding:8px 16px;background:transparent;border:1px solid var(--border2);color:var(--text);border-radius:6px;font-size:12px;font-weight:500}
-.btn-next2{padding:8px 16px;background:var(--surface2);border:1px solid var(--border2);color:var(--text);border-radius:6px;font-size:12px;font-weight:500}
-
-/* Right panel — navigator */
-.exam-nav{
-  position:fixed;top:52px;right:0;width:260px;
-  height:calc(100vh - 52px);background:var(--surface);
-  border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden
-}
-.nav-header{padding:12px 14px 8px;border-bottom:1px solid var(--border)}
-.nav-student-name{font-size:13px;font-weight:600;margin-bottom:2px}
-.nav-student-roll{font-size:11px;color:var(--muted);font-family:var(--mono)}
-.nav-legend{padding:8px 14px;border-bottom:1px solid var(--border)}
-.nav-leg-row{display:flex;align-items:center;gap:6px;margin-bottom:5px;font-size:11px;color:var(--muted)}
-.nl-dot{width:18px;height:18px;border-radius:50%;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.nav-scroll{flex:1;overflow-y:auto;padding:10px 14px}
-.nav-scroll::-webkit-scrollbar{width:3px}
-.nav-scroll::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
-.nav-subject-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin:8px 0 6px}
-.nav-grid{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
-.nav-btn{
-  width:32px;height:32px;border-radius:50%;border:1px solid var(--border2);
-  background:var(--surface2);color:var(--muted);font-size:11px;font-weight:600;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;position:relative
-}
-.nav-btn.current{outline:2px solid var(--accent);outline-offset:2px}
+.exam-nav{position:fixed;top:52px;right:0;width:260px;height:calc(100vh - 52px);background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column}
+.nav-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--border2);background:var(--surface2);color:var(--muted);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center}
 .nav-btn.answered{background:var(--green);border-color:var(--green);color:#fff}
-.nav-btn.not-answered{background:var(--red);border-color:var(--red);color:#fff}
-.nav-btn.marked{background:var(--visited);border-color:var(--visited);color:#fff}
-.nav-btn.marked-answered{background:var(--visited);border-color:var(--visited);color:#fff}
-.nav-btn.marked-answered::after{content:'';position:absolute;bottom:0;right:0;width:8px;height:8px;background:var(--green);border-radius:50%;border:1px solid var(--surface)}
-.nav-summary{padding:10px 14px;border-top:1px solid var(--border)}
-.nav-sum-row{display:flex;justify-content:space-between;margin-bottom:4px;font-size:12px}
-.nav-sum-label{color:var(--muted)}
-.nav-sum-val{font-weight:600;font-family:var(--mono)}
 
-/* ══════════════════════════════
-   SUBMIT CONFIRM MODAL
-══════════════════════════════ */
-.modal-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;
-  display:flex;align-items:center;justify-content:center;display:none
-}
-.modal-overlay.open{display:flex}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem;width:100%;max-width:440px}
-.modal h2{font-size:18px;font-weight:600;margin-bottom:8px}
-.modal p{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:1.25rem}
-.modal-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.25rem}
-.mstat{background:var(--surface2);border-radius:6px;padding:10px;text-align:center}
-.mstat-val{font-size:20px;font-weight:600;font-family:var(--mono)}
-.mstat-label{font-size:11px;color:var(--muted)}
-.modal-btns{display:flex;gap:8px}
-.modal-btns button{flex:1}
-
-/* ══════════════════════════════
-   RESULTS SCREEN
-══════════════════════════════ */
-#s-results{background:var(--bg);overflow-y:auto;height:auto;min-height:100vh;display:none;flex-direction:column}
-#s-results.active{display:flex}
-.res-wrap{max-width:860px;margin:0 auto;padding:2rem 1.5rem 4rem}
-.res-header{text-align:center;margin-bottom:2rem}
-.res-name{font-size:24px;font-weight:600;margin-bottom:4px}
-.res-roll{font-size:13px;color:var(--muted);font-family:var(--mono)}
-.score-circle-wrap{display:flex;justify-content:center;margin:1.5rem 0}
-.score-circle{width:140px;height:140px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:4px solid var(--accent)}
-.score-pct{font-size:36px;font-weight:600;font-family:var(--mono);line-height:1}
-.score-label{font-size:11px;color:var(--muted);margin-top:4px}
-.pass-badge{display:inline-block;padding:4px 16px;border-radius:20px;font-size:13px;font-weight:600;margin-top:8px}
-.pass-badge.pass{background:#22c97a20;color:var(--green);border:1px solid #22c97a40}
-.pass-badge.fail{background:#f05a5a20;color:var(--red);border:1px solid #f05a5a40}
-.res-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
-.res-stat{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center}
-.res-stat-val{font-size:22px;font-weight:600;font-family:var(--mono);margin-bottom:2px}
-.res-stat-label{font-size:11px;color:var(--muted)}
-.subj-breakdown{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:1.5rem}
-.subj-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px}
-.subj-card-name{font-size:13px;font-weight:600;margin-bottom:8px}
-.subj-bar-wrap{height:5px;background:var(--surface2);border-radius:3px;margin:4px 0 6px}
-.subj-bar-fill{height:5px;border-radius:3px;background:var(--accent)}
-.subj-stats{display:flex;gap:10px;font-size:11px;color:var(--muted)}
-.review-section{margin-top:1.5rem}
-.review-q{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:8px}
-.review-q-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.review-status{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px}
-.rs-correct{background:#22c97a20;color:var(--green)}
-.rs-wrong{background:#f05a5a20;color:var(--red)}
-.rs-skipped{background:var(--surface2);color:var(--muted)}
-.review-q-text{font-size:13px;line-height:1.6;margin-bottom:8px}
-.review-opt{font-size:12px;padding:5px 10px;border-radius:4px;margin-bottom:3px}
-.ro-correct{background:#22c97a15;color:var(--green)}
-.ro-wrong{background:#f05a5a15;color:var(--red)}
-.ro-plain{color:var(--muted)}
-
-/* Tab warning overlay */
-.tabwarn{
-  position:fixed;inset:0;background:#0f1117f5;z-index:999;
-  display:flex;align-items:center;justify-content:center;flex-direction:column;display:none
-}
-.tabwarn.show{display:flex}
-.tabwarn-box{background:var(--surface);border:2px solid var(--red);border-radius:12px;padding:2.5rem;text-align:center;max-width:400px}
-.tabwarn-icon{font-size:48px;margin-bottom:12px;color:var(--red)}
-.tabwarn h2{font-size:20px;font-weight:600;margin-bottom:8px}
-.tabwarn p{font-size:13px;color:var(--muted);margin-bottom:16px}
-.warn-count{font-family:var(--mono);color:var(--orange);font-size:13px;margin-bottom:16px}
-.tabwarn-btn{padding:10px 28px;background:var(--red);color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer}
-
-/* Scrollbar global */
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
-
-/* Responsive */
-@media(max-width:700px){
-  .exam-nav{width:220px}
-  .subj-bar{right:220px}
-  .exam-main{margin-right:220px}
-  .res-stats-grid{grid-template-columns:1fr 1fr}
-  .form-row,.form-row-3{grid-template-columns:1fr}
-}
+/* LOGIN UI */
+#s-login{background:var(--bg);justify-content:center;align-items:center}
+.login-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2.5rem 2rem;width:100%;max-width:400px}
 </style>
 </head>
 <body>
 
-<!-- ══ TAB WARNING OVERLAY ══ -->
-<div class="tabwarn" id="tabwarn">
-  <div class="tabwarn-box">
-    <div class="tabwarn-icon">⚠</div>
-    <h2>Tab switch detected!</h2>
-    <p>You have switched tabs or minimized the browser. This is a violation of exam rules.</p>
-    <div class="warn-count" id="warn-count-text">Warning 1 of 3</div>
-    <p style="font-size:12px;color:var(--red);margin-bottom:16px">3 violations will auto-submit your exam.</p>
-    <button class="tabwarn-btn" onclick="dismissWarn()">Return to exam</button>
-  </div>
-</div>
-
-<!-- ══ SUBMIT MODAL ══ -->
-<div class="modal-overlay" id="submit-modal">
-  <div class="modal">
-    <h2>Submit exam?</h2>
-    <p>Review your attempt before submitting. Once submitted, you cannot change answers.</p>
-    <div class="modal-stats" id="modal-stats"></div>
-    <div class="modal-btns">
-      <button class="btn btn-outline" onclick="closeModal()">Go back</button>
-      <button class="btn btn-primary" onclick="confirmSubmit()">Yes, submit</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════
-     ADMIN SCREEN
-══════════════════ -->
 <div id="s-admin" class="screen">
 <div class="admin-wrap">
-  <div class="logo">Exam<span>Edge</span> <span style="font-size:13px;color:var(--muted);font-weight:400">— Admin Panel</span></div>
+  <div class="logo">KCETards!<span>Edge</span> <span style="font-size:13px;color:var(--muted);font-weight:400">— Admin Portal</span></div>
 
-  <div class="section-title">Exam settings</div>
+  <div class="section-title">1. Schedule Exam Window</div>
   <div class="card">
     <div class="form-row">
-      <div><label>Exam title</label><input type="text" id="a-title" value="JEE Main Mock Test — Paper 1" placeholder="Exam title"></div>
-      <div><label>Exam type</label>
-        <select id="a-type">
-          <option value="JEE">JEE Main</option>
-          <option value="NEET">NEET</option>
-          <option value="custom">Custom</option>
-        </select>
-      </div>
+      <div><label>Start Date & Time</label><input type="datetime-local" id="a-start-time"></div>
+      <div><label>End Date & Time</label><input type="datetime-local" id="a-end-time"></div>
     </div>
     <div class="form-row-3">
-      <div><label>Duration (minutes)</label><input type="number" id="a-duration" value="180" min="1"></div>
-      <div><label>+Marks per correct</label><input type="number" id="a-marks" value="4" step="0.5"></div>
-      <div><label>−Marks per wrong</label><input type="number" id="a-neg" value="1" step="0.25"></div>
+      <div><label>Duration (Minutes)</label><input type="number" id="a-duration" value="80"></div>
+      <div><label>Mark per Correct</label><input type="number" id="a-marks" value="1"></div>
+      <div><label>Mark per Wrong</label><input type="number" id="a-neg" value="0"></div>
     </div>
-    <div class="form-row">
-      <div><label>Pass percentage (%)</label><input type="number" id="a-pass" value="35" min="1" max="100"></div>
-      <div><label>Admin password</label><input type="text" id="a-adminpwd" value="admin123" placeholder="Admin login password"></div>
-    </div>
-    <div style="margin-top:4px">
-      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:var(--text)">
-        <input type="checkbox" id="a-strict" checked style="accent-color:var(--accent);width:15px;height:15px"> Enable strict mode (tab-switch detection, 3 warnings = auto-submit)
-      </label>
+    <div style="margin-top:10px">
+        <label>Admin Password</label><input type="password" id="a-pwd" value="admin123">
     </div>
   </div>
 
-  <div class="section-title">Subjects & questions</div>
-  <div class="subject-tabs" id="admin-subject-tabs"></div>
-  <div style="display:flex;gap:8px;margin-bottom:12px">
-    <input type="text" id="new-subj-name" placeholder="New subject name (e.g. Chemistry)" style="max-width:250px">
-    <button class="btn btn-outline" onclick="addSubject()">+ Add subject</button>
-    <button class="btn btn-danger" onclick="removeCurrentSubject()" id="del-subj-btn">Remove subject</button>
-  </div>
-  <div id="admin-q-list"></div>
-  <button class="btn btn-outline" onclick="addQuestion()" style="margin-bottom:1.5rem">+ Add question</button>
-
-  <hr class="divider">
-  <div class="section-title">Students (up to 30)</div>
-  <div id="add-student-row">
-    <input type="text" id="new-student-name" placeholder="Student name">
-    <input type="text" id="new-student-roll" placeholder="Roll / seat no." style="max-width:160px">
-    <button class="btn btn-outline" onclick="addStudent()">+ Add</button>
-    <button class="btn btn-outline" onclick="addBulkStudents()">+ Bulk (15 demo)</button>
-  </div>
-  <div class="students-list" id="students-list"></div>
-
-  <hr class="divider">
-  <hr class="divider">
-  <div class="section-title">Google Forms — result collection</div>
-  <div class="card" style="border-color:#4f7ef855">
-    <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px">
-      When a student submits their exam, results are silently sent to your Google Form and appear in a linked Google Sheet — visible to you in real time.<br>
-      <span style="color:var(--accent)">Follow the 4 steps below to connect your form.</span>
-    </div>
-
-    <div style="display:grid;grid-template-columns:28px 1fr;gap:6px 10px;margin-bottom:16px;align-items:start">
-      <div style="width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px">1</div>
-      <div style="font-size:13px;color:var(--text)">Go to <a href="https://forms.google.com" target="_blank" style="color:var(--accent)">forms.google.com</a> → create a new form → add these <strong>Short answer</strong> fields in this exact order:<br>
-        <span style="font-family:var(--mono);font-size:12px;color:var(--green);display:inline-block;margin-top:4px;line-height:2">
-          Name &nbsp;|&nbsp; Roll Number &nbsp;|&nbsp; Exam Title &nbsp;|&nbsp; Total Score &nbsp;|&nbsp; Max Score &nbsp;|&nbsp; Percentage &nbsp;|&nbsp; Result &nbsp;|&nbsp; Correct &nbsp;|&nbsp; Wrong &nbsp;|&nbsp; Unattempted &nbsp;|&nbsp; Time Taken &nbsp;|&nbsp; Subject Scores &nbsp;|&nbsp; Tab Violations
-        </span>
-      </div>
-
-      <div style="width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px">2</div>
-      <div style="font-size:13px;color:var(--text)">Click the <strong>⋮ menu → Get pre-filled link</strong>. Fill all fields with dummy text and click <strong>Get link</strong>. Copy that URL — it looks like:<br>
-        <span style="font-family:var(--mono);font-size:11px;color:var(--muted);display:block;margin-top:4px;word-break:break-all">https://docs.google.com/forms/d/e/XXXX.../viewform?usp=pp_url&entry.111=A&entry.222=B&...</span>
-      </div>
-
-      <div style="width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px">3</div>
-      <div style="font-size:13px;color:var(--text)">Paste the pre-filled URL below. This site will extract your Form ID and all field entry IDs automatically.</div>
-
-      <div style="width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px">4</div>
-      <div style="font-size:13px;color:var(--text)">Save &amp; activate the exam. Results will flow to your Google Sheet the moment each student submits.</div>
-    </div>
-
-    <label>Paste your Google Form pre-filled URL here</label>
-    <textarea id="a-gform-url" rows="3" placeholder="https://docs.google.com/forms/d/e/.../viewform?usp=pp_url&entry.111=dummy&entry.222=dummy&..." style="font-family:var(--mono);font-size:12px;margin-bottom:10px"></textarea>
-
-    <div style="display:flex;gap:8px;align-items:center">
-      <button class="btn btn-outline" onclick="parseGFormURL()" style="flex-shrink:0">Parse URL &amp; detect fields</button>
-      <span id="gform-parse-status" style="font-size:12px;color:var(--muted)"></span>
-    </div>
-
-    <div id="gform-fields-preview" style="display:none;margin-top:12px;background:var(--surface2);border-radius:6px;padding:10px">
-      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px">Detected field mapping</div>
-      <div id="gform-fields-list" style="font-family:var(--mono);font-size:12px;color:var(--green);line-height:2"></div>
-    </div>
-
-    <div style="margin-top:12px">
-      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:var(--text)">
-        <input type="checkbox" id="a-gform-enabled" style="accent-color:var(--accent);width:15px;height:15px"> Enable Google Forms submission on exam submit
-      </label>
-    </div>
+  <div class="section-title">2. Bulk Question Import (JSON)</div>
+  <div class="card" style="border: 1px solid var(--accent2)">
+    <input type="file" id="q-file" accept=".json" onchange="importQuestions(this)">
+    <p style="font-size:11px;color:var(--muted);margin-top:8px">Upload a JSON file containing your KCET questions.</p>
   </div>
 
-  <div style="display:flex;gap:8px;flex-wrap:wrap">
-    <button class="btn btn-green" onclick="saveAndActivate()">Save & activate exam</button>
-    <button class="btn btn-outline" onclick="exportJSON()">Export JSON</button>
-    <button class="btn btn-outline" onclick="document.getElementById('import-file').click()">Import JSON</button>
-    <input type="file" id="import-file" accept=".json" style="display:none" onchange="importJSON(this)">
+  <div class="section-title">3. Student IDs (CSV Style)</div>
+  <div class="card">
+    <textarea id="s-list" rows="5" placeholder="Name, RollNumber (e.g. Samarth, KCET2026_01)"></textarea>
+    <button class="btn btn-outline" style="margin-top:10px" onclick="importStudents()">Import Students</button>
+    <div id="status-students" style="font-size:12px;color:var(--green);margin-top:10px"></div>
   </div>
-  <p style="font-size:11px;color:var(--muted);margin-top:10px">After saving, students can log in with their roll number as password.</p>
+
+  <button class="btn btn-green" style="width:100%;padding:15px;font-weight:600" onclick="saveAndGoToLogin()">Save & Activate Exam</button>
 </div>
 </div>
 
-<!-- ══════════════════
-     LOGIN SCREEN
-══════════════════ -->
 <div id="s-login" class="screen active">
   <div class="login-box">
-    <div class="login-logo">Exam<span>Edge</span></div>
-    <div class="login-sub" id="login-exam-title">Loading exam...</div>
-    <div class="login-field"><label>Roll number / Seat no.</label><input type="text" id="l-roll" placeholder="e.g. JEE2024001" autocomplete="off"></div>
-    <div class="login-field"><label>Password (your roll number)</label><input type="password" id="l-pass" placeholder="Enter password" autocomplete="off"></div>
-    <button class="login-btn" onclick="doLogin()">Proceed to instructions →</button>
-    <div class="login-err" id="login-err"></div>
-    <div class="admin-link">Admin? <span onclick="goAdmin()">Enter admin panel</span></div>
+    <div class="logo">KCETards!<span>Edge</span></div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:20px" id="exam-title-display">Secure Exam Portal</div>
+    <div style="margin-bottom:15px"><label>Roll Number</label><input type="text" id="l-roll"></div>
+    <div style="margin-bottom:20px"><label>Password (Roll Number)</label><input type="password" id="l-pass"></div>
+    <button class="btn btn-primary" style="width:100%;padding:12px" onclick="doLogin()">Enter Exam →</button>
+    <div id="login-err" style="color:var(--red);font-size:12px;margin-top:10px"></div>
+    <div style="text-align:center;margin-top:20px;font-size:12px;color:var(--muted);cursor:pointer" onclick="showScreen('s-admin')">Admin Login</div>
   </div>
 </div>
 
-<!-- ══════════════════
-     INSTRUCTIONS
-══════════════════ -->
-<div id="s-instructions" class="screen">
-<div class="inst-wrap">
-  <div class="inst-title" id="inst-exam-title"></div>
-  <div class="inst-sub" id="inst-student-info"></div>
-
-  <div class="inst-block">
-    <h3>Question navigator legend</h3>
-    <div class="legend-row"><div class="nl-dot" style="background:#2a3045;border:1px solid var(--border2);color:var(--muted)">1</div> Not visited — you haven't opened this question yet</div>
-    <div class="legend-row"><div class="nl-dot" style="background:var(--red);color:#fff">2</div> Not answered — visited but no answer selected</div>
-    <div class="legend-row"><div class="nl-dot" style="background:var(--green);color:#fff">3</div> Answered — answer saved</div>
-    <div class="legend-row"><div class="nl-dot" style="background:var(--visited);color:#fff">4</div> Marked for review (no answer)</div>
-    <div class="legend-row"><div class="nl-dot" style="background:var(--visited);color:#fff">5</div> Marked for review + answered</div>
-  </div>
-
-  <div class="inst-block">
-    <h3>Marking scheme</h3>
-    <div class="legend-row">
-      <span style="background:#22c97a20;color:var(--green);padding:2px 10px;border-radius:4px;font-weight:600;font-size:13px" id="inst-marks">+4</span>
-      for each correct answer
-    </div>
-    <div class="legend-row">
-      <span style="background:#f05a5a20;color:var(--red);padding:2px 10px;border-radius:4px;font-weight:600;font-size:13px" id="inst-neg">−1</span>
-      for each incorrect answer
-    </div>
-    <div class="legend-row">
-      <span style="background:var(--surface2);color:var(--muted);padding:2px 10px;border-radius:4px;font-size:13px">0</span>
-      for unattempted questions
-    </div>
-  </div>
-
-  <div class="inst-block" id="inst-rules-block">
-    <h3>Exam rules</h3>
-    <div id="inst-rules-list"></div>
-  </div>
-
-  <div class="agree-row">
-    <input type="checkbox" id="agree-check" onchange="document.getElementById('start-btn').disabled=!this.checked">
-    <label for="agree-check" style="font-size:13px;color:var(--text);cursor:pointer">I have read and agree to all exam rules and instructions.</label>
-  </div>
-  <button class="start-btn" id="start-btn" disabled onclick="startExam()">Start exam →</button>
-</div>
-</div>
-
-<!-- ══════════════════
-     EXAM SCREEN
-══════════════════ -->
 <div id="s-exam" class="screen">
-  <!-- Top bar -->
   <div class="exam-topbar">
-    <div class="exam-logo">Exam<span>Edge</span></div>
-    <div class="exam-student" id="exam-student-name"></div>
-    <div class="exam-timer-wrap">
-      <div>
-        <div class="timer-label">Time left</div>
-        <div class="exam-timer" id="exam-timer">03:00:00</div>
-      </div>
-    </div>
-    <button class="submit-top-btn" onclick="openSubmitModal()">Submit exam</button>
+    <div class="logo">KCETards!<span>Edge</span></div>
+    <div id="user-display" style="flex:1;font-size:12px;color:var(--muted)"></div>
+    <div class="exam-timer" id="timer">00:00:00</div>
+    <button class="btn btn-danger" style="padding:5px 15px" onclick="confirmSubmit()">Submit</button>
   </div>
-
-  <!-- Subject bar -->
-  <div class="subj-bar" id="subj-bar"></div>
-
-  <!-- Question -->
-  <div class="exam-main" id="exam-main">
-    <div class="q-meta" id="q-meta"></div>
-    <div class="q-text" id="q-text"></div>
-    <div id="q-opts"></div>
-    <div class="q-actions">
-      <button class="btn-review" onclick="toggleReview()">Mark for review</button>
-      <button class="btn-clear" onclick="clearResponse()">Clear response</button>
-      <div style="flex:1"></div>
-      <button class="btn-prev" onclick="prevQ()">← Prev</button>
-      <button class="btn-save-next" onclick="saveAndNext()">Save &amp; next →</button>
-    </div>
-  </div>
-
-  <!-- Navigator -->
-  <div class="exam-nav">
-    <div class="nav-header">
-      <div class="nav-student-name" id="nav-student-name"></div>
-      <div class="nav-student-roll" id="nav-student-roll"></div>
-    </div>
-    <div class="nav-legend">
-      <div class="nav-leg-row"><div class="nl-dot" style="background:#2a3045;border:1px solid var(--border2)"></div> Not visited</div>
-      <div class="nav-leg-row"><div class="nl-dot" style="background:var(--red)"></div> Not answered</div>
-      <div class="nav-leg-row"><div class="nl-dot" style="background:var(--green)"></div> Answered</div>
-      <div class="nav-leg-row"><div class="nl-dot" style="background:var(--visited)"></div> Marked for review</div>
-    </div>
-    <div class="nav-scroll" id="nav-scroll"></div>
-    <div class="nav-summary" id="nav-summary"></div>
+  <div style="display:flex;flex:1;overflow:hidden">
+    <div class="exam-main" id="q-container"></div>
+    <div class="exam-nav" id="nav-container" style="padding:20px"></div>
   </div>
 </div>
 
-<!-- ══════════════════
-     RESULTS SCREEN
-══════════════════ -->
 <div id="s-results" class="screen">
-<div class="res-wrap">
-  <div class="res-header">
-    <div class="res-name" id="r-name"></div>
-    <div class="res-roll" id="r-roll"></div>
-    <div class="score-circle-wrap">
-      <div class="score-circle" id="r-circle">
-        <div class="score-pct" id="r-pct"></div>
-        <div class="score-label">Score</div>
-      </div>
+    <div class="admin-wrap" style="text-align:center">
+        <h1 style="color:var(--green)">Exam Submitted</h1>
+        <div class="card" style="margin-top:30px;padding:40px">
+            <div style="font-size:14px;color:var(--muted)">Your Score</div>
+            <div id="final-score" style="font-size:64px;font-weight:600;margin:10px 0">0</div>
+            <div id="res-name" style="font-weight:600"></div>
+        </div>
+        <button class="btn btn-outline" onclick="location.reload()">Return Home</button>
     </div>
-    <div><span class="pass-badge" id="r-pass-badge"></span></div>
-    <div style="font-size:13px;color:var(--muted);margin-top:8px" id="r-marks-summary"></div>
-  </div>
-  <div class="res-stats-grid" id="r-stats-grid"></div>
-  <div class="section-title">Subject-wise breakdown</div>
-  <div class="subj-breakdown" id="r-subj-breakdown"></div>
-  <div class="review-section">
-    <div class="section-title">Answer review</div>
-    <div id="r-review"></div>
-  </div>
-  <div style="display:flex;gap:8px;margin-top:1.5rem">
-    <button class="btn btn-outline" onclick="goToLogin()">Back to login</button>
-  </div>
-  <div id="r-gform-status" style="display:none;margin-top:12px;font-size:13px;padding:8px 12px;background:var(--surface);border:1px solid var(--border);border-radius:6px"></div>
-</div>
 </div>
 
 <script>
-// ═══════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════
-let examConfig = null;
-let currentStudent = null;
-let currentQIdx = 0;
-let currentSubjIdx = 0;
-let qStates = []; // 'unvisited','not-answered','answered','marked','marked-answered'
-let qAnswers = [];
-let timerInterval = null;
+let config = { start: null, end: null, marks: 1, neg: 0, duration: 80, students: [], questions: [] };
+let currentUser = null;
+let userAnswers = [];
 let timeLeft = 0;
-let warnCount = 0;
-let strictMode = true;
-let examStarted = false;
-let allQuestions = []; // flat array with subjectIndex
+let timerInterval = null;
 
-// Default exam data
-const DEFAULT_EXAM = {
-  title: "JEE Main Mock Test — Paper 1",
-  type: "JEE",
-  duration: 180,
-  marks: 4,
-  neg: 1,
-  pass: 35,
-  adminpwd: "admin123",
-  strict: true,
-  subjects: [
-    {
-      name: "Physics",
-      color: "#4f7ef8",
-      questions: [
-        {text:"A particle moves in a circle of radius R with constant speed v. The magnitude of its average acceleration over half a revolution is:", options:["v²/R","2v²/πR","v²/2R","0"], correct:1},
-        {text:"The dimension of electric field intensity is:", options:["[MLT⁻³A⁻¹]","[MLT⁻²A⁻¹]","[ML²T⁻²A⁻¹]","[MLT⁻²A]"], correct:0},
-        {text:"A body is projected with velocity u at angle θ. The maximum range is:", options:["u²sinθ/g","u²sin2θ/g","u²/g","2u²/g"], correct:2},
-        {text:"Which of the following represents the correct relation for escape velocity?", options:["ve = √(gR)","ve = √(2gR)","ve = 2√(gR)","ve = √(gR/2)"], correct:1},
-        {text:"The SI unit of magnetic flux is:", options:["Tesla","Weber","Gauss","Oersted"], correct:1},
-      ]
-    },
-    {
-      name: "Chemistry",
-      color: "#22c97a",
-      questions: [
-        {text:"Which of the following has the highest first ionization enthalpy?", options:["Na","Mg","Al","Si"], correct:3},
-        {text:"The hybridization of carbon in diamond is:", options:["sp","sp²","sp³","sp³d"], correct:2},
-        {text:"Which gas is responsible for the greenhouse effect?", options:["O₂","N₂","CO₂","H₂"], correct:2},
-        {text:"The oxidation state of Cr in K₂Cr₂O₇ is:", options:["+3","+6","+7","+4"], correct:1},
-        {text:"Avogadro's number is approximately:", options:["6.022 × 10²³","6.022 × 10²²","6.022 × 10²⁴","6.022 × 10²¹"], correct:0},
-      ]
-    },
-    {
-      name: "Mathematics",
-      color: "#f5a623",
-      questions: [
-        {text:"The value of lim(x→0) (sin x)/x is:", options:["0","∞","1","undefined"], correct:2},
-        {text:"The number of solutions of sin²x + cos²x = 1 in [0, 2π] is:", options:["0","2","4","infinite"], correct:3},
-        {text:"If A is a 3×3 matrix with |A| = 5, then |2A| =", options:["10","20","40","80"], correct:2},
-        {text:"∫ eˣ(1 + x) dx is equal to:", options:["xeˣ + C","eˣ + C","xeˣ – eˣ + C","xeˣ + eˣ + C"], correct:0},
-        {text:"The eccentricity of a circle is:", options:["0","1","< 1","Infinity"], correct:0},
-      ]
-    }
-  ],
-  students: [
-    {name:"Aarav Sharma", roll:"JEE001"},
-    {name:"Priya Patel", roll:"JEE002"},
-    {name:"Rahul Singh", roll:"JEE003"},
-    {name:"Sneha Kumar", roll:"JEE004"},
-    {name:"Arjun Nair", roll:"JEE005"},
-  ]
-};
-
-function loadConfig(){
-  const saved = localStorage.getItem('examedge_config');
-  examConfig = saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DEFAULT_EXAM));
-}
-function saveConfig(){localStorage.setItem('examedge_config', JSON.stringify(examConfig));}
-
-// ═══════════════════════════════════════
-// SCREEN NAVIGATION
-// ═══════════════════════════════════════
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-// ═══════════════════════════════════════
-// ADMIN
-// ═══════════════════════════════════════
-let adminSubjIdx = 0;
-function goAdmin(){
-  const pwd = prompt('Enter admin password:');
-  if(pwd !== examConfig.adminpwd){alert('Wrong password.');return;}
-  loadAdminUI();
-  showScreen('s-admin');
-}
-function loadAdminUI(){
-  document.getElementById('a-title').value = examConfig.title;
-  document.getElementById('a-type').value = examConfig.type;
-  document.getElementById('a-duration').value = examConfig.duration;
-  document.getElementById('a-marks').value = examConfig.marks;
-  document.getElementById('a-neg').value = examConfig.neg;
-  document.getElementById('a-pass').value = examConfig.pass;
-  document.getElementById('a-adminpwd').value = examConfig.adminpwd;
-  document.getElementById('a-strict').checked = examConfig.strict;
-  document.getElementById('a-gform-enabled').checked = examConfig.gformEnabled||false;
-  if(examConfig.gformUrl) document.getElementById('a-gform-url').value = examConfig.gformUrl;
-  if(examConfig.gformFields && examConfig.gformFields.length) showGFormFieldsPreview(examConfig.gformFields);
-  renderAdminSubjTabs();
-  renderAdminQuestions();
-  renderStudentsList();
-}
-function renderAdminSubjTabs(){
-  const el = document.getElementById('admin-subject-tabs');
-  el.innerHTML = examConfig.subjects.map((s,i)=>`
-    <button class="stab${i===adminSubjIdx?' active':''}" onclick="selectAdminSubj(${i})" style="${i===adminSubjIdx?'background:'+s.color+';border-color:'+s.color:''}">${s.name}</button>
-  `).join('');
-}
-function selectAdminSubj(i){adminSubjIdx=i;renderAdminSubjTabs();renderAdminQuestions();}
-function addSubject(){
-  const nm = document.getElementById('new-subj-name').value.trim();
-  if(!nm)return;
-  const colors=['#4f7ef8','#22c97a','#f5a623','#f05a5a','#6c63ff','#e91e8c'];
-  examConfig.subjects.push({name:nm,color:colors[examConfig.subjects.length%colors.length],questions:[]});
-  document.getElementById('new-subj-name').value='';
-  adminSubjIdx=examConfig.subjects.length-1;
-  renderAdminSubjTabs();renderAdminQuestions();
-}
-function removeCurrentSubject(){
-  if(examConfig.subjects.length<=1){alert('Need at least 1 subject.');return;}
-  if(!confirm('Remove subject "'+examConfig.subjects[adminSubjIdx].name+'" and all its questions?'))return;
-  examConfig.subjects.splice(adminSubjIdx,1);
-  adminSubjIdx=Math.max(0,adminSubjIdx-1);
-  renderAdminSubjTabs();renderAdminQuestions();
-}
-function renderAdminQuestions(){
-  const subj = examConfig.subjects[adminSubjIdx];
-  if(!subj){return;}
-  const el = document.getElementById('admin-q-list');
-  el.innerHTML = subj.questions.map((q,qi)=>`
-    <div class="q-block" id="qb-${qi}">
-      <div class="q-header">
-        <span class="q-num">Q${qi+1} · ${subj.name}</span>
-        <button class="btn btn-danger" style="font-size:11px;padding:3px 8px" onclick="removeQ(${qi})">Remove</button>
-      </div>
-      <textarea placeholder="Question text" oninput="updateQ(${qi},'text',this.value)" style="width:100%;margin-bottom:8px">${q.text||''}</textarea>
-      ${['A','B','C','D'].map((l,oi)=>`
-        <div class="opt-row">
-          <input type="radio" name="correct-${qi}" value="${oi}" ${q.correct===oi?'checked':''} onchange="updateQ(${qi},'correct',${oi})" title="Mark as correct">
-          <input type="text" placeholder="Option ${l}" value="${q.options[oi]||''}" oninput="updateQ(${qi},'opt${oi}',this.value)">
-        </div>`).join('')}
-      <div class="correct-label" style="margin-top:4px;font-size:11px;color:var(--green)">● Radio button = correct answer</div>
-    </div>`).join('') || '<div style="color:var(--muted);font-size:13px;padding:12px 0">No questions yet. Click + Add question.</div>';
-}
-function addQuestion(){
-  const subj = examConfig.subjects[adminSubjIdx];
-  subj.questions.push({text:'',options:['','','',''],correct:0});
-  renderAdminQuestions();
-  setTimeout(()=>{const el=document.getElementById('qb-'+(subj.questions.length-1));if(el)el.scrollIntoView({behavior:'smooth'});},100);
-}
-function removeQ(qi){
-  examConfig.subjects[adminSubjIdx].questions.splice(qi,1);
-  renderAdminQuestions();
-}
-function updateQ(qi,field,val){
-  const q = examConfig.subjects[adminSubjIdx].questions[qi];
-  if(field==='text') q.text=val;
-  else if(field==='correct') q.correct=parseInt(val);
-  else {
-    const oi = parseInt(field.replace('opt',''));
-    q.options[oi]=val;
-  }
-}
-function renderStudentsList(){
-  const el = document.getElementById('students-list');
-  el.innerHTML = examConfig.students.map((s,i)=>`
-    <div class="student-card">
-      <div><div class="name">${s.name}</div><div class="code">${s.roll}</div></div>
-      <button class="btn btn-danger" style="font-size:11px;padding:3px 8px" onclick="removeStudent(${i})">×</button>
-    </div>`).join('');
-}
-function addStudent(){
-  const name = document.getElementById('new-student-name').value.trim();
-  const roll = document.getElementById('new-student-roll').value.trim();
-  if(!name||!roll){alert('Enter both name and roll number.');return;}
-  if(examConfig.students.length>=30){alert('Maximum 30 students allowed.');return;}
-  examConfig.students.push({name,roll});
-  document.getElementById('new-student-name').value='';
-  document.getElementById('new-student-roll').value='';
-  renderStudentsList();
-}
-function removeStudent(i){examConfig.students.splice(i,1);renderStudentsList();}
-function addBulkStudents(){
-  const names=['Aditya Verma','Bhavya Joshi','Chirag Mehta','Divya Reddy','Esha Nair','Farhan Shaikh','Geet Kaur','Harsh Malhotra','Isha Tripathi','Jayesh Kulkarni','Kavya Pillai','Lokesh Chandra','Meera Rao','Nikhil Sahu','Omkar Desai'];
-  names.forEach((n,i)=>{
-    if(examConfig.students.length<30){
-      const roll='STU'+(100+examConfig.students.length);
-      if(!examConfig.students.find(s=>s.roll===roll)) examConfig.students.push({name:n,roll});
-    }
-  });
-  renderStudentsList();
-}
-function saveAndActivate(){
-  examConfig.title = document.getElementById('a-title').value;
-  examConfig.type = document.getElementById('a-type').value;
-  examConfig.duration = parseInt(document.getElementById('a-duration').value)||180;
-  examConfig.marks = parseFloat(document.getElementById('a-marks').value)||4;
-  examConfig.neg = parseFloat(document.getElementById('a-neg').value)||1;
-  examConfig.pass = parseInt(document.getElementById('a-pass').value)||35;
-  examConfig.adminpwd = document.getElementById('a-adminpwd').value||'admin123';
-  examConfig.strict = document.getElementById('a-strict').checked;
-  examConfig.gformEnabled = document.getElementById('a-gform-enabled').checked;
-  examConfig.gformUrl = document.getElementById('a-gform-url').value.trim();
-  if(examConfig.gformEnabled && !examConfig.gformFields?.length){
-    alert('Google Forms is enabled but no fields are detected. Please paste your pre-filled URL and click "Parse URL & detect fields" first.');
-    return;
-  }
-  saveConfig();
-  alert('Exam saved and activated! Students can now log in.');
-  showScreen('s-login');
-  initLogin();
-}
-function exportJSON(){
-  const blob = new Blob([JSON.stringify(examConfig,null,2)],{type:'application/json'});
-  const a = document.createElement('a');a.href=URL.createObjectURL(blob);a.download='exam_config.json';a.click();
-}
-function importJSON(input){
-  const file = input.files[0];if(!file)return;
+// 1. Bulk Question Import
+function importQuestions(input) {
+  const file = input.files[0];
+  if(!file) return;
   const reader = new FileReader();
-  reader.onload = e=>{try{examConfig=JSON.parse(e.target.result);saveConfig();loadAdminUI();alert('Imported!');}catch(err){alert('Invalid JSON file.');}};
+  reader.onload = (e) => {
+    try {
+      config.questions = JSON.parse(e.target.result);
+      alert("Success: " + config.questions.length + " questions loaded.");
+    } catch(err) { alert("Invalid JSON format."); }
+  };
   reader.readAsText(file);
 }
 
-// ═══════════════════════════════════════
-// LOGIN
-// ═══════════════════════════════════════
-function initLogin(){
-  document.getElementById('login-exam-title').textContent = examConfig.title;
-}
-function doLogin(){
-  const roll = document.getElementById('l-roll').value.trim();
-  const pass = document.getElementById('l-pass').value.trim();
-  const student = examConfig.students.find(s=>s.roll===roll);
-  if(!student){document.getElementById('login-err').textContent='Roll number not found.';return;}
-  if(pass !== roll){document.getElementById('login-err').textContent='Incorrect password. Use your roll number.';return;}
-  currentStudent = student;
-  document.getElementById('login-err').textContent='';
-  showInstructions();
-}
-
-// ═══════════════════════════════════════
-// INSTRUCTIONS
-// ═══════════════════════════════════════
-function showInstructions(){
-  document.getElementById('inst-exam-title').textContent = examConfig.title;
-  document.getElementById('inst-student-info').textContent = currentStudent.name + ' · ' + currentStudent.roll;
-  document.getElementById('inst-marks').textContent = '+' + examConfig.marks;
-  document.getElementById('inst-neg').textContent = '−' + examConfig.neg;
-  const rules = [
-    'Duration: ' + examConfig.duration + ' minutes. The exam will auto-submit when time runs out.',
-    'Do not refresh or close the browser during the exam.',
-    examConfig.strict ? 'Strict mode is ON. Switching tabs or minimizing the window will trigger a warning. 3 warnings = auto-submit.' : 'Tab-switch detection is disabled for this exam.',
-    'Each question has 4 options. Select only one correct answer.',
-    'You can mark questions for review and return to them later.',
-    'Correct: +' + examConfig.marks + ' marks. Wrong: −' + examConfig.neg + ' mark. Unattempted: 0.',
-    'Once you click "Submit exam", your answers cannot be changed.',
-    'The question navigator on the right shows your progress at all times.',
-  ];
-  document.getElementById('inst-rules-list').innerHTML = rules.map(r=>`<div class="rule-item">${r}</div>`).join('');
-  document.getElementById('agree-check').checked = false;
-  document.getElementById('start-btn').disabled = true;
-  showScreen('s-instructions');
-}
-
-// ═══════════════════════════════════════
-// EXAM
-// ═══════════════════════════════════════
-function buildFlatQuestions(){
-  allQuestions = [];
-  examConfig.subjects.forEach((subj,si)=>{
-    subj.questions.forEach((q,qi)=>{
-      allQuestions.push({...q, subjIdx:si, subjName:subj.name, subjColor:subj.color, localIdx:qi, globalIdx:allQuestions.length});
-    });
+// 2. Manual Student Import
+function importStudents() {
+  const raw = document.getElementById('s-list').value;
+  const lines = raw.split('\n');
+  config.students = [];
+  lines.forEach(l => {
+    const parts = l.split(',').map(i => i.trim());
+    if(parts.length >= 2) config.students.push({ name: parts[0], roll: parts[1] });
   });
+  document.getElementById('status-students').innerText = config.students.length + " students imported.";
 }
 
-function startExam(){
-  buildFlatQuestions();
-  if(!allQuestions.length){alert('No questions configured.');return;}
-  qStates = allQuestions.map(()=>'unvisited');
-  qAnswers = allQuestions.map(()=>-1);
-  currentQIdx = 0;
-  warnCount = 0;
-  examStarted = true;
-  strictMode = examConfig.strict;
-  timeLeft = examConfig.duration * 60;
-
-  document.getElementById('exam-student-name').textContent = currentStudent.name + ' · ' + currentStudent.roll;
-  document.getElementById('nav-student-name').textContent = currentStudent.name;
-  document.getElementById('nav-student-roll').textContent = currentStudent.roll;
-
-  buildSubjBar();
-  renderNavigator();
-  renderQuestion();
-  startTimer();
-
-  if(strictMode) attachVisibilityWatcher();
-  showScreen('s-exam');
-}
-
-function buildSubjBar(){
-  const bar = document.getElementById('subj-bar');
-  bar.innerHTML = `<button class="subj-btn${currentSubjIdx===-1?' active':''}" onclick="filterSubj(-1)">All</button>` +
-    examConfig.subjects.map((s,i)=>`<button class="subj-btn" id="stab-${i}" onclick="filterSubj(${i})">${s.name}</button>`).join('');
-}
-
-function filterSubj(si){
-  currentSubjIdx = si;
-  document.querySelectorAll('.subj-btn').forEach((b,i)=>b.classList.remove('active'));
-  if(si===-1) document.querySelector('.subj-btn').classList.add('active');
-  else document.getElementById('stab-'+si)?.classList.add('active');
-
-  const first = si===-1 ? 0 : allQuestions.findIndex(q=>q.subjIdx===si);
-  if(first>=0) goToQ(first);
-}
-
-function renderQuestion(){
-  const q = allQuestions[currentQIdx];
-  if(!q)return;
-  if(qStates[currentQIdx]==='unvisited') qStates[currentQIdx]='not-answered';
-
-  document.getElementById('q-meta').innerHTML = `
-    <span class="q-id">Q${currentQIdx+1} / ${allQuestions.length}</span>
-    <span class="subject-badge" style="background:${q.subjColor}22;color:${q.subjColor};border:1px solid ${q.subjColor}44">${q.subjName}</span>
-    <span class="q-marks-badge">+${examConfig.marks}</span>
-    <span class="q-neg-badge">−${examConfig.neg}</span>
-  `;
-  document.getElementById('q-text').textContent = q.text;
-  const opts = document.getElementById('q-opts');
-  opts.innerHTML = q.options.map((o,oi)=>`
-    <div class="option${qAnswers[currentQIdx]===oi?' chosen':''}" onclick="selectOpt(${oi})" id="opt-${oi}">
-      <div class="opt-circle">${['A','B','C','D'][oi]}</div>
-      <div class="opt-text">${o}</div>
-    </div>`).join('');
-  renderNavigator();
-}
-
-function selectOpt(oi){
-  qAnswers[currentQIdx] = oi;
-  if(qStates[currentQIdx]==='marked') qStates[currentQIdx]='marked-answered';
-  else qStates[currentQIdx]='answered';
-  document.querySelectorAll('.option').forEach((el,i)=>{
-    el.classList.toggle('chosen', i===oi);
-  });
-  renderNavigator();
-}
-
-function clearResponse(){
-  qAnswers[currentQIdx]=-1;
-  qStates[currentQIdx]='not-answered';
-  document.querySelectorAll('.option').forEach(el=>el.classList.remove('chosen'));
-  renderNavigator();
-}
-
-function toggleReview(){
-  const s = qStates[currentQIdx];
-  if(s==='marked'||s==='marked-answered') qStates[currentQIdx] = qAnswers[currentQIdx]>=0?'answered':'not-answered';
-  else qStates[currentQIdx] = qAnswers[currentQIdx]>=0?'marked-answered':'marked';
-  renderNavigator();
-}
-
-function saveAndNext(){
-  if(qAnswers[currentQIdx]>=0 && qStates[currentQIdx]==='not-answered') qStates[currentQIdx]='answered';
-  if(currentQIdx < allQuestions.length-1) goToQ(currentQIdx+1);
-  else openSubmitModal();
-}
-
-function prevQ(){
-  if(currentQIdx>0) goToQ(currentQIdx-1);
-}
-
-function goToQ(idx){
-  currentQIdx=idx;
-  renderQuestion();
-  document.getElementById('exam-main').scrollTop=0;
-}
-
-function renderNavigator(){
-  const scroll = document.getElementById('nav-scroll');
-  let html = '';
-  examConfig.subjects.forEach((subj,si)=>{
-    const qs = allQuestions.filter(q=>q.subjIdx===si);
-    if(!qs.length)return;
-    html += `<div class="nav-subject-label" style="color:${subj.color}">${subj.name}</div><div class="nav-grid">`;
-    qs.forEach(q=>{
-      const gi = q.globalIdx;
-      const s = qStates[gi];
-      let cls = '';
-      if(s==='answered') cls='answered';
-      else if(s==='not-answered') cls='not-answered';
-      else if(s==='marked') cls='marked';
-      else if(s==='marked-answered') cls='marked-answered';
-      const cur = gi===currentQIdx?' current':'';
-      html += `<button class="nav-btn ${cls}${cur}" onclick="goToQ(${gi})" title="Q${gi+1}">${gi+1}</button>`;
-    });
-    html += '</div>';
-  });
-  scroll.innerHTML = html;
-
-  const answered = qStates.filter(s=>s==='answered'||s==='marked-answered').length;
-  const notAnswered = qStates.filter(s=>s==='not-answered').length;
-  const marked = qStates.filter(s=>s==='marked'||s==='marked-answered').length;
-  const notVisited = qStates.filter(s=>s==='unvisited').length;
-  document.getElementById('nav-summary').innerHTML = `
-    <div class="nav-sum-row"><span class="nav-sum-label">Answered</span><span class="nav-sum-val" style="color:var(--green)">${answered}</span></div>
-    <div class="nav-sum-row"><span class="nav-sum-label">Not answered</span><span class="nav-sum-val" style="color:var(--red)">${notAnswered}</span></div>
-    <div class="nav-sum-row"><span class="nav-sum-label">Marked</span><span class="nav-sum-val" style="color:var(--visited)">${marked}</span></div>
-    <div class="nav-sum-row"><span class="nav-sum-label">Not visited</span><span class="nav-sum-val">${notVisited}</span></div>
-  `;
-}
-
-// ═══════════════════════════════════════
-// TIMER
-// ═══════════════════════════════════════
-function startTimer(){
-  if(timerInterval) clearInterval(timerInterval);
-  timerInterval = setInterval(()=>{
-    timeLeft--;
-    const el = document.getElementById('exam-timer');
-    const h=Math.floor(timeLeft/3600),m=Math.floor((timeLeft%3600)/60),s=timeLeft%60;
-    el.textContent = pad(h)+':'+pad(m)+':'+pad(s);
-    el.className = 'exam-timer';
-    if(timeLeft<=300) el.classList.add('warn');
-    if(timeLeft<=60) el.classList.add('danger');
-    if(timeLeft<=0){clearInterval(timerInterval);confirmSubmit();}
-  },1000);
-}
-function pad(n){return String(n).padStart(2,'0');}
-
-// ═══════════════════════════════════════
-// STRICT MODE
-// ═══════════════════════════════════════
-function attachVisibilityWatcher(){
-  document.addEventListener('visibilitychange',()=>{
-    if(!examStarted) return;
-    if(document.hidden) triggerWarning();
-  });
-  window.addEventListener('blur',()=>{
-    if(!examStarted) return;
-    triggerWarning();
-  });
-}
-function triggerWarning(){
-  if(!strictMode||!examStarted) return;
-  warnCount++;
-  document.getElementById('warn-count-text').textContent='Warning '+warnCount+' of 3';
-  document.getElementById('tabwarn').classList.add('show');
-  if(warnCount>=3){
-    document.getElementById('tabwarn').classList.remove('show');
-    confirmSubmit();
-  }
-}
-function dismissWarn(){
-  document.getElementById('tabwarn').classList.remove('show');
-}
-
-// ═══════════════════════════════════════
-// SUBMIT
-// ═══════════════════════════════════════
-function openSubmitModal(){
-  const answered = qStates.filter(s=>s==='answered'||s==='marked-answered').length;
-  const notAnswered = qStates.filter(s=>s==='not-answered').length;
-  const notVisited = qStates.filter(s=>s==='unvisited').length;
-  const marked = qStates.filter(s=>s==='marked'||s==='marked-answered').length;
-  document.getElementById('modal-stats').innerHTML = `
-    <div class="mstat"><div class="mstat-val" style="color:var(--green)">${answered}</div><div class="mstat-label">Answered</div></div>
-    <div class="mstat"><div class="mstat-val" style="color:var(--red)">${notAnswered+notVisited}</div><div class="mstat-label">Unattempted</div></div>
-    <div class="mstat"><div class="mstat-val" style="color:var(--visited)">${marked}</div><div class="mstat-label">Marked</div></div>
-    <div class="mstat"><div class="mstat-val">${allQuestions.length}</div><div class="mstat-label">Total</div></div>
-  `;
-  document.getElementById('submit-modal').classList.add('open');
-}
-function closeModal(){document.getElementById('submit-modal').classList.remove('open');}
-function confirmSubmit(){
-  closeModal();
-  if(timerInterval) clearInterval(timerInterval);
-  examStarted = false;
-  showResults();
-  submitToGoogleForms();
-}
-
-// ═══════════════════════════════════════
-// GOOGLE FORMS INTEGRATION
-// ═══════════════════════════════════════
-const FIELD_NAMES = ['Name','Roll Number','Exam Title','Total Score','Max Score','Percentage','Result','Correct','Wrong','Unattempted','Time Taken','Subject Scores','Tab Violations'];
-
-function parseGFormURL(){
-  const url = document.getElementById('a-gform-url').value.trim();
-  const status = document.getElementById('gform-parse-status');
-  if(!url){status.textContent='Please paste a URL first.';status.style.color='var(--red)';return;}
-
-  let formId = '';
-  const idMatch = url.match(/\/forms\/d\/e\/([^/]+)\/viewform/);
-  if(idMatch) formId = idMatch[1];
-  if(!formId){status.textContent='Could not find Form ID in URL. Make sure you copied the pre-filled link.';status.style.color='var(--red)';return;}
-
-  const entryMatches = [...url.matchAll(/entry\.(\d+)=/g)];
-  if(!entryMatches.length){status.textContent='No entry fields found. Did you use the pre-filled link?';status.style.color='var(--red)';return;}
-
-  const entryIds = entryMatches.map(m=>m[1]);
-  const fields = entryIds.map((id,i)=>({id, name: FIELD_NAMES[i]||'Field '+(i+1)}));
-
-  examConfig.gformFormId = formId;
-  examConfig.gformFields = fields;
-  examConfig.gformUrl = url;
-
-  showGFormFieldsPreview(fields);
-  status.textContent = '✓ Parsed ' + fields.length + ' fields from form ' + formId.slice(0,12) + '...';
-  status.style.color = 'var(--green)';
-}
-
-function showGFormFieldsPreview(fields){
-  const preview = document.getElementById('gform-fields-preview');
-  const list = document.getElementById('gform-fields-list');
-  preview.style.display = 'block';
-  list.innerHTML = fields.map((f,i)=>`entry.${f.id} → <span style="color:var(--text)">${f.name}</span>`).join('<br>');
-}
-
-function submitToGoogleForms(){
-  if(!examConfig.gformEnabled || !examConfig.gformFormId || !examConfig.gformFields?.length) return;
-
-  let correct=0, wrong=0, unattempted=0;
-  allQuestions.forEach((q,i)=>{
-    const ans=qAnswers[i];
-    if(ans<0) unattempted++;
-    else if(ans===q.correct) correct++;
-    else wrong++;
-  });
-  const totalMarks = allQuestions.length * examConfig.marks;
-  const obtained = correct*examConfig.marks - wrong*examConfig.neg;
-  const pct = Math.max(0,Math.round(obtained/totalMarks*100));
-  const passed = pct >= examConfig.pass;
-  const elapsed = examConfig.duration*60 - timeLeft;
-  const em=Math.floor(elapsed/60), es=elapsed%60;
-
-  const subjScores = examConfig.subjects.map(subj=>{
-    const qs = allQuestions.filter(q=>q.subjName===subj.name);
-    let sc=0,sw=0;
-    qs.forEach(q=>{const a=qAnswers[q.globalIdx];if(a===q.correct)sc++;else if(a>=0)sw++;});
-    return subj.name+':'+sc+'C/'+sw+'W';
-  }).join(' | ');
-
-  const values = [
-    currentStudent.name,
-    currentStudent.roll,
-    examConfig.title,
-    String(obtained),
-    String(totalMarks),
-    String(pct)+'%',
-    passed?'Qualified':'Not Qualified',
-    String(correct),
-    String(wrong),
-    String(unattempted),
-    pad(em)+'m '+pad(es)+'s',
-    subjScores,
-    String(warnCount)
-  ];
-
-  const fields = examConfig.gformFields;
-  const baseUrl = `https://docs.google.com/forms/d/e/${examConfig.gformFormId}/formResponse`;
-  const params = fields.map((f,i)=>`entry.${f.id}=${encodeURIComponent(values[i]||'')}`).join('&');
-  const submitUrl = baseUrl + '?' + params + '&submit=Submit';
-
-  const iframe = document.createElement('iframe');
-  iframe.style.display = 'none';
-  iframe.name = 'gform-submit-' + Date.now();
-  document.body.appendChild(iframe);
-
-  const form = document.createElement('form');
-  form.method = 'POST';
-  form.action = baseUrl;
-  form.target = iframe.name;
-  form.style.display = 'none';
-
-  fields.forEach((f,i)=>{
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'entry.'+f.id;
-    input.value = values[i]||'';
-    form.appendChild(input);
-  });
-  const submitInput = document.createElement('input');
-  submitInput.type='hidden';submitInput.name='submit';submitInput.value='Submit';
-  form.appendChild(submitInput);
-
-  document.body.appendChild(form);
-  form.submit();
-
-  const statusDiv = document.getElementById('r-gform-status');
-  if(statusDiv){
-    statusDiv.style.display='block';
-    statusDiv.innerHTML='<span style="color:var(--green)">✓ Result submitted to Google Sheets</span>';
-  }
-
-  setTimeout(()=>{
-    try{document.body.removeChild(form);document.body.removeChild(iframe);}catch(e){}
-  }, 5000);
-}
-
-// ═══════════════════════════════════════
-// RESULTS
-// ═══════════════════════════════════════
-function showResults(){
-  let correct=0, wrong=0, unattempted=0;
-  allQuestions.forEach((q,i)=>{
-    const ans = qAnswers[i];
-    if(ans<0) unattempted++;
-    else if(ans===q.correct) correct++;
-    else wrong++;
-  });
-  const totalMarks = allQuestions.length * examConfig.marks;
-  const obtained = correct*examConfig.marks - wrong*examConfig.neg;
-  const pct = Math.max(0,Math.round(obtained/totalMarks*100));
-  const passed = pct >= examConfig.pass;
-
-  document.getElementById('r-name').textContent = currentStudent.name;
-  document.getElementById('r-roll').textContent = currentStudent.roll;
-  document.getElementById('r-pct').textContent = obtained;
-  document.getElementById('r-circle').querySelector('.score-label').textContent = 'out of '+totalMarks;
-  const badge = document.getElementById('r-pass-badge');
-  badge.textContent = passed ? 'Qualified ✓' : 'Not qualified';
-  badge.className = 'pass-badge '+(passed?'pass':'fail');
-  document.getElementById('r-marks-summary').textContent = correct+' correct · '+wrong+' wrong · '+unattempted+' unattempted · '+pct+'% accuracy';
-
-  // Stats grid
-  const elapsed = examConfig.duration*60 - timeLeft;
-  const eh=Math.floor(elapsed/3600),em=Math.floor((elapsed%3600)/60),es=elapsed%60;
-  document.getElementById('r-stats-grid').innerHTML = `
-    <div class="res-stat"><div class="res-stat-val" style="color:var(--green)">${correct}</div><div class="res-stat-label">Correct</div></div>
-    <div class="res-stat"><div class="res-stat-val" style="color:var(--red)">${wrong}</div><div class="res-stat-label">Wrong</div></div>
-    <div class="res-stat"><div class="res-stat-val">${unattempted}</div><div class="res-stat-label">Unattempted</div></div>
-    <div class="res-stat"><div class="res-stat-val">${pad(em)}m ${pad(es)}s</div><div class="res-stat-label">Time taken</div></div>
-  `;
-
-  // Subject breakdown
-  const breakdown = document.getElementById('r-subj-breakdown');
-  breakdown.innerHTML = examConfig.subjects.map(subj=>{
-    const qs = allQuestions.filter(q=>q.subjName===subj.name);
-    let sc=0,sw=0,su=0;
-    qs.forEach(q=>{
-      const ans=qAnswers[q.globalIdx];
-      if(ans<0) su++; else if(ans===q.correct) sc++; else sw++;
-    });
-    const sp = qs.length ? Math.round(sc/qs.length*100) : 0;
-    return `<div class="subj-card">
-      <div class="subj-card-name" style="color:${subj.color}">${subj.name}</div>
-      <div class="subj-bar-wrap"><div class="subj-bar-fill" style="width:${sp}%;background:${subj.color}"></div></div>
-      <div class="subj-stats"><span style="color:var(--green)">${sc} correct</span><span style="color:var(--red)">${sw} wrong</span><span>${su} skipped</span></div>
-    </div>`;
-  }).join('');
-
-  // Answer review
-  const reviewEl = document.getElementById('r-review');
-  reviewEl.innerHTML = allQuestions.map((q,i)=>{
-    const ans=qAnswers[i];
-    const isCorrect=ans===q.correct,isSkip=ans<0;
-    const statusClass=isSkip?'rs-skipped':isCorrect?'rs-correct':'rs-wrong';
-    const statusText=isSkip?'Skipped':isCorrect?'Correct':'Incorrect';
-    return `<div class="review-q">
-      <div class="review-q-header">
-        <span style="font-size:11px;color:var(--muted);font-family:var(--mono)">Q${i+1}</span>
-        <span class="review-status ${statusClass}">${statusText}</span>
-        <span style="font-size:11px;color:${q.subjColor};background:${q.subjColor}18;padding:2px 7px;border-radius:4px">${q.subjName}</span>
-      </div>
-      <div class="review-q-text">${q.text}</div>
-      ${q.options.map((o,oi)=>{
-        let cls='ro-plain';
-        if(oi===q.correct) cls='ro-correct';
-        else if(oi===ans&&ans!==q.correct) cls='ro-wrong';
-        return `<div class="review-opt ${cls}">${['A','B','C','D'][oi]}. ${o}${oi===q.correct?' ✓':''}${oi===ans&&ans!==q.correct?' ✗':''}</div>`;
-      }).join('')}
-    </div>`;
-  }).join('');
-
-  showScreen('s-results');
-}
-
-function goToLogin(){
-  currentStudent=null;examStarted=false;
-  document.getElementById('l-roll').value='';document.getElementById('l-pass').value='';
+function saveAndGoToLogin() {
+  config.start = document.getElementById('a-start-time').value;
+  config.end = document.getElementById('a-end-time').value;
+  config.duration = parseInt(document.getElementById('a-duration').value);
+  config.marks = parseFloat(document.getElementById('a-marks').value);
+  config.neg = parseFloat(document.getElementById('a-neg').value);
   showScreen('s-login');
 }
 
-// ═══════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════
-loadConfig();
-initLogin();
+// 3. Scheduled Login Logic
+function doLogin() {
+  const roll = document.getElementById('l-roll').value;
+  const pass = document.getElementById('l-pass').value;
+  const now = new Date();
+
+  if(config.start && now < new Date(config.start)) return alert("Exam window opens at " + new Date(config.start).toLocaleString());
+  if(config.end && now > new Date(config.end)) return alert("Exam window closed.");
+
+  const student = config.students.find(s => s.roll === roll && roll === pass);
+  if(!student) return document.getElementById('login-err').innerText = "Incorrect Roll Number or Password.";
+
+  currentUser = student;
+  startExam();
+}
+
+function startExam() {
+  if(config.questions.length === 0) return alert("No questions found in system.");
+  userAnswers = new Array(config.questions.length).fill(-1);
+  timeLeft = config.duration * 60;
+  document.getElementById('user-display').innerText = currentUser.name + " | " + currentUser.roll;
+  showScreen('s-exam');
+  renderQuestion(0);
+  renderNav();
+  
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    const h = Math.floor(timeLeft/3600), m = Math.floor((timeLeft%3600)/60), s = timeLeft%60;
+    document.getElementById('timer').innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    if(timeLeft <= 0) confirmSubmit();
+  }, 1000);
+}
+
+function renderQuestion(idx) {
+  const q = config.questions[idx];
+  let html = `<div style="margin-bottom:20px;font-size:11px;color:var(--muted)">QUESTION ${idx+1} OF ${config.questions.length}</div>`;
+  html += `<div style="font-size:18px;margin-bottom:30px">${q.text}</div>`;
+  q.options.forEach((opt, i) => {
+    html += `<div class="option ${userAnswers[idx] === i ? 'chosen' : ''}" onclick="saveAns(${idx}, ${i})">${opt}</div>`;
+  });
+  document.getElementById('q-container').innerHTML = html;
+}
+
+function saveAns(qIdx, optIdx) {
+  userAnswers[qIdx] = optIdx;
+  renderQuestion(qIdx);
+  renderNav();
+}
+
+function renderNav() {
+  let html = `<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px">`;
+  userAnswers.forEach((ans, i) => {
+    html += `<button class="nav-btn ${ans !== -1 ? 'answered' : ''}" onclick="renderQuestion(${i})">${i+1}</button>`;
+  });
+  html += `</div>`;
+  document.getElementById('nav-container').innerHTML = html;
+}
+
+function confirmSubmit() {
+  clearInterval(timerInterval);
+  let score = 0;
+  config.questions.forEach((q, i) => {
+    if(userAnswers[i] === q.correct) score += config.marks;
+    else if(userAnswers[i] !== -1) score -= config.neg;
+  });
+  document.getElementById('final-score').innerText = score;
+  document.getElementById('res-name').innerText = currentUser.name;
+  showScreen('s-results');
+}
 </script>
 </body>
 </html>
