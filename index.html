@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Strict Mock Test</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+        #test-container { max-width: 600px; margin: auto; border: 1px solid #ccc; padding: 20px; }
+        .warning { color: red; font-weight: bold; display: none; }
+    </style>
+</head>
+<body oncontextmenu="return false;"> <div id="test-container">
+    <h2>KCET Mock Test (Physics)</h2>
+    <p id="warning-msg" class="warning">WARNING: You left the tab! This incident is logged.</p>
+    
+    <form id="quizForm">
+        <p>1. What is the SI unit of Force?</p>
+        <input type="radio" name="q1" value="Newton"> Newton<br>
+        <input type="radio" name="q1" value="Pascal"> Pascal<br>
+        
+        <br>
+        <button type="button" onclick="submitTest()">Submit Test</button>
+    </form>
+</div>
+
+<script>
+    let cheatCount = 0;
+
+    // 1. Detect Tab Switching
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+            cheatCount++;
+            document.getElementById("warning-msg").style.display = "block";
+            alert("Warning " + cheatCount + ": Do not leave this page!");
+        }
+    });
+
+    // 2. Prevent Copy-Paste
+    document.addEventListener('copy', (e) => {
+        e.preventDefault();
+        alert("Copying is disabled!");
+    });
+
+    function submitTest() {
+        const q1Value = document.querySelector('input[name="q1"]:checked')?.value;
+        alert("Test Submitted! Results: " + q1Value + " | Cheating Incidents: " + cheatCount);
+        // Here you would add code to send this to Google Sheets
+    }
+</script>
+</body>
+</html>
