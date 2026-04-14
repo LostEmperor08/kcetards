@@ -5,67 +5,12 @@
   "marks": 1,
   "neg": 0,
   "pass": 35,
-  "adminpwd": "@lostemperor",
+  "adminpwd": "0000",
   "strict": true,
-  "windowStart": "2026-04-14T16:00",
-  "windowEnd": "2026-04-14T23:00",
-  "gformEnabled": true,
-  "gformUrl": "https://docs.google.com/forms/d/e/1FAIpQLScxO1oZiq4WlePmHouL8ucFIsXrsb_FhF6AW8W6BMYjFSYPgA/viewform?usp=pp_url&entry.1173878260=hi&entry.1743722472=hi&entry.250336993=hi&entry.1551809645=hi&entry.1283710101=hi&entry.1111259690=hi&entry.792631074=hi&entry.1490061552=hi&entry.80323820=hi&entry.1374009807=hi&entry.179622554=hi&entry.1499113839=hi&entry.5374062=hi",
-  "gformFormId": "1FAIpQLScxO1oZiq4WlePmHouL8ucFIsXrsb_FhF6AW8W6BMYjFSYPgA",
-  "gformFields": [
-    {
-      "id": "1173878260",
-      "name": "Name"
-    },
-    {
-      "id": "1743722472",
-      "name": "Roll Number"
-    },
-    {
-      "id": "250336993",
-      "name": "Exam Title"
-    },
-    {
-      "id": "1551809645",
-      "name": "Total Score"
-    },
-    {
-      "id": "1283710101",
-      "name": "Max Score"
-    },
-    {
-      "id": "1111259690",
-      "name": "Percentage"
-    },
-    {
-      "id": "792631074",
-      "name": "Result"
-    },
-    {
-      "id": "1490061552",
-      "name": "Correct"
-    },
-    {
-      "id": "80323820",
-      "name": "Wrong"
-    },
-    {
-      "id": "1374009807",
-      "name": "Unattempted"
-    },
-    {
-      "id": "179622554",
-      "name": "Time Taken"
-    },
-    {
-      "id": "1499113839",
-      "name": "Subject Scores"
-    },
-    {
-      "id": "5374062",
-      "name": "Tab Violations"
-    }
-  ],
+  "windowStart": "2026-04-14T14:00",
+  "windowEnd": "2026-04-15T14:00",
+  "gformEnabled": false,
+  "webAppUrl": "https://script.google.com/macros/s/AKfycbztA9c2EYpLD3SVEt6Dml9fshC7L6blKdOIqK4agW-0UW1hnwybhFbSB1AqZ4a5g43J/exec",
   "subjects": [
     {
       "name": "Physics",
