@@ -6,102 +6,24 @@
   "pass": 35,
   "adminpwd": "0000",
   "strict": true,
-  "windowStart": "2026-04-14T13:25",
-  "windowEnd": "2026-04-14T14:00",
-  "gformEnabled": true,
-  "gformUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfdNCjzutx-Ga56D2Q0iNv9rK4-cYSWO2eBjS6uQ_VnnjweUA/viewform?usp=pp_url&entry.1349019757=.&entry.2140456850=.&entry.1349720186=.&entry.895593836=.&entry.813899923=.&entry.577765988=.&entry.610614386=.&entry.1242229271=.&entry.1143469063=.&entry.330845084=.&entry.1507355135=.&entry.1242792507=.&entry.679360596=.",
-  "gformFields": [
-    {
-      "id": "1349019757",
-      "name": "Name"
-    },
-    {
-      "id": "2140456850",
-      "name": "Roll Number"
-    },
-    {
-      "id": "1349720186",
-      "name": "Exam Title"
-    },
-    {
-      "id": "895593836",
-      "name": "Total Score"
-    },
-    {
-      "id": "813899923",
-      "name": "Max Score"
-    },
-    {
-      "id": "577765988",
-      "name": "Percentage"
-    },
-    {
-      "id": "610614386",
-      "name": "Result"
-    },
-    {
-      "id": "1242229271",
-      "name": "Correct"
-    },
-    {
-      "id": "1143469063",
-      "name": "Wrong"
-    },
-    {
-      "id": "330845084",
-      "name": "Unattempted"
-    },
-    {
-      "id": "1507355135",
-      "name": "Time Taken"
-    },
-    {
-      "id": "1242792507",
-      "name": "Subject Scores"
-    },
-    {
-      "id": "679360596",
-      "name": "Tab Violations"
-    }
-  ],
+  "windowStart": "2026-04-14T14:08",
+  "windowEnd": "2026-04-14T15:08",
   "subjects": [
     {
       "name": "Physics",
       "color": "#4f7ef8",
       "questions": [
         {
-          "text": "how is the ui",
+          "text": "hju",
           "options": [
-            "5",
-            "4",
-            "3",
-            "2"
-          ],
-          "correct": 0
-        },
-        {
-          "text": "can you login ?",
-          "options": [
-            "yes",
-            "no",
-            "",
-            ""
-          ],
-          "correct": 0
-        },
-        {
-          "text": "Are you fan of @lostemperor?",
-          "options": [
-            "yes",
-            "no",
-            "",
+            "u",
+            "u",
+            "uu",
             ""
           ],
           "correct": 0
         }
       ]
     }
-  ],
-  "gformFormId": "1FAIpQLSfdNCjzutx-Ga56D2Q0iNv9rK4-cYSWO2eBjS6uQ_VnnjweUA",
-  "type": "KCET"
+  ]
 }
