@@ -437,63 +437,35 @@ textarea{resize:vertical;min-height:56px}
 
 <script>
 // ═══════════════════════════════════
-// CLOUD API CONFIGURATION
+// GITHUB DIRECT LOAD CONFIGURATION
 // ═══════════════════════════════════
-const BIN_ID = 'YOUR_BIN_ID_HERE'; // <-- PASTE YOUR JSONBIN BIN ID HERE
-const API_KEY = 'YOUR_API_KEY_HERE'; // <-- PASTE YOUR JSONBIN API KEY HERE
-
-// ═══════════════════════════════════
-// STATE
-// ═══════════════════════════════════
-let EC = null, student = null, allQ = [], qStates = [], qAns = [];
-let timerInt = null, timeLeft = 0, warnCount = 0, examStarted = false, strictMode = true;
-let curQ = 0;
-
-const DEFAULT = {
-  title:"KCET Mock Test 2025", type:"KCET", duration:180, marks:1, neg:0, pass:35,
-  adminpwd:"admin123", strict:true, windowStart:"", windowEnd:"",
-  gformEnabled:false, gformUrl:"", gformFormId:"", gformFields:[],
-  subjects:[
-    {name:"Physics",color:"#4f7ef8",questions:[]},
-    {name:"Chemistry",color:"#22c97a",questions:[]},
-    {name:"Mathematics",color:"#f5a623",questions:[]}
-  ]
-};
 
 async function load() {
   try {
-    const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-      headers: { 'X-Access-Key': API_KEY }
-    });
+    // Make sure the filename below exactly matches the file you uploaded!
+    const response = await fetch('./physics_exam.json'); 
+    
+    if (!response.ok) throw new Error("File not found");
+    
     const data = await response.json();
-    EC = data.record ? data.record : JSON.parse(JSON.stringify(DEFAULT));
+    // If your JSON was just an array of questions, we wrap it in the DEFAULT structure
+    if (Array.isArray(data)) {
+        EC = JSON.parse(JSON.stringify(DEFAULT));
+        EC.subjects[0].questions = data;
+    } else {
+        EC = data; // If it's the full config export
+    }
   } catch (error) {
-    console.error("Cloud load failed, falling back to local/default.", error);
+    console.error("Failed to load exam data. Falling back to default.", error);
     const s = localStorage.getItem('kcetards');
     EC = s ? JSON.parse(s) : JSON.parse(JSON.stringify(DEFAULT));
   }
 }
 
 async function save() {
-  localStorage.setItem('kcetards', JSON.stringify(EC)); // Keep local backup
-  try {
-    await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Access-Key': API_KEY
-      },
-      body: JSON.stringify(EC)
-    });
-    showAutoSaveBadge();
-  } catch (error) {
-    console.error("Cloud save failed.", error);
-    alert("Warning: Changes were not saved to the cloud! Check your API Key.");
-  }
+  localStorage.setItem('kcetards', JSON.stringify(EC)); 
+  alert("Notice: Since you are hosting on GitHub, changes made here will only save to your browser. To update the live exam for everyone, export the JSON and upload it to your GitHub repository.");
 }
-
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
-function pad(n){return String(n).padStart(2,'0');}
 
 // ═══════════════════════════════════
 // WINDOW CHECK
