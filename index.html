@@ -3,60 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KCET ARDs — Exam Platform</title>
+<title>KCET ARDs — Mock Test</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0f1117;--surface:#181c27;--surface2:#1f2434;--border:#2a3045;--border2:#3a4560;--text:#e8eaf2;--muted:#7a83a0;--accent:#4f7ef8;--green:#22c97a;--red:#f05a5a;--orange:#f5a623;--visited:#9b59b6;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;font-family:var(--sans);background:var(--bg);color:var(--text);font-size:14px;line-height:1.6}
 button{font-family:var(--sans);cursor:pointer}
-input,select,textarea{font-family:var(--sans)}
+input{font-family:var(--sans)}
 .screen{display:none;height:100vh;overflow:hidden}
 .screen.active{display:flex;flex-direction:column}
-#s-admin,#s-instructions,#s-results{height:auto;min-height:100vh;overflow-y:auto}
-#s-admin.active,#s-instructions.active,#s-results.active{display:flex}
+#s-instructions,#s-results{height:auto;min-height:100vh;overflow-y:auto}
+#s-instructions.active,#s-results.active{display:flex}
 
 /* SHARED */
 .wrap{max-width:880px;margin:0 auto;padding:2rem 1.5rem 4rem}
 .logo{font-size:22px;font-weight:600;letter-spacing:-0.5px;color:var(--text);margin-bottom:2rem}
 .logo span{color:var(--accent)}
 .sec-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:10px}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.25rem;margin-bottom:1rem}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
-label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
-input[type=text],input[type=number],input[type=password],input[type=datetime-local],select,textarea{width:100%;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;outline:none;transition:border .15s}
-input:focus,select:focus,textarea:focus{border-color:var(--accent)}
-textarea{resize:vertical;min-height:56px}
 .btn{padding:8px 18px;border-radius:6px;font-size:13px;font-weight:500;border:none;transition:all .15s;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
 .btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#3a6ae8}
 .btn-outline{background:transparent;border:1px solid var(--border2);color:var(--text)}.btn-outline:hover{background:var(--surface2)}
 .btn-danger{background:transparent;border:1px solid #f05a5a44;color:var(--red)}.btn-danger:hover{background:#f05a5a15}
-.btn-green{background:var(--green);color:#0a1a0f}.btn-green:hover{opacity:.9}
-.btn-orange{background:var(--orange);color:#000}.btn-orange:hover{opacity:.9}
-.divider{border:none;border-top:1px solid var(--border);margin:1.5rem 0}
-.chk-row{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:var(--text);margin-top:8px}
-.chk-row input{accent-color:var(--accent);width:15px;height:15px;flex-shrink:0}
-.info-box{background:#4f7ef810;border:1px solid #4f7ef840;border-radius:8px;padding:10px 14px;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:12px}
-.info-box span{color:var(--accent)}
-
-/* ADMIN Q blocks */
-.q-block{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:10px}
-.q-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.q-num{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
-.opt-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.opt-row input[type=text]{flex:1}
-.opt-row input[type=radio]{accent-color:var(--accent);width:15px;height:15px;flex-shrink:0}
-.img-preview{max-width:100%;max-height:200px;border-radius:6px;border:1px solid var(--border);margin-top:6px;display:block}
-.stab{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all .15s}
-.stab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-
-/* STUDENTS */
-.students-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;margin-bottom:1rem}
-.student-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.student-card .sname{font-size:13px;font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.student-card .sroll{font-family:var(--mono);font-size:11px;color:var(--accent)}
-.student-card .spwd{font-family:var(--mono);font-size:10px;color:var(--muted)}
 
 /* LOGIN */
 #s-login{background:var(--bg);justify-content:center;align-items:center}
@@ -71,8 +39,6 @@ textarea{resize:vertical;min-height:56px}
 .login-btn{width:100%;padding:11px;background:var(--accent);color:#fff;border:none;border-radius:7px;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s;margin-top:6px}
 .login-btn:hover{background:#3a6ae8}
 .login-err{font-size:12px;color:var(--red);margin-top:8px;min-height:18px}
-.admin-link{font-size:12px;color:var(--muted);text-align:center;margin-top:16px}
-.admin-link span{color:var(--accent);cursor:pointer}
 .window-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;padding:4px 10px;border-radius:20px;margin-bottom:12px}
 .window-badge.open{background:#22c97a20;color:var(--green);border:1px solid #22c97a40}
 .window-badge.closed{background:#f05a5a20;color:var(--red);border:1px solid #f05a5a40}
@@ -199,7 +165,6 @@ textarea{resize:vertical;min-height:56px}
 @media(max-width:680px){
   .exam-nav{width:200px}.subj-bar{right:200px}.exam-main{margin-right:200px}
   .res-stats-grid{grid-template-columns:1fr 1fr}
-  .form-row,.form-row-3{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -227,114 +192,15 @@ textarea{resize:vertical;min-height:56px}
   </div>
 </div>
 
-<div id="s-admin" class="screen">
-<div class="wrap">
-  <div class="logo">KCET<span>ARDs</span> <span style="font-size:13px;color:var(--muted);font-weight:400">— Admin Panel</span></div>
-
-  <div class="sec-title">Exam settings</div>
-  <div class="card">
-    <div class="form-row">
-      <div><label>Exam title</label><input type="text" id="a-title" value="KCET Mock Test 2025"></div>
-      <div><label>Exam type</label>
-        <select id="a-type">
-          <option value="KCET">KCET</option><option value="NEET">NEET</option><option value="JEE">JEE</option><option value="custom">Custom</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-row-3">
-      <div><label>Duration (minutes)</label><input type="number" id="a-duration" value="180" min="1"></div>
-      <div><label>+Marks per correct</label><input type="number" id="a-marks" value="1" step="0.5"></div>
-      <div><label>−Marks per wrong</label><input type="number" id="a-neg" value="0" step="0.25"></div>
-    </div>
-    <div class="form-row">
-      <div><label>Pass percentage (%)</label><input type="number" id="a-pass" value="35" min="1" max="100"></div>
-      <div><label>Admin password (Shared Passcode)</label><input type="text" id="a-adminpwd" value="admin123"></div>
-    </div>
-    <label class="chk-row"><input type="checkbox" id="a-strict" checked> Enable strict mode (tab-switch detection, 3 warnings = auto-submit)</label>
-  </div>
-
-  <div class="sec-title" style="margin-top:1rem">Exam availability window</div>
-  <div class="card" style="border-color:#f5a62344">
-    <div class="info-box"><span>Students can attend the exam anytime within this window.</span> Outside this window, the login page will show "Exam not available" even with correct credentials.</div>
-    <div class="form-row">
-      <div><label>Window opens (date & time)</label><input type="datetime-local" id="a-window-start"></div>
-      <div><label>Window closes (date & time)</label><input type="datetime-local" id="a-window-end"></div>
-    </div>
-    <div style="font-size:12px;color:var(--muted)">Leave both blank to allow login at any time (no window restriction).</div>
-  </div>
-
-  <div class="sec-title" style="margin-top:1rem">Subjects & questions</div>
-  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px" id="admin-subject-tabs"></div>
-  <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-    <input type="text" id="new-subj-name" placeholder="New subject name" style="max-width:220px">
-    <button class="btn btn-outline" onclick="addSubject()">+ Add subject</button>
-    <button class="btn btn-danger" onclick="removeCurrentSubject()">Remove subject</button>
-  </div>
-
-  <div class="card" style="margin-bottom:10px">
-    <div class="sec-title" style="margin-bottom:8px">Bulk import questions</div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
-      <button class="btn btn-outline" onclick="document.getElementById('import-json-q').click()">Import JSON</button>
-      <button class="btn btn-outline" onclick="document.getElementById('import-pdf-q').click()">Import PDF (auto-parse)</button>
-      <button class="btn btn-orange" onclick="downloadJSONTemplate()">Download JSON template</button>
-      <input type="file" id="import-json-q" accept=".json" style="display:none" onchange="importQuestionsJSON(this)">
-      <input type="file" id="import-pdf-q" accept=".pdf" style="display:none" onchange="importQuestionsPDF(this)">
-    </div>
-    <div id="import-status" style="font-size:12px;color:var(--muted);min-height:18px"></div>
-    <div class="info-box" style="margin-top:8px;margin-bottom:0">
-      <span>JSON format:</span> array of <code style="color:var(--green)">{text, options:[A,B,C,D], correct:0, image?:""}</code> objects.<br>
-      <span>PDF import:</span> the site will attempt to extract numbered questions and options automatically. Works best with clean, structured PDFs.
-    </div>
-  </div>
-
-  <div id="admin-q-list"></div>
-  <button class="btn btn-outline" onclick="addQuestion()" style="margin-bottom:1.5rem">+ Add question manually</button>
-
-  <hr class="divider">
-  <div class="sec-title">Google Forms — result collection</div>
-  <div class="card" style="border-color:#4f7ef855">
-    <div class="info-box">Results are silently sent to your Google Sheet when each student submits. <span>Follow the 4 steps below.</span></div>
-    <div style="display:grid;grid-template-columns:26px 1fr;gap:6px 10px;margin-bottom:14px;align-items:start">
-      <div style="width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">1</div>
-      <div style="font-size:13px">Go to <a href="https://forms.google.com" target="_blank" style="color:var(--accent)">forms.google.com</a> → new form → add 13 Short answer fields: <span style="font-family:var(--mono);font-size:11px;color:var(--green)">Name | Roll Number | Exam Title | Total Score | Max Score | Percentage | Result | Correct | Wrong | Unattempted | Time Taken | Subject Scores | Tab Violations</span></div>
-      <div style="width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">2</div>
-      <div style="font-size:13px">⋮ menu → Get pre-filled link → fill all fields with dummy text → Get link → copy URL</div>
-      <div style="width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">3</div>
-      <div style="font-size:13px">Paste URL below and click Parse</div>
-      <div style="width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">4</div>
-      <div style="font-size:13px">Save & activate — results flow automatically on submit</div>
-    </div>
-    <label>Pre-filled form URL</label>
-    <textarea id="a-gform-url" rows="2" placeholder="https://docs.google.com/forms/d/e/...viewform?usp=pp_url&entry.111=A..." style="font-family:var(--mono);font-size:12px;margin-bottom:8px"></textarea>
-    <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
-      <button class="btn btn-outline" onclick="parseGFormURL()">Parse & detect fields</button>
-      <span id="gform-status" style="font-size:12px;color:var(--muted)"></span>
-    </div>
-    <div id="gform-preview" style="display:none;background:var(--surface2);border-radius:6px;padding:10px;margin-bottom:10px">
-      <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px">Field mapping</div>
-      <div id="gform-fields" style="font-family:var(--mono);font-size:12px;color:var(--green);line-height:2"></div>
-    </div>
-    <label class="chk-row"><input type="checkbox" id="a-gform-enabled"> Enable Google Forms submission on exam submit</label>
-  </div>
-
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem">
-    <button class="btn btn-green" onclick="saveAndActivate()">Save & activate exam</button>
-    <button class="btn btn-outline" onclick="exportJSON()">Export config JSON (Backup)</button>
-  </div>
-  <p style="font-size:11px;color:var(--muted);margin-top:10px">Your friends will log in with their Name and the "Admin password" above as their Passcode.</p>
-</div>
-</div>
-
 <div id="s-login" class="screen active">
   <div class="login-box">
     <div class="login-logo">KCET<span>ARDs</span></div>
-    <div class="login-sub" id="login-title">Exam Platform</div>
+    <div class="login-sub" id="login-title">Loading Exam...</div>
     <div id="window-status-badge"></div>
     <div class="login-field"><label>Your Name</label><input type="text" id="l-name" placeholder="Enter your full name" autocomplete="off"></div>
     <div class="login-field"><label>Exam Passcode</label><input type="password" id="l-pass" placeholder="Enter the group passcode" autocomplete="off"></div>
     <button class="login-btn" onclick="doLogin()">Proceed to instructions →</button>
     <div class="login-err" id="login-err"></div>
-    <div class="admin-link">Admin? <span onclick="goAdmin()">Enter admin panel</span></div>
   </div>
 </div>
 
@@ -377,7 +243,7 @@ textarea{resize:vertical;min-height:56px}
     <div class="exam-student" id="exam-sname"></div>
     <div style="flex-shrink:0;text-align:right">
       <div class="timer-label">Time left</div>
-      <div class="exam-timer" id="exam-timer">03:00:00</div>
+      <div class="exam-timer" id="exam-timer">00:00:00</div>
     </div>
     <button class="submit-top-btn" onclick="openSubmitModal()">Submit</button>
   </div>
@@ -437,35 +303,30 @@ textarea{resize:vertical;min-height:56px}
 
 <script>
 // ═══════════════════════════════════
+// STATE
+// ═══════════════════════════════════
+let EC = null, student = null, allQ = [], qStates = [], qAns = [];
+let timerInt = null, timeLeft = 0, warnCount = 0, examStarted = false, strictMode = true;
+let curQ = 0;
+
+// ═══════════════════════════════════
 // GITHUB DIRECT LOAD CONFIGURATION
 // ═══════════════════════════════════
-
 async function load() {
   try {
-    // Make sure the filename below exactly matches the file you uploaded!
-    const response = await fetch('./physics_exam.json'); 
-    
+    const response = await fetch('./exam_data.json'); 
     if (!response.ok) throw new Error("File not found");
-    
     const data = await response.json();
-    // If your JSON was just an array of questions, we wrap it in the DEFAULT structure
-    if (Array.isArray(data)) {
-        EC = JSON.parse(JSON.stringify(DEFAULT));
-        EC.subjects[0].questions = data;
-    } else {
-        EC = data; // If it's the full config export
-    }
+    EC = data;
+    initLogin();
   } catch (error) {
-    console.error("Failed to load exam data. Falling back to default.", error);
-    const s = localStorage.getItem('kcetards');
-    EC = s ? JSON.parse(s) : JSON.parse(JSON.stringify(DEFAULT));
+    document.getElementById('login-title').textContent = "Error: Exam data not found. Please contact the administrator.";
+    document.getElementById('login-title').style.color = "var(--red)";
   }
 }
 
-async function save() {
-  localStorage.setItem('kcetards', JSON.stringify(EC)); 
-  alert("Notice: Since you are hosting on GitHub, changes made here will only save to your browser. To update the live exam for everyone, export the JSON and upload it to your GitHub repository.");
-}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function pad(n){return String(n).padStart(2,'0');}
 
 // ═══════════════════════════════════
 // WINDOW CHECK
@@ -480,275 +341,6 @@ function getWindowStatus(){
   return 'open';
 }
 function fmtDate(iso){if(!iso)return'—';const d=new Date(iso);return d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});}
-
-// ═══════════════════════════════════
-// ADMIN
-// ═══════════════════════════════════
-let adminSI = 0;
-function goAdmin(){
-  const p=prompt('Enter admin password:');
-  if(p!==EC.adminpwd){alert('Wrong password.');return;}
-  loadAdminUI(); attachSettingsListeners(); showScreen('s-admin');
-}
-function loadAdminUI(){
-  document.getElementById('a-title').value=EC.title;
-  document.getElementById('a-type').value=EC.type;
-  document.getElementById('a-duration').value=EC.duration;
-  document.getElementById('a-marks').value=EC.marks;
-  document.getElementById('a-neg').value=EC.neg;
-  document.getElementById('a-pass').value=EC.pass;
-  document.getElementById('a-adminpwd').value=EC.adminpwd;
-  document.getElementById('a-strict').checked=EC.strict;
-  document.getElementById('a-window-start').value=EC.windowStart||'';
-  document.getElementById('a-window-end').value=EC.windowEnd||'';
-  document.getElementById('a-gform-enabled').checked=EC.gformEnabled||false;
-  document.getElementById('a-gform-url').value=EC.gformUrl||'';
-  if(EC.gformFields?.length) showGFormPreview(EC.gformFields);
-  renderAdminTabs(); renderAdminQs();
-}
-function renderAdminTabs(){
-  document.getElementById('admin-subject-tabs').innerHTML=EC.subjects.map((s,i)=>
-    `<button class="stab${i===adminSI?' active':''}" onclick="selAdminSubj(${i})" style="${i===adminSI?'background:'+s.color+';border-color:'+s.color+';color:#fff':''}">${s.name}</button>`
-  ).join('');
-}
-function selAdminSubj(i){adminSI=i;renderAdminTabs();renderAdminQs();}
-function addSubject(){
-  const nm=document.getElementById('new-subj-name').value.trim();if(!nm)return;
-  const cols=['#4f7ef8','#22c97a','#f5a623','#f05a5a','#9b59b6','#e91e8c'];
-  EC.subjects.push({name:nm,color:cols[EC.subjects.length%cols.length],questions:[]});
-  document.getElementById('new-subj-name').value='';
-  adminSI=EC.subjects.length-1; renderAdminTabs(); renderAdminQs();
-}
-function removeCurrentSubject(){
-  if(EC.subjects.length<=1){alert('Need at least 1 subject.');return;}
-  if(!confirm('Remove "'+EC.subjects[adminSI].name+'" and all its questions?'))return;
-  EC.subjects.splice(adminSI,1); adminSI=Math.max(0,adminSI-1);
-  renderAdminTabs(); renderAdminQs();
-}
-function renderAdminQs(){
-  const subj=EC.subjects[adminSI]; if(!subj)return;
-  const el=document.getElementById('admin-q-list');
-  if(!subj.questions.length){el.innerHTML='<div style="color:var(--muted);font-size:13px;padding:10px 0">No questions yet.</div>';return;}
-  el.innerHTML=subj.questions.map((q,qi)=>`
-    <div class="q-block" id="qb-${qi}">
-      <div class="q-header">
-        <span class="q-num">Q${qi+1} · ${subj.name}</span>
-        <div style="display:flex;gap:6px">
-          <button class="btn btn-outline" style="font-size:11px;padding:3px 8px" onclick="moveQ(${qi},-1)">↑</button>
-          <button class="btn btn-outline" style="font-size:11px;padding:3px 8px" onclick="moveQ(${qi},1)">↓</button>
-          <button class="btn btn-danger" style="font-size:11px;padding:3px 8px" onclick="removeQ(${qi})">Remove</button>
-        </div>
-      </div>
-      <textarea placeholder="Question text" oninput="updateQ(${qi},'text',this.value)" style="width:100%;margin-bottom:8px">${q.text||''}</textarea>
-      <div style="margin-bottom:8px">
-        <label style="margin-bottom:4px">Question image (optional)</label>
-        <div style="display:flex;gap:6px;margin-bottom:4px">
-          <input type="text" placeholder="Paste image URL" value="${q.image&&q.image.startsWith('http')?q.image:''}" oninput="updateQ(${qi},'imageUrl',this.value)" style="flex:1">
-          <button class="btn btn-outline" style="font-size:11px;padding:4px 10px;flex-shrink:0" onclick="document.getElementById('imgfile-${qi}').click()">Upload file</button>
-          <input type="file" id="imgfile-${qi}" accept="image/*" style="display:none" onchange="uploadQImg(${qi},this)">
-        </div>
-        ${q.image?`<img src="${q.image}" class="img-preview" id="qimg-prev-${qi}">`:
-        `<div id="qimg-prev-${qi}" style="font-size:11px;color:var(--muted)">No image</div>`}
-      </div>
-      ${['A','B','C','D'].map((l,oi)=>`
-        <div class="opt-row">
-          <input type="radio" name="correct-${adminSI}-${qi}" value="${oi}" ${q.correct===oi?'checked':''} onchange="updateQ(${qi},'correct',${oi})" title="Correct answer">
-          <input type="text" placeholder="Option ${l}" value="${q.options[oi]||''}" oninput="updateQ(${qi},'opt${oi}',this.value)">
-        </div>`).join('')}
-      <div style="margin-top:4px;font-size:11px;color:var(--green)">● Radio = correct answer</div>
-    </div>`).join('');
-}
-function addQuestion(){
-  EC.subjects[adminSI].questions.push({text:'',options:['','','',''],correct:0,image:''});
-  renderAdminQs();
-  setTimeout(()=>{const el=document.getElementById('qb-'+(EC.subjects[adminSI].questions.length-1));if(el)el.scrollIntoView({behavior:'smooth'});},80);
-}
-function removeQ(qi){EC.subjects[adminSI].questions.splice(qi,1);renderAdminQs();}
-function moveQ(qi,dir){
-  const qs=EC.subjects[adminSI].questions;
-  const ni=qi+dir; if(ni<0||ni>=qs.length)return;
-  [qs[qi],qs[ni]]=[qs[ni],qs[qi]]; renderAdminQs();
-}
-
-// Auto-save disabled to prevent API spamming
-function updateQ(qi,field,val){
-  const q=EC.subjects[adminSI].questions[qi];
-  if(field==='text') q.text=val;
-  else if(field==='correct'){q.correct=parseInt(val);return;}
-  else if(field==='imageUrl'){
-    q.image=val;
-    const el=document.getElementById('qimg-prev-'+qi);
-    if(el){if(val){el.outerHTML=`<img src="${val}" class="img-preview" id="qimg-prev-${qi}">`;}else{el.outerHTML=`<div id="qimg-prev-${qi}" style="font-size:11px;color:var(--muted)">No image</div>`;}}
-  }
-  else{const oi=parseInt(field.replace('opt',''));q.options[oi]=val;}
-}
-function uploadQImg(qi,input){
-  const file=input.files[0]; if(!file)return;
-  const reader=new FileReader();
-  reader.onload=e=>{
-    const q=EC.subjects[adminSI].questions[qi]; q.image=e.target.result;
-    const el=document.getElementById('qimg-prev-'+qi);
-    if(el) el.outerHTML=`<img src="${e.target.result}" class="img-preview" id="qimg-prev-${qi}">`;
-  };
-  reader.readAsDataURL(file);
-}
-
-// JSON/PDF import
-function downloadJSONTemplate(){
-  const t=[{text:"Sample question text?",options:["Option A","Option B","Option C","Option D"],correct:0,image:""}];
-  const b=new Blob([JSON.stringify(t,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='questions_template.json';a.click();
-}
-function importQuestionsJSON(input){
-  const file=input.files[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=e=>{
-    try{
-      const qs=JSON.parse(e.target.result);
-      if(!Array.isArray(qs)) throw new Error('Must be an array');
-      let added=0;
-      qs.forEach(q=>{
-        if(q.text&&q.options&&q.options.length>=2){
-          EC.subjects[adminSI].questions.push({text:q.text,options:(q.options.slice(0,4).concat(['','','','']).slice(0,4)),correct:parseInt(q.correct)||0,image:q.image||''});
-          added++;
-        }
-      });
-      renderAdminQs();
-      document.getElementById('import-status').innerHTML=`<span style="color:var(--green)">✓ Imported ${added} questions into ${EC.subjects[adminSI].name}</span>`;
-    }catch(err){document.getElementById('import-status').innerHTML=`<span style="color:var(--red)">Error: ${err.message}</span>`;}
-    input.value='';
-  };
-  reader.readAsText(file);
-}
-function importQuestionsPDF(input){
-  const file=input.files[0];if(!file)return;
-  const status=document.getElementById('import-status');
-  status.innerHTML='<span style="color:var(--orange)">Parsing PDF... (this may take a moment)</span>';
-  const reader=new FileReader();
-  reader.onload=async e=>{
-    try{
-      const typedArr=new Uint8Array(e.target.result);
-      if(!window.pdfjsLib){
-        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
-        window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-      }
-      const pdf=await window.pdfjsLib.getDocument({data:typedArr}).promise;
-      let fullText='';
-      for(let p=1;p<=pdf.numPages;p++){
-        const page=await pdf.getPage(p);
-        const tc=await page.getTextContent();
-        fullText+=tc.items.map(i=>i.str).join(' ')+'\n';
-      }
-      const parsed=parsePDFQuestions(fullText);
-      let added=0;
-      parsed.forEach(q=>{EC.subjects[adminSI].questions.push(q);added++;});
-      renderAdminQs();
-      status.innerHTML=`<span style="color:var(--green)">✓ Parsed ${added} questions from PDF. Please review and fix any errors above.</span>`;
-    }catch(err){status.innerHTML=`<span style="color:var(--red)">PDF parse error: ${err.message}. Try JSON import instead.</span>`;}
-    input.value='';
-  };
-  reader.readAsArrayBuffer(file);
-}
-function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
-function parsePDFQuestions(text){
-  const qs=[];
-  const qPattern=/(\d+)[.)]\s+(.+?)(?=\n\s*(?:\(A\)|A[.)]\s))([\s\S]+?)(?=\n\s*\d+[.)]\s|\n*$)/gi;
-  const optPat=/\(?([A-D])\)?[.)]\s*(.+?)(?=\n\s*\(?[A-D]\)?[.)]|\n*$)/gi;
-  let m;
-  while((m=qPattern.exec(text))!==null){
-    const qtext=m[2].trim();
-    const optBlock=m[3];
-    const options=[]; let om;
-    const optRe=/\(?([A-D])\)?[.)]\s*(.+?)(?=\n\s*\(?[A-D]\)?[.)]|$)/gi;
-    while((om=optRe.exec(optBlock))!==null) options.push(om[2].trim());
-    if(options.length>=2) qs.push({text:qtext,options:(options.slice(0,4).concat(['','','','']).slice(0,4)),correct:0,image:''});
-  }
-  if(!qs.length){
-    const lines=text.split('\n').map(l=>l.trim()).filter(l=>l);
-    let curQ=null;
-    lines.forEach(line=>{
-      const qm=line.match(/^(\d+)[.)]\s+(.+)/);
-      const om=line.match(/^\(?([A-Da-d])\)?[.)]\s+(.+)/);
-      if(qm&&!om){if(curQ&&curQ.text)qs.push(curQ);curQ={text:qm[2],options:[],correct:0,image:''};}
-      else if(om&&curQ){curQ.options.push(om[2]);}
-    });
-    if(curQ&&curQ.text)qs.push(curQ);
-    qs.forEach(q=>{while(q.options.length<4)q.options.push('');});
-  }
-  return qs;
-}
-
-function exportJSON(){
-  const b=new Blob([JSON.stringify(EC,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='kcetards_config.json';a.click();
-}
-
-// Google Forms
-const GFIELDS=['Name','Roll Number','Exam Title','Total Score','Max Score','Percentage','Result','Correct','Wrong','Unattempted','Time Taken','Subject Scores','Tab Violations'];
-
-// Live-sync settings (Auto-save disabled)
-let settingsTimer=null;
-function syncSettings(){
-  clearTimeout(settingsTimer);
-  settingsTimer=setTimeout(()=>{
-    const t=document.getElementById('a-title');if(t)EC.title=t.value;
-    const ty=document.getElementById('a-type');if(ty)EC.type=ty.value;
-    const d=document.getElementById('a-duration');if(d)EC.duration=parseInt(d.value)||180;
-    const m=document.getElementById('a-marks');if(m)EC.marks=parseFloat(m.value)||1;
-    const n=document.getElementById('a-neg');if(n)EC.neg=parseFloat(n.value)||0;
-    const p=document.getElementById('a-pass');if(p)EC.pass=parseInt(p.value)||35;
-    const ap=document.getElementById('a-adminpwd');if(ap)EC.adminpwd=ap.value||'admin123';
-    const st=document.getElementById('a-strict');if(st)EC.strict=st.checked;
-    const ws=document.getElementById('a-window-start');if(ws)EC.windowStart=ws.value;
-    const we=document.getElementById('a-window-end');if(we)EC.windowEnd=we.value;
-    const ge=document.getElementById('a-gform-enabled');if(ge)EC.gformEnabled=ge.checked;
-    // auto-save is removed here so you manually save
-  },600);
-}
-function showAutoSaveBadge(){
-  let badge=document.getElementById('autosave-badge');
-  if(!badge){
-    badge=document.createElement('div');
-    badge.id='autosave-badge';
-    badge.style.cssText='position:fixed;bottom:20px;right:20px;background:#22c97a;color:#0a1a0f;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;z-index:9999;transition:opacity .5s';
-    document.body.appendChild(badge);
-  }
-  badge.textContent='✓ Saved to Cloud';badge.style.opacity='1';
-  clearTimeout(badge._t);badge._t=setTimeout(()=>badge.style.opacity='0',1800);
-}
-function attachSettingsListeners(){
-  ['a-title','a-type','a-duration','a-marks','a-neg','a-pass','a-adminpwd','a-strict','a-window-start','a-window-end','a-gform-enabled'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el){el.addEventListener('input',syncSettings);el.addEventListener('change',syncSettings);}
-  });
-}
-function parseGFormURL(){
-  const url=document.getElementById('a-gform-url').value.trim();
-  const st=document.getElementById('gform-status');
-  const idM=url.match(/\/forms\/d\/e\/([^/]+)\/viewform/);
-  if(!idM){st.textContent='Form ID not found.';st.style.color='var(--red)';return;}
-  const entries=[...url.matchAll(/entry\.(\d+)=/g)].map(m=>m[1]);
-  if(!entries.length){st.textContent='No entry fields found.';st.style.color='var(--red)';return;}
-  EC.gformFormId=idM[1];
-  EC.gformFields=entries.map((id,i)=>({id,name:GFIELDS[i]||'Field '+(i+1)}));
-  EC.gformUrl=url;
-  showGFormPreview(EC.gformFields);
-  st.textContent='✓ Parsed '+entries.length+' fields';st.style.color='var(--green)';
-}
-function showGFormPreview(fields){
-  document.getElementById('gform-preview').style.display='block';
-  document.getElementById('gform-fields').innerHTML=fields.map(f=>`entry.${f.id} → <span style="color:var(--text)">${f.name}</span>`).join('<br>');
-}
-
-function saveAndActivate(){
-  syncSettings();
-  EC.gformUrl=document.getElementById('a-gform-url').value.trim();
-  if(EC.gformEnabled&&!EC.gformFields?.length){alert('Google Forms enabled but no fields detected. Parse URL first.');return;}
-  save().then(() => {
-    alert('Exam saved to Cloud and activated!');
-    showScreen('s-login'); initLogin();
-  });
-}
 
 // ═══════════════════════════════════
 // LOGIN
@@ -767,6 +359,7 @@ function initLogin(){
   }
 }
 function doLogin(){
+  if(!EC) return;
   const name=document.getElementById('l-name').value.trim();
   const pass=document.getElementById('l-pass').value.trim();
   const err=document.getElementById('login-err');
@@ -1035,9 +628,7 @@ function goToLogin(){student=null;examStarted=false;document.getElementById('l-n
 // ═══════════════════════════════════
 // INIT
 // ═══════════════════════════════════
-load().then(() => {
-  initLogin();
-});
+load();
 </script>
 </body>
 </html>
