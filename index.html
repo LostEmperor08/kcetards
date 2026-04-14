@@ -205,7 +205,6 @@ textarea{resize:vertical;min-height:56px}
 </head>
 <body>
 
-<!-- TAB WARNING -->
 <div class="tabwarn" id="tabwarn">
   <div class="tabwarn-box">
     <h2>Tab switch detected!</h2>
@@ -216,7 +215,6 @@ textarea{resize:vertical;min-height:56px}
   </div>
 </div>
 
-<!-- SUBMIT MODAL -->
 <div class="modal-overlay" id="submit-modal">
   <div class="modal">
     <h2>Submit exam?</h2>
@@ -229,12 +227,10 @@ textarea{resize:vertical;min-height:56px}
   </div>
 </div>
 
-<!-- ════════════════ ADMIN ════════════════ -->
 <div id="s-admin" class="screen">
 <div class="wrap">
   <div class="logo">KCET<span>ARDs</span> <span style="font-size:13px;color:var(--muted);font-weight:400">— Admin Panel</span></div>
 
-  <!-- EXAM SETTINGS -->
   <div class="sec-title">Exam settings</div>
   <div class="card">
     <div class="form-row">
@@ -252,12 +248,11 @@ textarea{resize:vertical;min-height:56px}
     </div>
     <div class="form-row">
       <div><label>Pass percentage (%)</label><input type="number" id="a-pass" value="35" min="1" max="100"></div>
-      <div><label>Admin password</label><input type="text" id="a-adminpwd" value="admin123"></div>
+      <div><label>Admin password (Shared Passcode)</label><input type="text" id="a-adminpwd" value="admin123"></div>
     </div>
     <label class="chk-row"><input type="checkbox" id="a-strict" checked> Enable strict mode (tab-switch detection, 3 warnings = auto-submit)</label>
   </div>
 
-  <!-- EXAM WINDOW -->
   <div class="sec-title" style="margin-top:1rem">Exam availability window</div>
   <div class="card" style="border-color:#f5a62344">
     <div class="info-box"><span>Students can attend the exam anytime within this window.</span> Outside this window, the login page will show "Exam not available" even with correct credentials.</div>
@@ -268,7 +263,6 @@ textarea{resize:vertical;min-height:56px}
     <div style="font-size:12px;color:var(--muted)">Leave both blank to allow login at any time (no window restriction).</div>
   </div>
 
-  <!-- SUBJECTS & QUESTIONS -->
   <div class="sec-title" style="margin-top:1rem">Subjects & questions</div>
   <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px" id="admin-subject-tabs"></div>
   <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
@@ -277,7 +271,6 @@ textarea{resize:vertical;min-height:56px}
     <button class="btn btn-danger" onclick="removeCurrentSubject()">Remove subject</button>
   </div>
 
-  <!-- JSON / PDF IMPORT -->
   <div class="card" style="margin-bottom:10px">
     <div class="sec-title" style="margin-bottom:8px">Bulk import questions</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
@@ -297,21 +290,6 @@ textarea{resize:vertical;min-height:56px}
   <div id="admin-q-list"></div>
   <button class="btn btn-outline" onclick="addQuestion()" style="margin-bottom:1.5rem">+ Add question manually</button>
 
-  <!-- STUDENTS -->
-  <hr class="divider">
-  <div class="sec-title">Students (up to 30)</div>
-  <div class="info-box">Each student gets a <span>custom password</span> you set. They log in with roll number + password you give them.</div>
-  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
-    <input type="text" id="ns-name" placeholder="Student name" style="flex:1;min-width:140px">
-    <input type="text" id="ns-roll" placeholder="Roll / seat no." style="max-width:140px">
-    <input type="text" id="ns-pwd" placeholder="Password" style="max-width:140px">
-    <button class="btn btn-outline" onclick="addStudent()">+ Add</button>
-    <button class="btn btn-outline" onclick="addBulkStudents()">+ Bulk demo (15)</button>
-  </div>
-  <div class="students-list" id="students-list"></div>
-  <button class="btn btn-outline" onclick="exportStudentPasswords()" style="margin-bottom:1rem">Export passwords (CSV)</button>
-
-  <!-- GOOGLE FORMS -->
   <hr class="divider">
   <div class="sec-title">Google Forms — result collection</div>
   <div class="card" style="border-color:#4f7ef855">
@@ -339,32 +317,27 @@ textarea{resize:vertical;min-height:56px}
     <label class="chk-row"><input type="checkbox" id="a-gform-enabled"> Enable Google Forms submission on exam submit</label>
   </div>
 
-  <!-- SAVE -->
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem">
     <button class="btn btn-green" onclick="saveAndActivate()">Save & activate exam</button>
-    <button class="btn btn-outline" onclick="exportJSON()">Export config JSON</button>
-    <button class="btn btn-outline" onclick="document.getElementById('import-cfg').click()">Import config JSON</button>
-    <input type="file" id="import-cfg" accept=".json" style="display:none" onchange="importConfig(this)">
+    <button class="btn btn-outline" onclick="exportJSON()">Export config JSON (Backup)</button>
   </div>
-  <p style="font-size:11px;color:var(--muted);margin-top:10px">Students log in with their roll number and the custom password you set.</p>
+  <p style="font-size:11px;color:var(--muted);margin-top:10px">Your friends will log in with their Name and the "Admin password" above as their Passcode.</p>
 </div>
 </div>
 
-<!-- ════════════════ LOGIN ════════════════ -->
 <div id="s-login" class="screen active">
   <div class="login-box">
     <div class="login-logo">KCET<span>ARDs</span></div>
     <div class="login-sub" id="login-title">Exam Platform</div>
     <div id="window-status-badge"></div>
-    <div class="login-field"><label>Roll number / Seat no.</label><input type="text" id="l-roll" placeholder="e.g. KCET2025001" autocomplete="off"></div>
-    <div class="login-field"><label>Password</label><input type="password" id="l-pass" placeholder="Enter your password" autocomplete="off"></div>
+    <div class="login-field"><label>Your Name</label><input type="text" id="l-name" placeholder="Enter your full name" autocomplete="off"></div>
+    <div class="login-field"><label>Exam Passcode</label><input type="password" id="l-pass" placeholder="Enter the group passcode" autocomplete="off"></div>
     <button class="login-btn" onclick="doLogin()">Proceed to instructions →</button>
     <div class="login-err" id="login-err"></div>
     <div class="admin-link">Admin? <span onclick="goAdmin()">Enter admin panel</span></div>
   </div>
 </div>
 
-<!-- ════════════════ INSTRUCTIONS ════════════════ -->
 <div id="s-instructions" class="screen">
 <div class="inst-wrap">
   <div class="inst-title" id="inst-title"></div>
@@ -398,7 +371,6 @@ textarea{resize:vertical;min-height:56px}
 </div>
 </div>
 
-<!-- ════════════════ EXAM ════════════════ -->
 <div id="s-exam" class="screen">
   <div class="exam-topbar">
     <div class="exam-logo">KCET<span>ARDs</span></div>
@@ -439,7 +411,6 @@ textarea{resize:vertical;min-height:56px}
   </div>
 </div>
 
-<!-- ════════════════ RESULTS ════════════════ -->
 <div id="s-results" class="screen">
 <div class="res-wrap">
   <div style="text-align:center;margin-bottom:1.5rem">
@@ -466,6 +437,12 @@ textarea{resize:vertical;min-height:56px}
 
 <script>
 // ═══════════════════════════════════
+// CLOUD API CONFIGURATION
+// ═══════════════════════════════════
+const BIN_ID = 'YOUR_BIN_ID_HERE'; // <-- PASTE YOUR JSONBIN BIN ID HERE
+const API_KEY = 'YOUR_API_KEY_HERE'; // <-- PASTE YOUR JSONBIN API KEY HERE
+
+// ═══════════════════════════════════
 // STATE
 // ═══════════════════════════════════
 let EC = null, student = null, allQ = [], qStates = [], qAns = [];
@@ -477,31 +454,44 @@ const DEFAULT = {
   adminpwd:"admin123", strict:true, windowStart:"", windowEnd:"",
   gformEnabled:false, gformUrl:"", gformFormId:"", gformFields:[],
   subjects:[
-    {name:"Physics",color:"#4f7ef8",questions:[
-      {text:"A particle moves in a circle of radius R. Its average acceleration over half revolution is:",options:["v²/R","2v²/πR","v²/2R","0"],correct:1,image:""},
-      {text:"Dimension of electric field intensity is:",options:["MLT⁻³A⁻¹","MLT⁻²A⁻¹","ML²T⁻²A⁻¹","MLT⁻²A"],correct:0,image:""},
-      {text:"Escape velocity from Earth's surface is (g=10, R=6400km):",options:["8 km/s","11.2 km/s","16 km/s","7.9 km/s"],correct:1,image:""},
-    ]},
-    {name:"Chemistry",color:"#22c97a",questions:[
-      {text:"Highest first ionization enthalpy among:",options:["Na","Mg","Al","Si"],correct:3,image:""},
-      {text:"Hybridization of carbon in diamond:",options:["sp","sp²","sp³","sp³d"],correct:2,image:""},
-      {text:"Oxidation state of Cr in K₂Cr₂O₇:",options:["+3","+6","+7","+4"],correct:1,image:""},
-    ]},
-    {name:"Mathematics",color:"#f5a623",questions:[
-      {text:"lim(x→0) (sin x)/x =",options:["0","∞","1","undefined"],correct:2,image:""},
-      {text:"∫ eˣ(1+x) dx =",options:["xeˣ+C","eˣ+C","xeˣ–eˣ+C","xeˣ+eˣ+C"],correct:0,image:""},
-      {text:"Eccentricity of a circle is:",options:["0","1","< 1","Infinity"],correct:0,image:""},
-    ]}
-  ],
-  students:[
-    {name:"Aarav Sharma",roll:"KCET001",pwd:"pass001"},
-    {name:"Priya Patel",roll:"KCET002",pwd:"pass002"},
-    {name:"Rahul Singh",roll:"KCET003",pwd:"pass003"},
+    {name:"Physics",color:"#4f7ef8",questions:[]},
+    {name:"Chemistry",color:"#22c97a",questions:[]},
+    {name:"Mathematics",color:"#f5a623",questions:[]}
   ]
 };
 
-function load(){const s=localStorage.getItem('kcetards');EC=s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULT));}
-function save(){localStorage.setItem('kcetards',JSON.stringify(EC));}
+async function load() {
+  try {
+    const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+      headers: { 'X-Access-Key': API_KEY }
+    });
+    const data = await response.json();
+    EC = data.record ? data.record : JSON.parse(JSON.stringify(DEFAULT));
+  } catch (error) {
+    console.error("Cloud load failed, falling back to local/default.", error);
+    const s = localStorage.getItem('kcetards');
+    EC = s ? JSON.parse(s) : JSON.parse(JSON.stringify(DEFAULT));
+  }
+}
+
+async function save() {
+  localStorage.setItem('kcetards', JSON.stringify(EC)); // Keep local backup
+  try {
+    await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Access-Key': API_KEY
+      },
+      body: JSON.stringify(EC)
+    });
+    showAutoSaveBadge();
+  } catch (error) {
+    console.error("Cloud save failed.", error);
+    alert("Warning: Changes were not saved to the cloud! Check your API Key.");
+  }
+}
+
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 function pad(n){return String(n).padStart(2,'0');}
 
@@ -542,7 +532,7 @@ function loadAdminUI(){
   document.getElementById('a-gform-enabled').checked=EC.gformEnabled||false;
   document.getElementById('a-gform-url').value=EC.gformUrl||'';
   if(EC.gformFields?.length) showGFormPreview(EC.gformFields);
-  renderAdminTabs(); renderAdminQs(); renderStudents();
+  renderAdminTabs(); renderAdminQs();
 }
 function renderAdminTabs(){
   document.getElementById('admin-subject-tabs').innerHTML=EC.subjects.map((s,i)=>
@@ -555,13 +545,13 @@ function addSubject(){
   const cols=['#4f7ef8','#22c97a','#f5a623','#f05a5a','#9b59b6','#e91e8c'];
   EC.subjects.push({name:nm,color:cols[EC.subjects.length%cols.length],questions:[]});
   document.getElementById('new-subj-name').value='';
-  adminSI=EC.subjects.length-1; save(); renderAdminTabs(); renderAdminQs();
+  adminSI=EC.subjects.length-1; renderAdminTabs(); renderAdminQs();
 }
 function removeCurrentSubject(){
   if(EC.subjects.length<=1){alert('Need at least 1 subject.');return;}
   if(!confirm('Remove "'+EC.subjects[adminSI].name+'" and all its questions?'))return;
   EC.subjects.splice(adminSI,1); adminSI=Math.max(0,adminSI-1);
-  save(); renderAdminTabs(); renderAdminQs();
+  renderAdminTabs(); renderAdminQs();
 }
 function renderAdminQs(){
   const subj=EC.subjects[adminSI]; if(!subj)return;
@@ -598,28 +588,27 @@ function renderAdminQs(){
 }
 function addQuestion(){
   EC.subjects[adminSI].questions.push({text:'',options:['','','',''],correct:0,image:''});
-  save(); renderAdminQs();
+  renderAdminQs();
   setTimeout(()=>{const el=document.getElementById('qb-'+(EC.subjects[adminSI].questions.length-1));if(el)el.scrollIntoView({behavior:'smooth'});},80);
 }
-function removeQ(qi){EC.subjects[adminSI].questions.splice(qi,1);save();renderAdminQs();}
+function removeQ(qi){EC.subjects[adminSI].questions.splice(qi,1);renderAdminQs();}
 function moveQ(qi,dir){
   const qs=EC.subjects[adminSI].questions;
   const ni=qi+dir; if(ni<0||ni>=qs.length)return;
-  [qs[qi],qs[ni]]=[qs[ni],qs[qi]]; save(); renderAdminQs();
+  [qs[qi],qs[ni]]=[qs[ni],qs[qi]]; renderAdminQs();
 }
 
-let saveQTimer=null;
+// Auto-save disabled to prevent API spamming
 function updateQ(qi,field,val){
   const q=EC.subjects[adminSI].questions[qi];
   if(field==='text') q.text=val;
-  else if(field==='correct'){q.correct=parseInt(val);save();return;}
+  else if(field==='correct'){q.correct=parseInt(val);return;}
   else if(field==='imageUrl'){
     q.image=val;
     const el=document.getElementById('qimg-prev-'+qi);
     if(el){if(val){el.outerHTML=`<img src="${val}" class="img-preview" id="qimg-prev-${qi}">`;}else{el.outerHTML=`<div id="qimg-prev-${qi}" style="font-size:11px;color:var(--muted)">No image</div>`;}}
   }
   else{const oi=parseInt(field.replace('opt',''));q.options[oi]=val;}
-  clearTimeout(saveQTimer); saveQTimer=setTimeout(save,400);
 }
 function uploadQImg(qi,input){
   const file=input.files[0]; if(!file)return;
@@ -628,7 +617,6 @@ function uploadQImg(qi,input){
     const q=EC.subjects[adminSI].questions[qi]; q.image=e.target.result;
     const el=document.getElementById('qimg-prev-'+qi);
     if(el) el.outerHTML=`<img src="${e.target.result}" class="img-preview" id="qimg-prev-${qi}">`;
-    save();
   };
   reader.readAsDataURL(file);
 }
@@ -656,7 +644,6 @@ function importQuestionsJSON(input){
       renderAdminQs();
       document.getElementById('import-status').innerHTML=`<span style="color:var(--green)">✓ Imported ${added} questions into ${EC.subjects[adminSI].name}</span>`;
     }catch(err){document.getElementById('import-status').innerHTML=`<span style="color:var(--red)">Error: ${err.message}</span>`;}
-    save();
     input.value='';
   };
   reader.readAsText(file);
@@ -669,7 +656,6 @@ function importQuestionsPDF(input){
   reader.onload=async e=>{
     try{
       const typedArr=new Uint8Array(e.target.result);
-      // Use PDF.js from CDN
       if(!window.pdfjsLib){
         await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
         window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -684,7 +670,7 @@ function importQuestionsPDF(input){
       const parsed=parsePDFQuestions(fullText);
       let added=0;
       parsed.forEach(q=>{EC.subjects[adminSI].questions.push(q);added++;});
-      save(); renderAdminQs();
+      renderAdminQs();
       status.innerHTML=`<span style="color:var(--green)">✓ Parsed ${added} questions from PDF. Please review and fix any errors above.</span>`;
     }catch(err){status.innerHTML=`<span style="color:var(--red)">PDF parse error: ${err.message}. Try JSON import instead.</span>`;}
     input.value='';
@@ -694,7 +680,6 @@ function importQuestionsPDF(input){
 function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
 function parsePDFQuestions(text){
   const qs=[];
-  // Match patterns like "1. Question text\n(A) opt\n(B) opt\n(C) opt\n(D) opt"
   const qPattern=/(\d+)[.)]\s+(.+?)(?=\n\s*(?:\(A\)|A[.)]\s))([\s\S]+?)(?=\n\s*\d+[.)]\s|\n*$)/gi;
   const optPat=/\(?([A-D])\)?[.)]\s*(.+?)(?=\n\s*\(?[A-D]\)?[.)]|\n*$)/gi;
   let m;
@@ -707,7 +692,6 @@ function parsePDFQuestions(text){
     if(options.length>=2) qs.push({text:qtext,options:(options.slice(0,4).concat(['','','','']).slice(0,4)),correct:0,image:''});
   }
   if(!qs.length){
-    // Fallback: split by numbered lines
     const lines=text.split('\n').map(l=>l.trim()).filter(l=>l);
     let curQ=null;
     lines.forEach(line=>{
@@ -722,59 +706,15 @@ function parsePDFQuestions(text){
   return qs;
 }
 
-// Students
-function renderStudents(){
-  document.getElementById('students-list').innerHTML=EC.students.map((s,i)=>`
-    <div class="student-card">
-      <div style="min-width:0">
-        <div class="sname">${s.name}</div>
-        <div class="sroll">${s.roll}</div>
-        <div class="spwd">pwd: ${s.pwd}</div>
-      </div>
-      <button class="btn btn-danger" style="font-size:11px;padding:3px 8px;flex-shrink:0" onclick="removeStudent(${i})">×</button>
-    </div>`).join('');
-}
-function addStudent(){
-  const name=document.getElementById('ns-name').value.trim();
-  const roll=document.getElementById('ns-roll').value.trim();
-  const pwd=document.getElementById('ns-pwd').value.trim();
-  if(!name||!roll||!pwd){alert('Enter name, roll number, and password.');return;}
-  if(EC.students.length>=30){alert('Maximum 30 students.');return;}
-  if(EC.students.find(s=>s.roll===roll)){alert('Roll number already exists.');return;}
-  EC.students.push({name,roll,pwd});
-  document.getElementById('ns-name').value='';document.getElementById('ns-roll').value='';document.getElementById('ns-pwd').value='';
-  save(); renderStudents();
-}
-function removeStudent(i){EC.students.splice(i,1);save();renderStudents();}
-function addBulkStudents(){
-  const names=['Aditya Verma','Bhavya Joshi','Chirag Mehta','Divya Reddy','Esha Nair','Farhan Shaikh','Geet Kaur','Harsh Malhotra','Isha Tripathi','Jayesh Kulkarni','Kavya Pillai','Lokesh Chandra','Meera Rao','Nikhil Sahu','Omkar Desai'];
-  names.forEach((n,i)=>{
-    if(EC.students.length<30){const roll='STU'+(100+EC.students.length);if(!EC.students.find(s=>s.roll===roll))EC.students.push({name:n,roll,pwd:'pwd'+roll.slice(-3)});}
-  });
-  save(); renderStudents();
-}
-function exportStudentPasswords(){
-  const rows=['Name,Roll Number,Password',...EC.students.map(s=>`"${s.name}",${s.roll},${s.pwd}`)];
-  const b=new Blob([rows.join('\n')],{type:'text/csv'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='student_passwords.csv';a.click();
-}
-
-// Config export/import
 function exportJSON(){
   const b=new Blob([JSON.stringify(EC,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='kcetards_config.json';a.click();
-}
-function importConfig(input){
-  const file=input.files[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=e=>{try{EC=JSON.parse(e.target.result);save();loadAdminUI();alert('Config imported!');}catch(err){alert('Invalid JSON.');}};
-  reader.readAsText(file);
 }
 
 // Google Forms
 const GFIELDS=['Name','Roll Number','Exam Title','Total Score','Max Score','Percentage','Result','Correct','Wrong','Unattempted','Time Taken','Subject Scores','Tab Violations'];
 
-// Live-sync settings fields to EC on every input so nothing is lost
+// Live-sync settings (Auto-save disabled)
 let settingsTimer=null;
 function syncSettings(){
   clearTimeout(settingsTimer);
@@ -790,8 +730,7 @@ function syncSettings(){
     const ws=document.getElementById('a-window-start');if(ws)EC.windowStart=ws.value;
     const we=document.getElementById('a-window-end');if(we)EC.windowEnd=we.value;
     const ge=document.getElementById('a-gform-enabled');if(ge)EC.gformEnabled=ge.checked;
-    save();
-    showAutoSaveBadge();
+    // auto-save is removed here so you manually save
   },600);
 }
 function showAutoSaveBadge(){
@@ -802,7 +741,7 @@ function showAutoSaveBadge(){
     badge.style.cssText='position:fixed;bottom:20px;right:20px;background:#22c97a;color:#0a1a0f;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;z-index:9999;transition:opacity .5s';
     document.body.appendChild(badge);
   }
-  badge.textContent='✓ Saved';badge.style.opacity='1';
+  badge.textContent='✓ Saved to Cloud';badge.style.opacity='1';
   clearTimeout(badge._t);badge._t=setTimeout(()=>badge.style.opacity='0',1800);
 }
 function attachSettingsListeners(){
@@ -821,7 +760,6 @@ function parseGFormURL(){
   EC.gformFormId=idM[1];
   EC.gformFields=entries.map((id,i)=>({id,name:GFIELDS[i]||'Field '+(i+1)}));
   EC.gformUrl=url;
-  save(); showAutoSaveBadge();
   showGFormPreview(EC.gformFields);
   st.textContent='✓ Parsed '+entries.length+' fields';st.style.color='var(--green)';
 }
@@ -831,22 +769,13 @@ function showGFormPreview(fields){
 }
 
 function saveAndActivate(){
-  EC.title=document.getElementById('a-title').value;
-  EC.type=document.getElementById('a-type').value;
-  EC.duration=parseInt(document.getElementById('a-duration').value)||180;
-  EC.marks=parseFloat(document.getElementById('a-marks').value)||1;
-  EC.neg=parseFloat(document.getElementById('a-neg').value)||0;
-  EC.pass=parseInt(document.getElementById('a-pass').value)||35;
-  EC.adminpwd=document.getElementById('a-adminpwd').value||'admin123';
-  EC.strict=document.getElementById('a-strict').checked;
-  EC.windowStart=document.getElementById('a-window-start').value;
-  EC.windowEnd=document.getElementById('a-window-end').value;
-  EC.gformEnabled=document.getElementById('a-gform-enabled').checked;
+  syncSettings();
   EC.gformUrl=document.getElementById('a-gform-url').value.trim();
   if(EC.gformEnabled&&!EC.gformFields?.length){alert('Google Forms enabled but no fields detected. Parse URL first.');return;}
-  save();
-  alert('Exam saved and activated!');
-  showScreen('s-login'); initLogin();
+  save().then(() => {
+    alert('Exam saved to Cloud and activated!');
+    showScreen('s-login'); initLogin();
+  });
 }
 
 // ═══════════════════════════════════
@@ -866,16 +795,20 @@ function initLogin(){
   }
 }
 function doLogin(){
-  const roll=document.getElementById('l-roll').value.trim();
+  const name=document.getElementById('l-name').value.trim();
   const pass=document.getElementById('l-pass').value.trim();
   const err=document.getElementById('login-err');
+  
   const ws=getWindowStatus();
   if(ws==='upcoming'){err.textContent='Exam not started yet. Opens '+fmtDate(EC.windowStart);return;}
   if(ws==='closed'){err.textContent='Exam window has closed.';return;}
-  const s=EC.students.find(s=>s.roll===roll);
-  if(!s){err.textContent='Roll number not found.';return;}
-  if(pass!==s.pwd){err.textContent='Incorrect password.';return;}
-  student=s; err.textContent='';
+  
+  if(!name || !pass){err.textContent='Please enter your name and the passcode.';return;}
+  
+  if(pass !== EC.adminpwd){err.textContent='Incorrect exam passcode.';return;}
+  
+  student = { name: name, roll: '' }; 
+  err.textContent='';
   showInstructions();
 }
 
@@ -884,7 +817,7 @@ function doLogin(){
 // ═══════════════════════════════════
 function showInstructions(){
   document.getElementById('inst-title').textContent=EC.title;
-  document.getElementById('inst-sub').textContent=student.name+' · '+student.roll;
+  document.getElementById('inst-sub').textContent=student.name;
   document.getElementById('inst-marks').textContent='+'+EC.marks;
   document.getElementById('inst-neg').textContent=(EC.neg>0?'−'+EC.neg:'0');
   const ws=document.getElementById('inst-window');
@@ -927,9 +860,9 @@ function startExam(){
   qStates=allQ.map(()=>'unvisited'); qAns=allQ.map(()=>-1);
   curQ=0; warnCount=0; examStarted=true; strictMode=EC.strict;
   timeLeft=EC.duration*60;
-  document.getElementById('exam-sname').textContent=student.name+' · '+student.roll;
+  document.getElementById('exam-sname').textContent=student.name;
   document.getElementById('nav-sname').textContent=student.name;
-  document.getElementById('nav-sroll').textContent=student.roll;
+  document.getElementById('nav-sroll').textContent='Candidate';
   buildSubjBar(); renderQ(); startTimer();
   if(strictMode) watchVisibility();
   showScreen('s-exam');
@@ -1091,7 +1024,6 @@ function showResults(){
   const total=allQ.length*EC.marks, obt=correct*EC.marks-wrong*EC.neg;
   const pct=Math.max(0,Math.round(obt/total*100)), passed=pct>=EC.pass;
   document.getElementById('r-name').textContent=student.name;
-  document.getElementById('r-roll').textContent=student.roll;
   document.getElementById('r-score').textContent=obt;
   document.getElementById('r-score-lbl').textContent='out of '+total;
   const pb=document.getElementById('r-pass');pb.textContent=passed?'Qualified ✓':'Not qualified';pb.className='pass-badge '+(passed?'pass':'fail');
@@ -1126,12 +1058,14 @@ function showResults(){
   }).join('');
   showScreen('s-results');
 }
-function goToLogin(){student=null;examStarted=false;document.getElementById('l-roll').value='';document.getElementById('l-pass').value='';showScreen('s-login');}
+function goToLogin(){student=null;examStarted=false;document.getElementById('l-name').value='';document.getElementById('l-pass').value='';showScreen('s-login');}
 
 // ═══════════════════════════════════
 // INIT
 // ═══════════════════════════════════
-load(); initLogin();
+load().then(() => {
+  initLogin();
+});
 </script>
 </body>
 </html>
