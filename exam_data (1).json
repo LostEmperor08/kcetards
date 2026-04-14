@@ -1,0 +1,42 @@
+{
+  "title": "testing",
+  "type": "KCET",
+  "duration": 65,
+  "marks": 1,
+  "neg": 0,
+  "pass": 35,
+  "adminpwd": "@lostemperor",
+  "strict": true,
+  "windowStart": "2026-04-14T13:07",
+  "windowEnd": "2026-04-14T13:40",
+  "subjects": [
+    {
+      "name": "Physics",
+      "color": "#4f7ef8",
+      "questions": [
+        {
+          "text": "how is the ui ",
+          "options": [
+            "5",
+            "4",
+            "3",
+            "2"
+          ],
+          "correct": 0,
+          "image": ""
+        },
+        {
+          "text": "were you able to login ?",
+          "options": [
+            "yes ",
+            "no",
+            "",
+            ""
+          ],
+          "correct": 0,
+          "image": ""
+        }
+      ]
+    }
+  ]
+}
