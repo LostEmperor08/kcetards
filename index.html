@@ -526,7 +526,7 @@ let adminSI = 0;
 function goAdmin(){
   const p=prompt('Enter admin password:');
   if(p!==EC.adminpwd){alert('Wrong password.');return;}
-  loadAdminUI(); showScreen('s-admin');
+  loadAdminUI(); attachSettingsListeners(); showScreen('s-admin');
 }
 function loadAdminUI(){
   document.getElementById('a-title').value=EC.title;
@@ -555,13 +555,13 @@ function addSubject(){
   const cols=['#4f7ef8','#22c97a','#f5a623','#f05a5a','#9b59b6','#e91e8c'];
   EC.subjects.push({name:nm,color:cols[EC.subjects.length%cols.length],questions:[]});
   document.getElementById('new-subj-name').value='';
-  adminSI=EC.subjects.length-1; renderAdminTabs(); renderAdminQs();
+  adminSI=EC.subjects.length-1; save(); renderAdminTabs(); renderAdminQs();
 }
 function removeCurrentSubject(){
   if(EC.subjects.length<=1){alert('Need at least 1 subject.');return;}
   if(!confirm('Remove "'+EC.subjects[adminSI].name+'" and all its questions?'))return;
   EC.subjects.splice(adminSI,1); adminSI=Math.max(0,adminSI-1);
-  renderAdminTabs(); renderAdminQs();
+  save(); renderAdminTabs(); renderAdminQs();
 }
 function renderAdminQs(){
   const subj=EC.subjects[adminSI]; if(!subj)return;
@@ -598,21 +598,28 @@ function renderAdminQs(){
 }
 function addQuestion(){
   EC.subjects[adminSI].questions.push({text:'',options:['','','',''],correct:0,image:''});
-  renderAdminQs();
+  save(); renderAdminQs();
   setTimeout(()=>{const el=document.getElementById('qb-'+(EC.subjects[adminSI].questions.length-1));if(el)el.scrollIntoView({behavior:'smooth'});},80);
 }
-function removeQ(qi){EC.subjects[adminSI].questions.splice(qi,1);renderAdminQs();}
+function removeQ(qi){EC.subjects[adminSI].questions.splice(qi,1);save();renderAdminQs();}
 function moveQ(qi,dir){
   const qs=EC.subjects[adminSI].questions;
   const ni=qi+dir; if(ni<0||ni>=qs.length)return;
-  [qs[qi],qs[ni]]=[qs[ni],qs[qi]]; renderAdminQs();
+  [qs[qi],qs[ni]]=[qs[ni],qs[qi]]; save(); renderAdminQs();
 }
+
+let saveQTimer=null;
 function updateQ(qi,field,val){
   const q=EC.subjects[adminSI].questions[qi];
   if(field==='text') q.text=val;
-  else if(field==='correct') q.correct=parseInt(val);
-  else if(field==='imageUrl'){q.image=val;const el=document.getElementById('qimg-prev-'+qi);if(el){if(val){el.outerHTML=`<img src="${val}" class="img-preview" id="qimg-prev-${qi}">` }else{el.outerHTML=`<div id="qimg-prev-${qi}" style="font-size:11px;color:var(--muted)">No image</div>`;}}}
+  else if(field==='correct'){q.correct=parseInt(val);save();return;}
+  else if(field==='imageUrl'){
+    q.image=val;
+    const el=document.getElementById('qimg-prev-'+qi);
+    if(el){if(val){el.outerHTML=`<img src="${val}" class="img-preview" id="qimg-prev-${qi}">`;}else{el.outerHTML=`<div id="qimg-prev-${qi}" style="font-size:11px;color:var(--muted)">No image</div>`;}}
+  }
   else{const oi=parseInt(field.replace('opt',''));q.options[oi]=val;}
+  clearTimeout(saveQTimer); saveQTimer=setTimeout(save,400);
 }
 function uploadQImg(qi,input){
   const file=input.files[0]; if(!file)return;
@@ -621,6 +628,7 @@ function uploadQImg(qi,input){
     const q=EC.subjects[adminSI].questions[qi]; q.image=e.target.result;
     const el=document.getElementById('qimg-prev-'+qi);
     if(el) el.outerHTML=`<img src="${e.target.result}" class="img-preview" id="qimg-prev-${qi}">`;
+    save();
   };
   reader.readAsDataURL(file);
 }
@@ -648,6 +656,7 @@ function importQuestionsJSON(input){
       renderAdminQs();
       document.getElementById('import-status').innerHTML=`<span style="color:var(--green)">✓ Imported ${added} questions into ${EC.subjects[adminSI].name}</span>`;
     }catch(err){document.getElementById('import-status').innerHTML=`<span style="color:var(--red)">Error: ${err.message}</span>`;}
+    save();
     input.value='';
   };
   reader.readAsText(file);
@@ -675,7 +684,7 @@ function importQuestionsPDF(input){
       const parsed=parsePDFQuestions(fullText);
       let added=0;
       parsed.forEach(q=>{EC.subjects[adminSI].questions.push(q);added++;});
-      renderAdminQs();
+      save(); renderAdminQs();
       status.innerHTML=`<span style="color:var(--green)">✓ Parsed ${added} questions from PDF. Please review and fix any errors above.</span>`;
     }catch(err){status.innerHTML=`<span style="color:var(--red)">PDF parse error: ${err.message}. Try JSON import instead.</span>`;}
     input.value='';
@@ -734,15 +743,15 @@ function addStudent(){
   if(EC.students.find(s=>s.roll===roll)){alert('Roll number already exists.');return;}
   EC.students.push({name,roll,pwd});
   document.getElementById('ns-name').value='';document.getElementById('ns-roll').value='';document.getElementById('ns-pwd').value='';
-  renderStudents();
+  save(); renderStudents();
 }
-function removeStudent(i){EC.students.splice(i,1);renderStudents();}
+function removeStudent(i){EC.students.splice(i,1);save();renderStudents();}
 function addBulkStudents(){
   const names=['Aditya Verma','Bhavya Joshi','Chirag Mehta','Divya Reddy','Esha Nair','Farhan Shaikh','Geet Kaur','Harsh Malhotra','Isha Tripathi','Jayesh Kulkarni','Kavya Pillai','Lokesh Chandra','Meera Rao','Nikhil Sahu','Omkar Desai'];
   names.forEach((n,i)=>{
     if(EC.students.length<30){const roll='STU'+(100+EC.students.length);if(!EC.students.find(s=>s.roll===roll))EC.students.push({name:n,roll,pwd:'pwd'+roll.slice(-3)});}
   });
-  renderStudents();
+  save(); renderStudents();
 }
 function exportStudentPasswords(){
   const rows=['Name,Roll Number,Password',...EC.students.map(s=>`"${s.name}",${s.roll},${s.pwd}`)];
@@ -764,6 +773,44 @@ function importConfig(input){
 
 // Google Forms
 const GFIELDS=['Name','Roll Number','Exam Title','Total Score','Max Score','Percentage','Result','Correct','Wrong','Unattempted','Time Taken','Subject Scores','Tab Violations'];
+
+// Live-sync settings fields to EC on every input so nothing is lost
+let settingsTimer=null;
+function syncSettings(){
+  clearTimeout(settingsTimer);
+  settingsTimer=setTimeout(()=>{
+    const t=document.getElementById('a-title');if(t)EC.title=t.value;
+    const ty=document.getElementById('a-type');if(ty)EC.type=ty.value;
+    const d=document.getElementById('a-duration');if(d)EC.duration=parseInt(d.value)||180;
+    const m=document.getElementById('a-marks');if(m)EC.marks=parseFloat(m.value)||1;
+    const n=document.getElementById('a-neg');if(n)EC.neg=parseFloat(n.value)||0;
+    const p=document.getElementById('a-pass');if(p)EC.pass=parseInt(p.value)||35;
+    const ap=document.getElementById('a-adminpwd');if(ap)EC.adminpwd=ap.value||'admin123';
+    const st=document.getElementById('a-strict');if(st)EC.strict=st.checked;
+    const ws=document.getElementById('a-window-start');if(ws)EC.windowStart=ws.value;
+    const we=document.getElementById('a-window-end');if(we)EC.windowEnd=we.value;
+    const ge=document.getElementById('a-gform-enabled');if(ge)EC.gformEnabled=ge.checked;
+    save();
+    showAutoSaveBadge();
+  },600);
+}
+function showAutoSaveBadge(){
+  let badge=document.getElementById('autosave-badge');
+  if(!badge){
+    badge=document.createElement('div');
+    badge.id='autosave-badge';
+    badge.style.cssText='position:fixed;bottom:20px;right:20px;background:#22c97a;color:#0a1a0f;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;z-index:9999;transition:opacity .5s';
+    document.body.appendChild(badge);
+  }
+  badge.textContent='✓ Saved';badge.style.opacity='1';
+  clearTimeout(badge._t);badge._t=setTimeout(()=>badge.style.opacity='0',1800);
+}
+function attachSettingsListeners(){
+  ['a-title','a-type','a-duration','a-marks','a-neg','a-pass','a-adminpwd','a-strict','a-window-start','a-window-end','a-gform-enabled'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){el.addEventListener('input',syncSettings);el.addEventListener('change',syncSettings);}
+  });
+}
 function parseGFormURL(){
   const url=document.getElementById('a-gform-url').value.trim();
   const st=document.getElementById('gform-status');
@@ -774,6 +821,7 @@ function parseGFormURL(){
   EC.gformFormId=idM[1];
   EC.gformFields=entries.map((id,i)=>({id,name:GFIELDS[i]||'Field '+(i+1)}));
   EC.gformUrl=url;
+  save(); showAutoSaveBadge();
   showGFormPreview(EC.gformFields);
   st.textContent='✓ Parsed '+entries.length+' fields';st.style.color='var(--green)';
 }
