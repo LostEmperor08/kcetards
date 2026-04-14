@@ -15,18 +15,12 @@ input{font-family:var(--sans)}
 .screen.active{display:flex;flex-direction:column}
 #s-instructions,#s-results{height:auto;min-height:100vh;overflow-y:auto}
 #s-instructions.active,#s-results.active{display:flex}
-
-/* SHARED */
 .wrap{max-width:880px;margin:0 auto;padding:2rem 1.5rem 4rem}
 .logo{font-size:22px;font-weight:600;letter-spacing:-0.5px;color:var(--text);margin-bottom:2rem}
 .logo span{color:var(--accent)}
-.sec-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:10px}
 .btn{padding:8px 18px;border-radius:6px;font-size:13px;font-weight:500;border:none;transition:all .15s;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
 .btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#3a6ae8}
 .btn-outline{background:transparent;border:1px solid var(--border2);color:var(--text)}.btn-outline:hover{background:var(--surface2)}
-.btn-danger{background:transparent;border:1px solid #f05a5a44;color:var(--red)}.btn-danger:hover{background:#f05a5a15}
-
-/* LOGIN */
 #s-login{background:var(--bg);justify-content:center;align-items:center}
 .login-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2.5rem 2rem;width:100%;max-width:400px}
 .login-logo{font-size:26px;font-weight:600;margin-bottom:2px;letter-spacing:-0.5px}
@@ -43,8 +37,6 @@ input{font-family:var(--sans)}
 .window-badge.open{background:#22c97a20;color:var(--green);border:1px solid #22c97a40}
 .window-badge.closed{background:#f05a5a20;color:var(--red);border:1px solid #f05a5a40}
 .window-badge.upcoming{background:#f5a62320;color:var(--orange);border:1px solid #f5a62340}
-
-/* INSTRUCTIONS */
 .inst-wrap{max-width:760px;margin:0 auto;padding:2rem 1.5rem 4rem}
 .inst-title{font-size:22px;font-weight:600;margin-bottom:4px}
 .inst-sub{font-size:13px;color:var(--muted);margin-bottom:1.5rem}
@@ -54,8 +46,6 @@ input{font-family:var(--sans)}
 .nl-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0}
 .rule-item{display:flex;gap:8px;margin-bottom:8px;font-size:13px;color:var(--muted)}
 .rule-item::before{content:'•';color:var(--accent);flex-shrink:0;margin-top:1px}
-
-/* EXAM */
 #s-exam{flex-direction:row}
 .exam-topbar{position:fixed;top:0;left:0;right:0;height:52px;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:14px}
 .exam-logo{font-size:14px;font-weight:600;flex-shrink:0}.exam-logo span{color:var(--accent)}
@@ -67,7 +57,6 @@ input{font-family:var(--sans)}
 .timer-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;text-align:right}
 .submit-top-btn{padding:7px 14px;background:var(--red);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;flex-shrink:0}
 .subj-bar{position:fixed;top:52px;left:0;right:260px;height:40px;z-index:99;background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 12px;gap:4px;overflow-x:auto}
-.subj-bar::-webkit-scrollbar{height:0}
 .subj-btn{padding:4px 13px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
 .subj-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 .exam-main{margin-top:92px;margin-right:260px;height:calc(100vh - 92px);overflow-y:auto;padding:1.5rem 1.5rem 6rem}
@@ -77,7 +66,6 @@ input{font-family:var(--sans)}
 .q-id{font-family:var(--mono);font-size:12px;color:var(--muted)}
 .q-badge{font-size:11px;padding:2px 8px;border-radius:4px}
 .q-text{font-size:15px;line-height:1.75;color:var(--text);margin-bottom:1rem;white-space:pre-line}
-.q-img{max-width:100%;max-height:320px;border-radius:8px;border:1px solid var(--border);display:block;margin-bottom:1rem}
 .option{display:flex;align-items:flex-start;gap:12px;padding:11px 14px;border:1px solid var(--border);border-radius:8px;margin-bottom:7px;cursor:pointer;transition:all .15s;background:var(--surface)}
 .option:hover{border-color:var(--border2);background:var(--surface2)}
 .option.chosen{border-color:var(--accent);background:#4f7ef815}
@@ -89,8 +77,6 @@ input{font-family:var(--sans)}
 .btn-clear{padding:7px 14px;background:transparent;border:1px solid var(--border2);color:var(--muted);border-radius:6px;font-size:12px;cursor:pointer}
 .btn-save-next{padding:7px 18px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer}
 .btn-prev{padding:7px 14px;background:transparent;border:1px solid var(--border2);color:var(--text);border-radius:6px;font-size:12px;cursor:pointer}
-
-/* NAVIGATOR */
 .exam-nav{position:fixed;top:52px;right:0;width:260px;height:calc(100vh - 52px);background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
 .nav-header{padding:10px 14px 8px;border-bottom:1px solid var(--border)}
 .nav-sname{font-size:13px;font-weight:600}
@@ -113,8 +99,6 @@ input{font-family:var(--sans)}
 .nav-summary{padding:8px 14px;border-top:1px solid var(--border)}
 .nav-sum-row{display:flex;justify-content:space-between;margin-bottom:3px;font-size:12px}
 .nav-sum-val{font-weight:600;font-family:var(--mono)}
-
-/* MODALS */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:none;align-items:center;justify-content:center}
 .modal-overlay.open{display:flex}
 .modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem;width:100%;max-width:440px}
@@ -126,16 +110,12 @@ input{font-family:var(--sans)}
 .mstat-label{font-size:11px;color:var(--muted)}
 .modal-btns{display:flex;gap:8px}
 .modal-btns button{flex:1}
-
-/* TAB WARN */
 .tabwarn{position:fixed;inset:0;background:#0f1117f5;z-index:999;display:none;align-items:center;justify-content:center}
 .tabwarn.show{display:flex}
 .tabwarn-box{background:var(--surface);border:2px solid var(--red);border-radius:12px;padding:2.5rem;text-align:center;max-width:380px}
 .tabwarn h2{font-size:18px;font-weight:600;margin-bottom:8px;color:var(--red)}
 .tabwarn p{font-size:13px;color:var(--muted);margin-bottom:12px}
 .warn-count{font-family:var(--mono);color:var(--orange);font-size:13px;margin-bottom:14px}
-
-/* RESULTS */
 .res-wrap{max-width:860px;margin:0 auto;padding:2rem 1.5rem 4rem}
 .score-circle{width:130px;height:130px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:4px solid var(--accent);margin:1rem auto}
 .score-val{font-size:32px;font-weight:600;font-family:var(--mono);line-height:1}
@@ -157,15 +137,10 @@ input{font-family:var(--sans)}
 .rs-correct{background:#22c97a20;color:var(--green)}.rs-wrong{background:#f05a5a20;color:var(--red)}.rs-skip{background:var(--surface2);color:var(--muted)}
 .ro{font-size:12px;padding:4px 10px;border-radius:4px;margin-bottom:3px}
 .ro-correct{background:#22c97a15;color:var(--green)}.ro-wrong{background:#f05a5a15;color:var(--red)}.ro-plain{color:var(--muted)}
-
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
-
-@media(max-width:680px){
-  .exam-nav{width:200px}.subj-bar{right:200px}.exam-main{margin-right:200px}
-  .res-stats-grid{grid-template-columns:1fr 1fr}
-}
+@media(max-width:680px){.exam-nav{width:200px}.subj-bar{right:200px}.exam-main{margin-right:200px}.res-stats-grid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -219,21 +194,14 @@ input{font-family:var(--sans)}
     <h3>Marking scheme</h3>
     <div class="legend-row"><span id="inst-marks" style="background:#22c97a20;color:var(--green);padding:2px 10px;border-radius:4px;font-weight:600;font-size:13px">+1</span> correct answer</div>
     <div class="legend-row"><span id="inst-neg" style="background:#f05a5a20;color:var(--red);padding:2px 10px;border-radius:4px;font-weight:600;font-size:13px">0</span> incorrect answer</div>
-    <div class="legend-row"><span style="background:var(--surface2);color:var(--muted);padding:2px 10px;border-radius:4px;font-size:13px">0</span> unattempted</div>
   </div>
-  <div class="inst-block">
-    <h3>Exam window</h3>
-    <div id="inst-window" style="font-size:13px;color:var(--muted)"></div>
-  </div>
-  <div class="inst-block">
-    <h3>Rules</h3>
-    <div id="inst-rules"></div>
-  </div>
+  <div class="inst-block"><h3>Exam window</h3><div id="inst-window" style="font-size:13px;color:var(--muted)"></div></div>
+  <div class="inst-block"><h3>Rules</h3><div id="inst-rules"></div></div>
   <div style="display:flex;align-items:center;gap:10px;margin:1.5rem 0;font-size:13px">
     <input type="checkbox" id="agree-check" style="accent-color:var(--accent);width:16px;height:16px" onchange="document.getElementById('start-btn').disabled=!this.checked">
-    <label for="agree-check" style="cursor:pointer">I have read and agree to all exam rules and instructions.</label>
+    <label for="agree-check" style="cursor:pointer">I have read and agree to all exam rules.</label>
   </div>
-  <button id="start-btn" disabled onclick="startExam()" style="padding:12px 36px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;opacity:.4" onmouseenter="if(!this.disabled)this.style.background='#3a6ae8'" onmouseleave="this.style.background=this.disabled?'':'var(--accent)'">Start exam →</button>
+  <button id="start-btn" disabled onclick="startExam()" style="padding:12px 36px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;opacity:.4">Start exam →</button>
 </div>
 </div>
 
@@ -241,17 +209,12 @@ input{font-family:var(--sans)}
   <div class="exam-topbar">
     <div class="exam-logo">KCET<span>ARDs</span></div>
     <div class="exam-student" id="exam-sname"></div>
-    <div style="flex-shrink:0;text-align:right">
-      <div class="timer-label">Time left</div>
-      <div class="exam-timer" id="exam-timer">00:00:00</div>
-    </div>
+    <div style="flex-shrink:0;text-align:right"><div class="timer-label">Time left</div><div class="exam-timer" id="exam-timer">00:00:00</div></div>
     <button class="submit-top-btn" onclick="openSubmitModal()">Submit</button>
   </div>
   <div class="subj-bar" id="subj-bar"></div>
   <div class="exam-main" id="exam-main">
-    <div class="q-meta" id="q-meta"></div>
-    <div class="q-text" id="q-text"></div>
-    <img id="q-img" class="q-img" style="display:none" src="" alt="Question image">
+    <div class="q-meta" id="q-meta"></div><div class="q-text" id="q-text"></div>
     <div id="q-opts"></div>
     <div class="q-actions">
       <button class="btn-review" onclick="toggleReview()">Mark for review</button>
@@ -262,15 +225,10 @@ input{font-family:var(--sans)}
     </div>
   </div>
   <div class="exam-nav">
-    <div class="nav-header">
-      <div class="nav-sname" id="nav-sname"></div>
-      <div class="nav-sroll" id="nav-sroll"></div>
-    </div>
+    <div class="nav-header"><div class="nav-sname" id="nav-sname"></div><div class="nav-sroll" id="nav-sroll"></div></div>
     <div class="nav-legend">
       <div class="nav-leg-row"><div class="nav-dot" style="background:#2a3045;border:1px solid var(--border2)"></div>Not visited</div>
-      <div class="nav-leg-row"><div class="nav-dot" style="background:var(--red)"></div>Not answered</div>
       <div class="nav-leg-row"><div class="nav-dot" style="background:var(--green)"></div>Answered</div>
-      <div class="nav-leg-row"><div class="nav-dot" style="background:var(--visited)"></div>Marked</div>
     </div>
     <div class="nav-scroll" id="nav-scroll"></div>
     <div class="nav-summary" id="nav-summary"></div>
@@ -281,11 +239,7 @@ input{font-family:var(--sans)}
 <div class="res-wrap">
   <div style="text-align:center;margin-bottom:1.5rem">
     <div style="font-size:22px;font-weight:600" id="r-name"></div>
-    <div style="font-size:13px;color:var(--muted);font-family:var(--mono)" id="r-roll"></div>
-    <div class="score-circle" id="r-circle">
-      <div class="score-val" id="r-score"></div>
-      <div class="score-lbl" id="r-score-lbl">Score</div>
-    </div>
+    <div class="score-circle" id="r-circle"><div class="score-val" id="r-score"></div><div class="score-lbl" id="r-score-lbl">Score</div></div>
     <div><span class="pass-badge" id="r-pass"></span></div>
     <div style="font-size:13px;color:var(--muted);margin-top:8px" id="r-summary"></div>
   </div>
@@ -294,43 +248,31 @@ input{font-family:var(--sans)}
   <div class="subj-breakdown" id="r-subj"></div>
   <div class="sec-title">Answer review</div>
   <div id="r-review"></div>
-  <div style="display:flex;gap:8px;margin-top:1.5rem;flex-wrap:wrap">
-    <button class="btn btn-outline" onclick="goToLogin()">Back to login</button>
-  </div>
+  <div style="display:flex;gap:8px;margin-top:1.5rem;flex-wrap:wrap"><button class="btn btn-outline" onclick="goToLogin()">Back to login</button></div>
   <div id="r-gform-status" style="display:none;margin-top:10px;font-size:13px;padding:8px 12px;background:var(--surface);border:1px solid var(--border);border-radius:6px"></div>
 </div>
 </div>
 
 <script>
-// ═══════════════════════════════════
-// STATE
-// ═══════════════════════════════════
 let EC = null, student = null, allQ = [], qStates = [], qAns = [];
-let timerInt = null, timeLeft = 0, warnCount = 0, examStarted = false, strictMode = true;
-let curQ = 0;
+let timerInt = null, timeLeft = 0, warnCount = 0, examStarted = false, curQ = 0;
 
-// ═══════════════════════════════════
-// GITHUB DIRECT LOAD CONFIGURATION
-// ═══════════════════════════════════
+const scriptUrl = "https://script.google.com/macros/s/AKfycbztA9c2EYpLD3SVEt6Dml9fshC7L6blKdOIqK4agW-0UW1hnwybhFbSB1AqZ4a5g43J/exec";
+
 async function load() {
   try {
     const response = await fetch('./exam_data.json'); 
     if (!response.ok) throw new Error("File not found");
-    const data = await response.json();
-    EC = data;
+    EC = await response.json();
     initLogin();
   } catch (error) {
-    document.getElementById('login-title').textContent = "Error: Exam data not found. Please contact the administrator.";
-    document.getElementById('login-title').style.color = "var(--red)";
+    document.getElementById('login-title').textContent = "Error loading exam data.";
   }
 }
 
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 function pad(n){return String(n).padStart(2,'0');}
 
-// ═══════════════════════════════════
-// WINDOW CHECK
-// ═══════════════════════════════════
 function getWindowStatus(){
   if(!EC.windowStart && !EC.windowEnd) return 'open';
   const now = Date.now();
@@ -342,292 +284,139 @@ function getWindowStatus(){
 }
 function fmtDate(iso){if(!iso)return'—';const d=new Date(iso);return d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});}
 
-// ═══════════════════════════════════
-// LOGIN
-// ═══════════════════════════════════
 function initLogin(){
   document.getElementById('login-title').textContent=EC.title;
   const ws=getWindowStatus();
   const badge=document.getElementById('window-status-badge');
   if(ws==='open'){
     if(EC.windowEnd) badge.innerHTML=`<span class="window-badge open">● Exam open · closes ${fmtDate(EC.windowEnd)}</span>`;
-    else badge.innerHTML='';
   } else if(ws==='upcoming'){
     badge.innerHTML=`<span class="window-badge upcoming">⏰ Opens ${fmtDate(EC.windowStart)}</span>`;
   } else {
     badge.innerHTML=`<span class="window-badge closed">✕ Exam window closed</span>`;
   }
 }
+
 function doLogin(){
-  if(!EC) return;
   const name=document.getElementById('l-name').value.trim();
   const pass=document.getElementById('l-pass').value.trim();
   const err=document.getElementById('login-err');
-  
   const ws=getWindowStatus();
-  if(ws==='upcoming'){err.textContent='Exam not started yet. Opens '+fmtDate(EC.windowStart);return;}
+  if(ws==='upcoming'){err.textContent='Exam not started yet.';return;}
   if(ws==='closed'){err.textContent='Exam window has closed.';return;}
-  
-  if(!name || !pass){err.textContent='Please enter your name and the passcode.';return;}
-  
-  if(pass !== EC.adminpwd){err.textContent='Incorrect exam passcode.';return;}
-  
-  student = { name: name, roll: '' }; 
-  err.textContent='';
+  if(!name || !pass){err.textContent='Enter name and passcode.';return;}
+  if(pass !== EC.adminpwd){err.textContent='Incorrect passcode.';return;}
+  student = { name: name, roll: '' };
   showInstructions();
 }
 
-// ═══════════════════════════════════
-// INSTRUCTIONS
-// ═══════════════════════════════════
 function showInstructions(){
   document.getElementById('inst-title').textContent=EC.title;
   document.getElementById('inst-sub').textContent=student.name;
   document.getElementById('inst-marks').textContent='+'+EC.marks;
   document.getElementById('inst-neg').textContent=(EC.neg>0?'−'+EC.neg:'0');
-  const ws=document.getElementById('inst-window');
-  if(EC.windowStart||EC.windowEnd){
-    ws.innerHTML=`<div style="display:flex;gap:12px;flex-wrap:wrap;font-size:13px">
-      <span>Opens: <strong style="color:var(--text)">${fmtDate(EC.windowStart)||'—'}</strong></span>
-      <span>Closes: <strong style="color:var(--text)">${fmtDate(EC.windowEnd)||'—'}</strong></span>
-    </div>
-    <div style="font-size:12px;color:var(--muted);margin-top:4px">You have ${EC.duration} minutes once you start. Start before the window closes.</div>`;
-  } else {
-    ws.textContent='No window restriction — available anytime.';
-  }
-  const rules=[
-    'Duration: '+EC.duration+' minutes. Auto-submits when time runs out.',
-    'Do not refresh or close the browser tab during the exam.',
-    EC.strict?'Strict mode ON — tab switching triggers a warning. 3 warnings = auto-submit.':'Tab-switch detection is disabled.',
-    'Select one answer per question. You can change your answer any time before submitting.',
-    'Correct: +'+EC.marks+'. '+(EC.neg>0?'Wrong: −'+EC.neg+'.':' No negative marking.')+' Unattempted: 0.',
-    'Use "Mark for review" to flag questions to revisit.',
-    'Click Submit only when you are done — this cannot be undone.',
-  ];
+  const rules=['Duration: '+EC.duration+' mins.','Tab switching triggers warning.','3 warnings = auto-submit.'];
   document.getElementById('inst-rules').innerHTML=rules.map(r=>`<div class="rule-item">${r}</div>`).join('');
-  document.getElementById('agree-check').checked=false;
-  const btn=document.getElementById('start-btn');
-  btn.disabled=true; btn.style.opacity='.4';
-  document.getElementById('agree-check').onchange=e=>{btn.disabled=!e.target.checked;btn.style.opacity=e.target.checked?'1':'.4';};
   showScreen('s-instructions');
 }
 
-// ═══════════════════════════════════
-// EXAM
-// ═══════════════════════════════════
-function buildAllQ(){
+function startExam(){
   allQ=[];
   EC.subjects.forEach((subj,si)=>subj.questions.forEach((q,qi)=>allQ.push({...q,si,subjName:subj.name,subjColor:subj.color,gi:allQ.length})));
-}
-function startExam(){
-  buildAllQ();
-  if(!allQ.length){alert('No questions configured.');return;}
   qStates=allQ.map(()=>'unvisited'); qAns=allQ.map(()=>-1);
-  curQ=0; warnCount=0; examStarted=true; strictMode=EC.strict;
+  curQ=0; warnCount=0; examStarted=true;
   timeLeft=EC.duration*60;
   document.getElementById('exam-sname').textContent=student.name;
   document.getElementById('nav-sname').textContent=student.name;
-  document.getElementById('nav-sroll').textContent='Candidate';
   buildSubjBar(); renderQ(); startTimer();
-  if(strictMode) watchVisibility();
+  if(EC.strict) watchVisibility();
   showScreen('s-exam');
 }
+
 function buildSubjBar(){
-  document.getElementById('subj-bar').innerHTML=
-    `<button class="subj-btn active" onclick="filterSubj(-1)">All</button>`+
-    EC.subjects.map((s,i)=>`<button class="subj-btn" id="stab${i}" onclick="filterSubj(${i})">${s.name}</button>`).join('');
+  document.getElementById('subj-bar').innerHTML=`<button class="subj-btn active" onclick="filterSubj(-1)">All</button>`+EC.subjects.map((s,i)=>`<button class="subj-btn" id="stab${i}" onclick="filterSubj(${i})">${s.name}</button>`).join('');
 }
 function filterSubj(si){
   document.querySelectorAll('.subj-btn').forEach(b=>b.classList.remove('active'));
-  if(si===-1) document.querySelector('.subj-btn').classList.add('active');
-  else document.getElementById('stab'+si)?.classList.add('active');
   const fi=si===-1?0:allQ.findIndex(q=>q.si===si);
   if(fi>=0) goToQ(fi);
 }
 function renderQ(){
-  const q=allQ[curQ]; if(!q)return;
+  const q=allQ[curQ];
   if(qStates[curQ]==='unvisited') qStates[curQ]='not-answered';
-  document.getElementById('q-meta').innerHTML=`
-    <span class="q-id">Q${curQ+1} / ${allQ.length}</span>
-    <span class="q-badge" style="background:${q.subjColor}22;color:${q.subjColor};border:1px solid ${q.subjColor}44">${q.subjName}</span>
-    <span class="q-badge" style="background:#22c97a18;color:var(--green);border:1px solid #22c97a30">+${EC.marks}</span>
-    ${EC.neg>0?`<span class="q-badge" style="background:#f05a5a18;color:var(--red);border:1px solid #f05a5a30">−${EC.neg}</span>`:''}
-  `;
+  document.getElementById('q-meta').innerHTML=`<span class="q-id">Q${curQ+1}/${allQ.length}</span><span class="q-badge" style="color:${q.subjColor}">${q.subjName}</span>`;
   document.getElementById('q-text').textContent=q.text;
-  const imgEl=document.getElementById('q-img');
-  if(q.image){imgEl.src=q.image;imgEl.style.display='block';}else{imgEl.style.display='none';}
-  document.getElementById('q-opts').innerHTML=q.options.filter(o=>o).map((o,oi)=>`
-    <div class="option${qAns[curQ]===oi?' chosen':''}" onclick="selectOpt(${oi})">
-      <div class="opt-circle">${['A','B','C','D'][oi]}</div>
-      <div class="opt-text">${o}</div>
-    </div>`).join('');
+  document.getElementById('q-opts').innerHTML=q.options.map((o,oi)=>`<div class="option${qAns[curQ]===oi?' chosen':''}" onclick="selectOpt(${oi})"><div class="opt-circle">${['A','B','C','D'][oi]}</div><div class="opt-text">${o}</div></div>`).join('');
   renderNav();
 }
-function selectOpt(oi){
-  qAns[curQ]=oi;
-  qStates[curQ]=qStates[curQ]==='marked'?'marked-answered':'answered';
-  document.querySelectorAll('.option').forEach((el,i)=>el.classList.toggle('chosen',i===oi));
-  renderNav();
-}
-function clearResponse(){qAns[curQ]=-1;qStates[curQ]='not-answered';document.querySelectorAll('.option').forEach(el=>el.classList.remove('chosen'));renderNav();}
-function toggleReview(){
-  const s=qStates[curQ];
-  qStates[curQ]=(s==='marked'||s==='marked-answered')?(qAns[curQ]>=0?'answered':'not-answered'):(qAns[curQ]>=0?'marked-answered':'marked');
-  renderNav();
-}
-function saveAndNext(){if(qAns[curQ]>=0&&qStates[curQ]==='not-answered')qStates[curQ]='answered';if(curQ<allQ.length-1)goToQ(curQ+1);else openSubmitModal();}
+function selectOpt(oi){qAns[curQ]=oi; qStates[curQ]='answered'; renderQ();}
+function clearResponse(){qAns[curQ]=-1; qStates[curQ]='not-answered'; renderQ();}
+function toggleReview(){ qStates[curQ]=qStates[curQ]==='marked'?'answered':'marked'; renderNav(); }
+function saveAndNext(){if(curQ<allQ.length-1)goToQ(curQ+1);else openSubmitModal();}
 function prevQ(){if(curQ>0)goToQ(curQ-1);}
-function goToQ(i){curQ=i;renderQ();document.getElementById('exam-main').scrollTop=0;}
+function goToQ(i){curQ=i;renderQ();}
+
 function renderNav(){
   let html='';
   EC.subjects.forEach((subj,si)=>{
-    const qs=allQ.filter(q=>q.si===si); if(!qs.length)return;
-    html+=`<div class="nav-subj-label" style="color:${subj.color}">${subj.name}</div><div class="nav-grid">`;
-    qs.forEach(q=>{
+    html+=`<div class="nav-subj-label">${subj.name}</div><div class="nav-grid">`;
+    allQ.filter(q=>q.si===si).forEach(q=>{
       const s=qStates[q.gi];
-      const cls=s==='answered'?'answered':s==='not-answered'?'not-answered':s==='marked'?'marked':s==='marked-answered'?'marked-answered':'';
-      html+=`<button class="nav-btn ${cls}${q.gi===curQ?' current':''}" onclick="goToQ(${q.gi})">${q.gi+1}</button>`;
+      html+=`<button class="nav-btn ${s}${q.gi===curQ?' current':''}" onclick="goToQ(${q.gi})">${q.gi+1}</button>`;
     });
     html+='</div>';
   });
   document.getElementById('nav-scroll').innerHTML=html;
-  const ans=qStates.filter(s=>s==='answered'||s==='marked-answered').length;
-  const na=qStates.filter(s=>s==='not-answered').length;
-  const mk=qStates.filter(s=>s==='marked'||s==='marked-answered').length;
-  const nv=qStates.filter(s=>s==='unvisited').length;
-  document.getElementById('nav-summary').innerHTML=`
-    <div class="nav-sum-row"><span style="color:var(--muted)">Answered</span><span class="nav-sum-val" style="color:var(--green)">${ans}</span></div>
-    <div class="nav-sum-row"><span style="color:var(--muted)">Not answered</span><span class="nav-sum-val" style="color:var(--red)">${na}</span></div>
-    <div class="nav-sum-row"><span style="color:var(--muted)">Marked</span><span class="nav-sum-val" style="color:var(--visited)">${mk}</span></div>
-    <div class="nav-sum-row"><span style="color:var(--muted)">Not visited</span><span class="nav-sum-val">${nv}</span></div>`;
 }
 
-// ═══════════════════════════════════
-// TIMER
-// ═══════════════════════════════════
 function startTimer(){
-  if(timerInt)clearInterval(timerInt);
   timerInt=setInterval(()=>{
     timeLeft--;
     const h=Math.floor(timeLeft/3600),m=Math.floor((timeLeft%3600)/60),s=timeLeft%60;
-    const el=document.getElementById('exam-timer');
-    el.textContent=pad(h)+':'+pad(m)+':'+pad(s);
-    el.className='exam-timer'+(timeLeft<=300?' warn':'')+(timeLeft<=60?' danger':'');
-    if(timeLeft<=0){clearInterval(timerInt);confirmSubmit();}
+    document.getElementById('exam-timer').textContent=pad(h)+':'+pad(m)+':'+pad(s);
+    if(timeLeft<=0) confirmSubmit();
   },1000);
 }
 
-// ═══════════════════════════════════
-// STRICT MODE
-// ═══════════════════════════════════
 function watchVisibility(){
   document.addEventListener('visibilitychange',()=>{if(examStarted&&document.hidden)trigWarn();});
   window.addEventListener('blur',()=>{if(examStarted)trigWarn();});
 }
 function trigWarn(){
-  if(!strictMode||!examStarted)return;
   warnCount++;
   document.getElementById('warn-text').textContent='Warning '+warnCount+' of 3';
   document.getElementById('tabwarn').classList.add('show');
-  if(warnCount>=3){document.getElementById('tabwarn').classList.remove('show');confirmSubmit();}
+  if(warnCount>=3) confirmSubmit();
 }
 function dismissWarn(){document.getElementById('tabwarn').classList.remove('show');}
 
-// ═══════════════════════════════════
-// SUBMIT
-// ═══════════════════════════════════
-function openSubmitModal(){
-  const ans=qStates.filter(s=>s==='answered'||s==='marked-answered').length;
-  const na=qStates.filter(s=>s==='not-answered'||s==='unvisited').length;
-  const mk=qStates.filter(s=>s==='marked'||s==='marked-answered').length;
-  document.getElementById('modal-stats').innerHTML=`
-    <div class="mstat"><div class="mstat-val" style="color:var(--green)">${ans}</div><div class="mstat-label">Answered</div></div>
-    <div class="mstat"><div class="mstat-val" style="color:var(--red)">${na}</div><div class="mstat-label">Unattempted</div></div>
-    <div class="mstat"><div class="mstat-val" style="color:var(--visited)">${mk}</div><div class="mstat-label">Marked</div></div>
-    <div class="mstat"><div class="mstat-val">${allQ.length}</div><div class="mstat-label">Total</div></div>`;
-  document.getElementById('submit-modal').classList.add('open');
-}
-function closeModal(){document.getElementById('submit-modal').classList.remove('open');}
+function openSubmitModal(){ document.getElementById('submit-modal').classList.add('open'); }
+function closeModal(){ document.getElementById('submit-modal').classList.remove('open'); }
 function confirmSubmit(){
-  closeModal(); if(timerInt)clearInterval(timerInt);
-  examStarted=false; showResults(); submitGForm();
+  closeModal(); clearInterval(timerInt);
+  examStarted=false; showResults(); submitToSheet();
 }
 
-// ═══════════════════════════════════
-// GOOGLE FORMS SUBMIT
-// ═══════════════════════════════════
-function submitGForm(){
-  if(!EC.gformEnabled||!EC.gformFormId||!EC.gformFields?.length)return;
-  let correct=0,wrong=0,skip=0;
-  allQ.forEach((q,i)=>{const a=qAns[i];if(a<0)skip++;else if(a===q.correct)correct++;else wrong++;});
+function submitToSheet() {
+  let correct=0, wrong=0;
+  allQ.forEach((q,i)=>{const a=qAns[i];if(a===q.correct)correct++;else if(a>=0)wrong++;});
   const total=allQ.length*EC.marks, obt=correct*EC.marks-wrong*EC.neg;
   const pct=Math.max(0,Math.round(obt/total*100));
-  const elapsed=EC.duration*60-timeLeft, em=Math.floor(elapsed/60), es=elapsed%60;
-  const subjScores=EC.subjects.map(subj=>{
-    const qs=allQ.filter(q=>q.subjName===subj.name);let sc=0,sw=0;
-    qs.forEach(q=>{const a=qAns[q.gi];if(a===q.correct)sc++;else if(a>=0)sw++;});
-    return subj.name+':'+sc+'C/'+sw+'W';
-  }).join(' | ');
-  const vals=[student.name,student.roll,EC.title,String(obt),String(total),pct+'%',pct>=EC.pass?'Qualified':'Not Qualified',String(correct),String(wrong),String(skip),pad(em)+'m '+pad(es)+'s',subjScores,String(warnCount)];
-  const base=`https://docs.google.com/forms/d/e/${EC.gformFormId}/formResponse`;
-  const iframe=document.createElement('iframe');iframe.style.display='none';iframe.name='gf'+Date.now();document.body.appendChild(iframe);
-  const form=document.createElement('form');form.method='POST';form.action=base;form.target=iframe.name;form.style.display='none';
-  EC.gformFields.forEach((f,i)=>{const inp=document.createElement('input');inp.type='hidden';inp.name='entry.'+f.id;inp.value=vals[i]||'';form.appendChild(inp);});
-  const si=document.createElement('input');si.type='hidden';si.name='submit';si.value='Submit';form.appendChild(si);
-  document.body.appendChild(form);form.submit();
-  const sd=document.getElementById('r-gform-status');
-  if(sd){sd.style.display='block';sd.innerHTML='<span style="color:var(--green)">✓ Result submitted to Google Sheets</span>';}
-  setTimeout(()=>{try{document.body.removeChild(form);document.body.removeChild(iframe);}catch(e){}},5000);
+  const payload = { name: student.name, score: obt, total: total, percent: pct, tabs: warnCount, title: EC.title };
+  fetch(scriptUrl, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+  .then(() => { document.getElementById('r-gform-status').style.display='block'; document.getElementById('r-gform-status').innerHTML='<span style="color:var(--green)">✓ Score recorded for Leaderboard</span>'; });
 }
 
-// ═══════════════════════════════════
-// RESULTS
-// ═══════════════════════════════════
 function showResults(){
-  let correct=0,wrong=0,skip=0;
+  let correct=0, wrong=0, skip=0;
   allQ.forEach((q,i)=>{const a=qAns[i];if(a<0)skip++;else if(a===q.correct)correct++;else wrong++;});
   const total=allQ.length*EC.marks, obt=correct*EC.marks-wrong*EC.neg;
-  const pct=Math.max(0,Math.round(obt/total*100)), passed=pct>=EC.pass;
   document.getElementById('r-name').textContent=student.name;
   document.getElementById('r-score').textContent=obt;
-  document.getElementById('r-score-lbl').textContent='out of '+total;
-  const pb=document.getElementById('r-pass');pb.textContent=passed?'Qualified ✓':'Not qualified';pb.className='pass-badge '+(passed?'pass':'fail');
-  document.getElementById('r-summary').textContent=correct+' correct · '+wrong+' wrong · '+skip+' unattempted · '+pct+'% accuracy';
-  const elapsed=EC.duration*60-timeLeft,em=Math.floor(elapsed/60),es=elapsed%60;
-  document.getElementById('r-stats').innerHTML=`
-    <div class="res-stat"><div class="res-stat-val" style="color:var(--green)">${correct}</div><div class="res-stat-lbl">Correct</div></div>
-    <div class="res-stat"><div class="res-stat-val" style="color:var(--red)">${wrong}</div><div class="res-stat-lbl">Wrong</div></div>
-    <div class="res-stat"><div class="res-stat-val">${skip}</div><div class="res-stat-lbl">Unattempted</div></div>
-    <div class="res-stat"><div class="res-stat-val">${pad(em)}m ${pad(es)}s</div><div class="res-stat-lbl">Time taken</div></div>`;
-  document.getElementById('r-subj').innerHTML=EC.subjects.map(subj=>{
-    const qs=allQ.filter(q=>q.subjName===subj.name);let sc=0,sw=0,ss=0;
-    qs.forEach(q=>{const a=qAns[q.gi];if(a<0)ss++;else if(a===q.correct)sc++;else sw++;});
-    const sp=qs.length?Math.round(sc/qs.length*100):0;
-    return `<div class="subj-card"><div style="font-size:13px;font-weight:600;color:${subj.color};margin-bottom:6px">${subj.name}</div>
-      <div class="subj-bar-wrap"><div class="subj-bar-fill" style="width:${sp}%;background:${subj.color}"></div></div>
-      <div style="display:flex;gap:8px;font-size:11px;color:var(--muted)"><span style="color:var(--green)">${sc} correct</span><span style="color:var(--red)">${sw} wrong</span><span>${ss} skipped</span></div>
-    </div>`;
-  }).join('');
-  document.getElementById('r-review').innerHTML=allQ.map((q,i)=>{
-    const a=qAns[i],ok=a===q.correct,sk=a<0;
-    return `<div class="review-q">
-      <div class="review-q-head">
-        <span style="font-size:11px;color:var(--muted);font-family:var(--mono)">Q${i+1}</span>
-        <span class="rs ${sk?'rs-skip':ok?'rs-correct':'rs-wrong'}">${sk?'Skipped':ok?'Correct':'Incorrect'}</span>
-        <span style="font-size:11px;color:${q.subjColor};background:${q.subjColor}18;padding:2px 7px;border-radius:4px">${q.subjName}</span>
-      </div>
-      ${q.image?`<img src="${q.image}" style="max-width:100%;max-height:160px;border-radius:6px;margin-bottom:6px;display:block">` :''}
-      <div style="font-size:13px;margin-bottom:6px;line-height:1.6">${q.text}</div>
-      ${q.options.map((o,oi)=>{let c='ro-plain';if(oi===q.correct)c='ro-correct';else if(oi===a&&a!==q.correct)c='ro-wrong';return`<div class="ro ${c}">${['A','B','C','D'][oi]}. ${o}${oi===q.correct?' ✓':''}${oi===a&&a!==q.correct?' ✗':''}</div>`;}).join('')}
-    </div>`;
-  }).join('');
+  document.getElementById('r-summary').textContent=correct+' correct · '+wrong+' wrong · '+skip+' skipped';
   showScreen('s-results');
 }
-function goToLogin(){student=null;examStarted=false;document.getElementById('l-name').value='';document.getElementById('l-pass').value='';showScreen('s-login');}
-
-// ═══════════════════════════════════
-// INIT
-// ═══════════════════════════════════
+function goToLogin(){location.reload();}
 load();
 </script>
 </body>
