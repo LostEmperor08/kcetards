@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KCET ARDs — Exam Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1117;--surface:#181c27;--surface2:#1f2434;--border:#2a3045;--border2:#3a4560;--text:#e8eaf2;--muted:#7a83a0;--accent:#4f7ef8;--green:#22c97a;--red:#f05a5a;--orange:#f5a623;--visited:#9b59b6;--mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:var(--sans);background:var(--bg);color:var(--text);font-size:14px;line-height:1.6}
+button{font-family:var(--sans);cursor:pointer}
+input,select,textarea{font-family:var(--sans)}
+.screen{display:none;height:100vh;overflow:hidden}
+.screen.active{display:flex;flex-direction:column}
+#s-admin,#s-instructions,#s-results{height:auto;min-height:100vh;overflow-y:auto}
+#s-admin.active,#s-instructions.active,#s-results.active{display:flex}
+
+/* SHARED */
+.wrap{max-width:880px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.logo{font-size:22px;font-weight:600;letter-spacing:-0.5px;color:var(--text);margin-bottom:2rem}
+.logo span{color:var(--accent)}
+.sec-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:10px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.25rem;margin-bottom:1rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+input[type=text],input[type=number],input[type=password],input[type=datetime-local],select,textarea{width:100%;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;outline:none;transition:border .15s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+textarea{resize:vertical;min-height:56px}
+.btn{padding:8px 18px;border-radius:6px;font-size:13px;font-weight:500;border:none;transition:all .15s;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#3a6ae8}
+.btn-outline{background:transparent;border:1px solid var(--border2);color:var(--text)}.btn-outline:hover{background:var(--surface2)}
+.btn-danger{background:transparent;border:1px solid #f05a5a44;color:var(--red)}.btn-danger:hover{background:#f05a5a15}
+.btn-green{background:var(--green);color:#0a1a0f}.btn-green:hover{opacity:.9}
+.btn-orange{background:var(--orange);color:#000}.btn-orange:hover{opacity:.9}
+.divider{border:none;border-top:1px solid var(--border);margin:1.5rem 0}
+.chk-row{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:var(--text);margin-top:8px}
+.chk-row input{accent-color:var(--accent);width:15px;height:15px;flex-shrink:0}
+.info-box{background:#4f7ef810;border:1px solid #4f7ef840;border-radius:8px;padding:10px 14px;font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:12px}
+.info-box span{color:var(--accent)}
+
+/* ADMIN Q blocks */
+.q-block{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:10px}
+.q-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.q-num{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.opt-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.opt-row input[type=text]{flex:1}
+.opt-row input[type=radio]{accent-color:var(--accent);width:15px;height:15px;flex-shrink:0}
+.img-preview{max-width:100%;max-height:200px;border-radius:6px;border:1px solid var(--border);margin-top:6px;display:block}
+.stab{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all .15s}
+.stab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* STUDENTS */
+.students-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;margin-bottom:1rem}
+.student-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.student-card .sname{font-size:13px;font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.student-card .sroll{font-family:var(--mono);font-size:11px;color:var(--accent)}
+.student-card .spwd{font-family:var(--mono);font-size:10px;color:var(--muted)}
+
+/* LOGIN */
+#s-login{background:var(--bg);justify-content:center;align-items:center}
+.login-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2.5rem 2rem;width:100%;max-width:400px}
+.login-logo{font-size:26px;font-weight:600;margin-bottom:2px;letter-spacing:-0.5px}
+.login-logo span{color:var(--accent)}
+.login-sub{font-size:13px;color:var(--muted);margin-bottom:1.5rem}
+.login-field{margin-bottom:14px}
+.login-field label{font-size:12px;color:var(--muted);display:block;margin-bottom:5px}
+.login-field input{width:100%;padding:10px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:var(--text);font-size:14px;outline:none}
+.login-field input:focus{border-color:var(--accent)}
+.login-btn{width:100%;padding:11px;background:var(--accent);color:#fff;border:none;border-radius:7px;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s;margin-top:6px}
+.login-btn:hover{background:#3a6ae8}
+.login-err{font-size:12px;color:var(--red);margin-top:8px;min-height:18px}
+.admin-link{font-size:12px;color:var(--muted);text-align:center;margin-top:16px}
+.admin-link span{color:var(--accent);cursor:pointer}
+.window-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;padding:4px 10px;border-radius:20px;margin-bottom:12px}
+.window-badge.open{background:#22c97a20;color:var(--green);border:1px solid #22c97a40}
+.window-badge.closed{background:#f05a5a20;color:var(--red);border:1px solid #f05a5a40}
+.window-badge.upcoming{background:#f5a62320;color:var(--orange);border:1px solid #f5a62340}
+
+/* INSTRUCTIONS */
+.inst-wrap{max-width:760px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.inst-title{font-size:22px;font-weight:600;margin-bottom:4px}
+.inst-sub{font-size:13px;color:var(--muted);margin-bottom:1.5rem}
+.inst-block{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.25rem;margin-bottom:1rem}
+.inst-block h3{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
+.legend-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px}
+.nl-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0}
+.rule-item{display:flex;gap:8px;margin-bottom:8px;font-size:13px;color:var(--muted)}
+.rule-item::before{content:'•';color:var(--accent);flex-shrink:0;margin-top:1px}
+
+/* EXAM */
+#s-exam{flex-direction:row}
+.exam-topbar{position:fixed;top:0;left:0;right:0;height:52px;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:14px}
+.exam-logo{font-size:14px;font-weight:600;flex-shrink:0}.exam-logo span{color:var(--accent)}
+.exam-student{font-size:12px;color:var(--muted);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.exam-timer{font-family:var(--mono);font-size:18px;font-weight:500;min-width:90px;text-align:right;flex-shrink:0}
+.exam-timer.warn{color:var(--orange)}
+.exam-timer.danger{color:var(--red);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.timer-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;text-align:right}
+.submit-top-btn{padding:7px 14px;background:var(--red);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;flex-shrink:0}
+.subj-bar{position:fixed;top:52px;left:0;right:260px;height:40px;z-index:99;background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 12px;gap:4px;overflow-x:auto}
+.subj-bar::-webkit-scrollbar{height:0}
+.subj-btn{padding:4px 13px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0}
+.subj-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.exam-main{margin-top:92px;margin-right:260px;height:calc(100vh - 92px);overflow-y:auto;padding:1.5rem 1.5rem 6rem}
+.exam-main::-webkit-scrollbar{width:4px}
+.exam-main::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.q-meta{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.q-id{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.q-badge{font-size:11px;padding:2px 8px;border-radius:4px}
+.q-text{font-size:15px;line-height:1.75;color:var(--text);margin-bottom:1rem;white-space:pre-line}
+.q-img{max-width:100%;max-height:320px;border-radius:8px;border:1px solid var(--border);display:block;margin-bottom:1rem}
+.option{display:flex;align-items:flex-start;gap:12px;padding:11px 14px;border:1px solid var(--border);border-radius:8px;margin-bottom:7px;cursor:pointer;transition:all .15s;background:var(--surface)}
+.option:hover{border-color:var(--border2);background:var(--surface2)}
+.option.chosen{border-color:var(--accent);background:#4f7ef815}
+.opt-circle{width:27px;height:27px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;margin-top:2px;color:var(--muted);transition:all .15s}
+.option.chosen .opt-circle{background:var(--accent);border-color:var(--accent);color:#fff}
+.opt-text{font-size:14px;line-height:1.6;padding-top:2px}
+.q-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border)}
+.btn-review{padding:7px 14px;background:var(--orange);color:#000;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer}
+.btn-clear{padding:7px 14px;background:transparent;border:1px solid var(--border2);color:var(--muted);border-radius:6px;font-size:12px;cursor:pointer}
+.btn-save-next{padding:7px 18px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer}
+.btn-prev{padding:7px 14px;background:transparent;border:1px solid var(--border2);color:var(--text);border-radius:6px;font-size:12px;cursor:pointer}
+
+/* NAVIGATOR */
+.exam-nav{position:fixed;top:52px;right:0;width:260px;height:calc(100vh - 52px);background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.nav-header{padding:10px 14px 8px;border-bottom:1px solid var(--border)}
+.nav-sname{font-size:13px;font-weight:600}
+.nav-sroll{font-size:11px;color:var(--muted);font-family:var(--mono)}
+.nav-legend{padding:7px 14px;border-bottom:1px solid var(--border)}
+.nav-leg-row{display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:11px;color:var(--muted)}
+.nav-dot{width:16px;height:16px;border-radius:50%;flex-shrink:0}
+.nav-scroll{flex:1;overflow-y:auto;padding:8px 12px}
+.nav-scroll::-webkit-scrollbar{width:3px}
+.nav-scroll::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.nav-subj-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin:8px 0 5px}
+.nav-grid{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+.nav-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--border2);background:var(--surface2);color:var(--muted);font-size:10px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;position:relative}
+.nav-btn.current{outline:2px solid var(--accent);outline-offset:2px}
+.nav-btn.answered{background:var(--green);border-color:var(--green);color:#fff}
+.nav-btn.not-answered{background:var(--red);border-color:var(--red);color:#fff}
+.nav-btn.marked{background:var(--visited);border-color:var(--visited);color:#fff}
+.nav-btn.marked-answered{background:var(--visited);border-color:var(--visited);color:#fff}
+.nav-btn.marked-answered::after{content:'';position:absolute;bottom:0;right:0;width:7px;height:7px;background:var(--green);border-radius:50%;border:1px solid var(--surface)}
+.nav-summary{padding:8px 14px;border-top:1px solid var(--border)}
+.nav-sum-row{display:flex;justify-content:space-between;margin-bottom:3px;font-size:12px}
+.nav-sum-val{font-weight:600;font-family:var(--mono)}
+
+/* MODALS */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem;width:100%;max-width:440px}
+.modal h2{font-size:17px;font-weight:600;margin-bottom:8px}
+.modal p{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:1rem}
+.modal-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1rem}
+.mstat{background:var(--surface2);border-radius:6px;padding:10px;text-align:center}
+.mstat-val{font-size:20px;font-weight:600;font-family:var(--mono)}
+.mstat-label{font-size:11px;color:var(--muted)}
+.modal-btns{display:flex;gap:8px}
+.modal-btns button{flex:1}
+
+/* TAB WARN */
+.tabwarn{position:fixed;inset:0;background:#0f1117f5;z-index:999;display:none;align-items:center;justify-content:center}
+.tabwarn.show{display:flex}
+.tabwarn-box{background:var(--surface);border:2px solid var(--red);border-radius:12px;padding:2.5rem;text-align:center;max-width:380px}
+.tabwarn h2{font-size:18px;font-weight:600;margin-bottom:8px;color:var(--red)}
+.tabwarn p{font-size:13px;color:var(--muted);margin-bottom:12px}
+.warn-count{font-family:var(--mono);color:var(--orange);font-size:13px;margin-bottom:14px}
+
+/* RESULTS */
+.res-wrap{max-width:860px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.score-circle{width:130px;height:130px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:4px solid var(--accent);margin:1rem auto}
+.score-val{font-size:32px;font-weight:600;font-family:var(--mono);line-height:1}
+.score-lbl{font-size:11px;color:var(--muted);margin-top:3px}
+.pass-badge{display:inline-block;padding:4px 16px;border-radius:20px;font-size:13px;font-weight:600}
+.pass-badge.pass{background:#22c97a20;color:var(--green);border:1px solid #22c97a40}
+.pass-badge.fail{background:#f05a5a20;color:var(--red);border:1px solid #f05a5a40}
+.res-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:1rem 0 1.5rem}
+.res-stat{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center}
+.res-stat-val{font-size:22px;font-weight:600;font-family:var(--mono);margin-bottom:2px}
+.res-stat-lbl{font-size:11px;color:var(--muted)}
+.subj-breakdown{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:1.5rem}
+.subj-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px}
+.subj-bar-wrap{height:4px;background:var(--surface2);border-radius:2px;margin:5px 0}
+.subj-bar-fill{height:4px;border-radius:2px}
+.review-q{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:8px}
+.review-q-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.rs{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px}
+.rs-correct{background:#22c97a20;color:var(--green)}.rs-wrong{background:#f05a5a20;color:var(--red)}.rs-skip{background:var(--surface2);color:var(--muted)}
+.ro{font-size:12px;padding:4px 10px;border-radius:4px;margin-bottom:3px}
+.ro-correct{background:#22c97a15;color:var(--green)}.ro-wrong{background:#f05a5a15;color:var(--red)}.ro-plain{color:var(--muted)}
+
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+@media(max-width:680px){
+  .exam-nav{width:200px}.subj-bar{right:200px}.exam-main{margin-right:200px}
+  .res-stats-grid{grid-template-columns:1fr 1fr}
+  .form-row,.form-row-3{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TAB WARNING -->
+<div class="tabwarn" id="tabwarn">
+  <div class="tabwarn-box">
+    <h2>Tab switch detected!</h2>
+    <p>You switched tabs or minimized the browser. This violates exam rules.</p>
+    <div class="warn-count" id="warn-text">Warning 1 of 3</div>
+    <p style="font-size:12px;color:var(--red);margin-bottom:16px">3 violations = auto-submit.</p>
+    <button class="btn btn-danger" onclick="dismissWarn()" style="width:100%;padding:10px;font-size:13px">Return to exam</button>
+  </div>
+</div>
+
+<!-- SUBMIT MODAL -->
+<div class="modal-overlay" id="submit-modal">
+  <div class="modal">
+    <h2>Submit exam?</h2>
+    <p>Once submitted, you cannot change any answers.</p>
+    <div class="modal-stats" id="modal-stats"></div>
+    <div class="modal-btns">
+      <button class="btn btn-outline" onclick="closeModal()">Go back</button>
+      <button class="btn btn-primary" onclick="confirmSubmit()">Yes, submit</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ ADMIN ════════════════ -->
+<div id="s-admin" class="screen">
+<div class="wrap">
+  <div class="logo">KCET<span>ARDs</span> <span style="font-size:13px;color:var(--muted);font-weight:400">— Admin Panel</span></div>
+
+  <!-- EXAM SETTINGS -->
+  <div class="sec-title">Exam settings</div>
+  <div class="card">
+    <div class="form-row">
+      <div><label>Exam title</label><input type="text" id="a-title" value="KCET Mock Test 2025"></div>
+      <div><label>Exam type</label>
+        <select id="a-type">
+          <option value="KCET">KCET</option><option value="NEET">NEET</option><option value="JEE">JEE</option><option value="custom">Custom</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row-3">
+      <div><label>Duration (minutes)</label><input type="number" id="a-duration" value="180" min="1"></div>
+      <div><label>+Marks per correct</label><input type="number" id="a-marks" value="1" step="0.5"></div>
+      <div><label>−Marks per wrong</label><input type="number" id="a-neg" value="0" step="0.25"></div>
+    </div>
+    <div class="form-row">
+      <div><label>Pass percentage (%)</label><input type="number" id="a-pass" value="35" min="1" max="100"></div>
+      <div><label>Admin password</label><input type="text" id="a-adminpwd" value="admin123"></div>
+    </div>
+    <label class="chk-row"><input type="checkbox" id="a-strict" checked> Enable strict mode (tab-switch detection, 3 warnings = auto-submit)</label>
+  </div>
+
+  <!-- EXAM WINDOW -->
+  <div class="sec-title" style="margin-top:1rem">Exam availability window</div>
+  <div class="card" style="border-color:#f5a62344">
+    <div class="info-box"><span>Students can attend the exam anytime within this window.</span> Outside this window, the login page will show "Exam not available" even with correct credentials.</div>
+    <div class="form-row">
+      <div><label>Window opens (date & time)</label><input type="datetime-local" id="a-window-start"></div>
+      <div><label>Window closes (date & time)</label><input type="datetime-local" id="a-window-end"></div>
+    </div>
+    <div style="font-size:12px;color:var(--muted)">Leave both blank to allow login at any time (no window restriction).</div>
+  </div>
+
+  <!-- SUBJECTS & QUESTIONS -->
+  <div class="sec-title" style="margin-top:1rem">Subjects & questions</div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px" id="admin-subject-tabs"></div>
+  <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+    <input type="text" id="new-subj-name" placeholder="New subject name" style="max-width:220px">
+    <button class="btn btn-outline" onclick="addSubject()">+ Add subject</button>
+    <button class="btn btn-danger" onclick="removeCurrentSubject()">Remove subject</button>
+  </div>
+
+  <!-- JSON / PDF IMPORT -->
+  <div class="card" style="margin-bottom:10px">
+    <div class="sec-title" style="margin-bottom:8px">Bulk import questions</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+      <button class="btn btn-outline" onclick="document.getElementById('import-json-q').click()">Import JSON</button>
+      <button class="btn btn-outline" onclick="document.getElementById('import-pdf-q').click()">Import PDF (auto-parse)</button>
+      <button class="btn btn-orange" onclick="downloadJSONTemplate()">Download JSON template</button>
+      <input type="file" id="import-json-q" accept=".json" style="display:none" onchange="importQuestionsJSON(this)">
+      <input type="file" id="import-pdf-q" accept=".pdf" style="display:none" onchange="importQuestionsPDF(this)">
+    </div>
+    <div id="import-status" style="font-size:12px;color:var(--muted);min-height:18px"></div>
+    <div class="info-box" style="margin-top:8px;margin-bottom:0">
+      <span>JSON format:</span> array of <code style="color:var(--green)">{text, options:[A,B,C,D], correct:0, image?:""}</code> objects.<br>
+      <span>PDF import:</span> the site will attempt to extract numbered questions and options automatically. Works best with clean, structured PDFs.
+    </div>
+  </div>
+
+  <div id="admin-q-list"></div>
+  <button class="btn btn-outline" onclick="addQuestion()" style="margin-bottom:1.5rem">+ Add question manually</button>
+
+  <!-- STUDENTS -->
+  <hr class="divider">
+  <div class="sec-title">Students (up to 30)</div>
+  <div class="info-box">Each student gets a <span>custom password</span> you set. They log in with roll number + password you give them.</div>
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+    <input type="text" id="ns-name" placeholder="Student name" style="flex:1;min-width:140px">
+    <input type="text" id="ns-roll" placeholder="Roll / seat no." style="max-width:140px">
+    <input type="text" id="ns-pwd" placeholder="Password" style="max-width:140px">
+    <button class="btn btn-outline" onclick="addStudent()">+ Add</button>
+    <button class="btn btn-outline" onclick="addBulkStudents()">+ Bulk demo (15)</button>
+  </div>
+  <div class="students-list" id="students-list"></div>
+  <button class="btn btn-outline" onclick="exportStudentPasswords()" style="margin-bottom:1rem">Export passwords (CSV)</button>
+
+  <!-- GOOGLE FORMS -->
+  <hr class="divider">
+  <div class="sec-title">Google Forms — result collection</div>
+  <div class="card" style="border-color:#4f7ef855">
+    <div class="info-box">Results are silently sent to your Google Sheet when each student submits. <span>Follow the 4 steps below.</span></div>
+    <div style="display:grid;grid-template-columns:26px 1fr;gap:6px 10px;margin-bottom:14px;align-items:start">
+      <div style="width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">1</div>
+      <div style="font-size:13px">Go to <a href="https://forms.google.com" target="_blank" style="color:var(--accent)">forms.google.com</a> → new form → add 13 Short answer fields: <span style="font-family:var(--mono);font-size:11px;color:var(--green)">Name | Roll Number | Exam Title | Total Score | Max Score | Percentage | Result | Correct | Wrong | Unattempted | Time Taken | Subject Scores | Tab Violations</span></div>
+      <div style="width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">2</div>
+      <div style="font-size:13px">⋮ menu → Get pre-filled link → fill all fields with dummy text → Get link → copy URL</div>
+      <div style="width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">3</div>
+      <div style="font-size:13px">Paste URL below and click Parse</div>
+      <div style="width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">4</div>
+      <div style="font-size:13px">Save & activate — results flow automatically on submit</div>
+    </div>
+    <label>Pre-filled form URL</label>
+    <textarea id="a-gform-url" rows="2" placeholder="https://docs.google.com/forms/d/e/...viewform?usp=pp_url&entry.111=A..." style="font-family:var(--mono);font-size:12px;margin-bottom:8px"></textarea>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+      <button class="btn btn-outline" onclick="parseGFormURL()">Parse & detect fields</button>
+      <span id="gform-status" style="font-size:12px;color:var(--muted)"></span>
+    </div>
+    <div id="gform-preview" style="display:none;background:var(--surface2);border-radius:6px;padding:10px;margin-bottom:10px">
+      <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px">Field mapping</div>
+      <div id="gform-fields" style="font-family:var(--mono);font-size:12px;color:var(--green);line-height:2"></div>
+    </div>
+    <label class="chk-row"><input type="checkbox" id="a-gform-enabled"> Enable Google Forms submission on exam submit</label>
+  </div>
+
+  <!-- SAVE -->
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem">
+    <button class="btn btn-green" onclick="saveAndActivate()">Save & activate exam</button>
+    <button class="btn btn-outline" onclick="exportJSON()">Export config JSON</button>
+    <button class="btn btn-outline" onclick="document.getElementById('import-cfg').click()">Import config JSON</button>
+    <input type="file" id="import-cfg" accept=".json" style="display:none" onchange="importConfig(this)">
+  </div>
+  <p style="font-size:11px;color:var(--muted);margin-top:10px">Students log in with their roll number and the custom password you set.</p>
+</div>
+</div>
+
+<!-- ════════════════ LOGIN ════════════════ -->
+<div id="s-login" class="screen active">
+  <div class="login-box">
+    <div class="login-logo">KCET<span>ARDs</span></div>
+    <div class="login-sub" id="login-title">Exam Platform</div>
+    <div id="window-status-badge"></div>
+    <div class="login-field"><label>Roll number / Seat no.</label><input type="text" id="l-roll" placeholder="e.g. KCET2025001" autocomplete="off"></div>
+    <div class="login-field"><label>Password</label><input type="password" id="l-pass" placeholder="Enter your password" autocomplete="off"></div>
+    <button class="login-btn" onclick="doLogin()">Proceed to instructions →</button>
+    <div class="login-err" id="login-err"></div>
+    <div class="admin-link">Admin? <span onclick="goAdmin()">Enter admin panel</span></div>
+  </div>
+</div>
+
+<!-- ════════════════ INSTRUCTIONS ════════════════ -->
+<div id="s-instructions" class="screen">
+<div class="inst-wrap">
+  <div class="inst-title" id="inst-title"></div>
+  <div class="inst-sub" id="inst-sub"></div>
+  <div class="inst-block">
+    <h3>Question navigator legend</h3>
+    <div class="legend-row"><div class="nl-dot" style="background:#2a3045;border:1px solid var(--border2)"></div> Not visited</div>
+    <div class="legend-row"><div class="nl-dot" style="background:var(--red)"></div> Not answered</div>
+    <div class="legend-row"><div class="nl-dot" style="background:var(--green)"></div> Answered</div>
+    <div class="legend-row"><div class="nl-dot" style="background:var(--visited)"></div> Marked for review</div>
+  </div>
+  <div class="inst-block">
+    <h3>Marking scheme</h3>
+    <div class="legend-row"><span id="inst-marks" style="background:#22c97a20;color:var(--green);padding:2px 10px;border-radius:4px;font-weight:600;font-size:13px">+1</span> correct answer</div>
+    <div class="legend-row"><span id="inst-neg" style="background:#f05a5a20;color:var(--red);padding:2px 10px;border-radius:4px;font-weight:600;font-size:13px">0</span> incorrect answer</div>
+    <div class="legend-row"><span style="background:var(--surface2);color:var(--muted);padding:2px 10px;border-radius:4px;font-size:13px">0</span> unattempted</div>
+  </div>
+  <div class="inst-block">
+    <h3>Exam window</h3>
+    <div id="inst-window" style="font-size:13px;color:var(--muted)"></div>
+  </div>
+  <div class="inst-block">
+    <h3>Rules</h3>
+    <div id="inst-rules"></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;margin:1.5rem 0;font-size:13px">
+    <input type="checkbox" id="agree-check" style="accent-color:var(--accent);width:16px;height:16px" onchange="document.getElementById('start-btn').disabled=!this.checked">
+    <label for="agree-check" style="cursor:pointer">I have read and agree to all exam rules and instructions.</label>
+  </div>
+  <button id="start-btn" disabled onclick="startExam()" style="padding:12px 36px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;opacity:.4" onmouseenter="if(!this.disabled)this.style.background='#3a6ae8'" onmouseleave="this.style.background=this.disabled?'':'var(--accent)'">Start exam →</button>
+</div>
+</div>
+
+<!-- ════════════════ EXAM ════════════════ -->
+<div id="s-exam" class="screen">
+  <div class="exam-topbar">
+    <div class="exam-logo">KCET<span>ARDs</span></div>
+    <div class="exam-student" id="exam-sname"></div>
+    <div style="flex-shrink:0;text-align:right">
+      <div class="timer-label">Time left</div>
+      <div class="exam-timer" id="exam-timer">03:00:00</div>
+    </div>
+    <button class="submit-top-btn" onclick="openSubmitModal()">Submit</button>
+  </div>
+  <div class="subj-bar" id="subj-bar"></div>
+  <div class="exam-main" id="exam-main">
+    <div class="q-meta" id="q-meta"></div>
+    <div class="q-text" id="q-text"></div>
+    <img id="q-img" class="q-img" style="display:none" src="" alt="Question image">
+    <div id="q-opts"></div>
+    <div class="q-actions">
+      <button class="btn-review" onclick="toggleReview()">Mark for review</button>
+      <button class="btn-clear" onclick="clearResponse()">Clear</button>
+      <div style="flex:1"></div>
+      <button class="btn-prev" onclick="prevQ()">← Prev</button>
+      <button class="btn-save-next" onclick="saveAndNext()">Save & next →</button>
+    </div>
+  </div>
+  <div class="exam-nav">
+    <div class="nav-header">
+      <div class="nav-sname" id="nav-sname"></div>
+      <div class="nav-sroll" id="nav-sroll"></div>
+    </div>
+    <div class="nav-legend">
+      <div class="nav-leg-row"><div class="nav-dot" style="background:#2a3045;border:1px solid var(--border2)"></div>Not visited</div>
+      <div class="nav-leg-row"><div class="nav-dot" style="background:var(--red)"></div>Not answered</div>
+      <div class="nav-leg-row"><div class="nav-dot" style="background:var(--green)"></div>Answered</div>
+      <div class="nav-leg-row"><div class="nav-dot" style="background:var(--visited)"></div>Marked</div>
+    </div>
+    <div class="nav-scroll" id="nav-scroll"></div>
+    <div class="nav-summary" id="nav-summary"></div>
+  </div>
+</div>
+
+<!-- ════════════════ RESULTS ════════════════ -->
+<div id="s-results" class="screen">
+<div class="res-wrap">
+  <div style="text-align:center;margin-bottom:1.5rem">
+    <div style="font-size:22px;font-weight:600" id="r-name"></div>
+    <div style="font-size:13px;color:var(--muted);font-family:var(--mono)" id="r-roll"></div>
+    <div class="score-circle" id="r-circle">
+      <div class="score-val" id="r-score"></div>
+      <div class="score-lbl" id="r-score-lbl">Score</div>
+    </div>
+    <div><span class="pass-badge" id="r-pass"></span></div>
+    <div style="font-size:13px;color:var(--muted);margin-top:8px" id="r-summary"></div>
+  </div>
+  <div class="res-stats-grid" id="r-stats"></div>
+  <div class="sec-title">Subject-wise</div>
+  <div class="subj-breakdown" id="r-subj"></div>
+  <div class="sec-title">Answer review</div>
+  <div id="r-review"></div>
+  <div style="display:flex;gap:8px;margin-top:1.5rem;flex-wrap:wrap">
+    <button class="btn btn-outline" onclick="goToLogin()">Back to login</button>
+  </div>
+  <div id="r-gform-status" style="display:none;margin-top:10px;font-size:13px;padding:8px 12px;background:var(--surface);border:1px solid var(--border);border-radius:6px"></div>
+</div>
+</div>
+
+<script>
+// ═══════════════════════════════════
+// STATE
+// ═══════════════════════════════════
+let EC = null, student = null, allQ = [], qStates = [], qAns = [];
+let timerInt = null, timeLeft = 0, warnCount = 0, examStarted = false, strictMode = true;
+let curQ = 0;
+
+const DEFAULT = {
+  title:"KCET Mock Test 2025", type:"KCET", duration:180, marks:1, neg:0, pass:35,
+  adminpwd:"admin123", strict:true, windowStart:"", windowEnd:"",
+  gformEnabled:false, gformUrl:"", gformFormId:"", gformFields:[],
+  subjects:[
+    {name:"Physics",color:"#4f7ef8",questions:[
+      {text:"A particle moves in a circle of radius R. Its average acceleration over half revolution is:",options:["v²/R","2v²/πR","v²/2R","0"],correct:1,image:""},
+      {text:"Dimension of electric field intensity is:",options:["MLT⁻³A⁻¹","MLT⁻²A⁻¹","ML²T⁻²A⁻¹","MLT⁻²A"],correct:0,image:""},
+      {text:"Escape velocity from Earth's surface is (g=10, R=6400km):",options:["8 km/s","11.2 km/s","16 km/s","7.9 km/s"],correct:1,image:""},
+    ]},
+    {name:"Chemistry",color:"#22c97a",questions:[
+      {text:"Highest first ionization enthalpy among:",options:["Na","Mg","Al","Si"],correct:3,image:""},
+      {text:"Hybridization of carbon in diamond:",options:["sp","sp²","sp³","sp³d"],correct:2,image:""},
+      {text:"Oxidation state of Cr in K₂Cr₂O₇:",options:["+3","+6","+7","+4"],correct:1,image:""},
+    ]},
+    {name:"Mathematics",color:"#f5a623",questions:[
+      {text:"lim(x→0) (sin x)/x =",options:["0","∞","1","undefined"],correct:2,image:""},
+      {text:"∫ eˣ(1+x) dx =",options:["xeˣ+C","eˣ+C","xeˣ–eˣ+C","xeˣ+eˣ+C"],correct:0,image:""},
+      {text:"Eccentricity of a circle is:",options:["0","1","< 1","Infinity"],correct:0,image:""},
+    ]}
+  ],
+  students:[
+    {name:"Aarav Sharma",roll:"KCET001",pwd:"pass001"},
+    {name:"Priya Patel",roll:"KCET002",pwd:"pass002"},
+    {name:"Rahul Singh",roll:"KCET003",pwd:"pass003"},
+  ]
+};
+
+function load(){const s=localStorage.getItem('kcetards');EC=s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULT));}
+function save(){localStorage.setItem('kcetards',JSON.stringify(EC));}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function pad(n){return String(n).padStart(2,'0');}
+
+// ═══════════════════════════════════
+// WINDOW CHECK
+// ═══════════════════════════════════
+function getWindowStatus(){
+  if(!EC.windowStart && !EC.windowEnd) return 'open';
+  const now = Date.now();
+  const s = EC.windowStart ? new Date(EC.windowStart).getTime() : 0;
+  const e = EC.windowEnd ? new Date(EC.windowEnd).getTime() : Infinity;
+  if(now < s) return 'upcoming';
+  if(now > e) return 'closed';
+  return 'open';
+}
+function fmtDate(iso){if(!iso)return'—';const d=new Date(iso);return d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})+' '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});}
+
+// ═══════════════════════════════════
+// ADMIN
+// ═══════════════════════════════════
+let adminSI = 0;
+function goAdmin(){
+  const p=prompt('Enter admin password:');
+  if(p!==EC.adminpwd){alert('Wrong password.');return;}
+  loadAdminUI(); showScreen('s-admin');
+}
+function loadAdminUI(){
+  document.getElementById('a-title').value=EC.title;
+  document.getElementById('a-type').value=EC.type;
+  document.getElementById('a-duration').value=EC.duration;
+  document.getElementById('a-marks').value=EC.marks;
+  document.getElementById('a-neg').value=EC.neg;
+  document.getElementById('a-pass').value=EC.pass;
+  document.getElementById('a-adminpwd').value=EC.adminpwd;
+  document.getElementById('a-strict').checked=EC.strict;
+  document.getElementById('a-window-start').value=EC.windowStart||'';
+  document.getElementById('a-window-end').value=EC.windowEnd||'';
+  document.getElementById('a-gform-enabled').checked=EC.gformEnabled||false;
+  document.getElementById('a-gform-url').value=EC.gformUrl||'';
+  if(EC.gformFields?.length) showGFormPreview(EC.gformFields);
+  renderAdminTabs(); renderAdminQs(); renderStudents();
+}
+function renderAdminTabs(){
+  document.getElementById('admin-subject-tabs').innerHTML=EC.subjects.map((s,i)=>
+    `<button class="stab${i===adminSI?' active':''}" onclick="selAdminSubj(${i})" style="${i===adminSI?'background:'+s.color+';border-color:'+s.color+';color:#fff':''}">${s.name}</button>`
+  ).join('');
+}
+function selAdminSubj(i){adminSI=i;renderAdminTabs();renderAdminQs();}
+function addSubject(){
+  const nm=document.getElementById('new-subj-name').value.trim();if(!nm)return;
+  const cols=['#4f7ef8','#22c97a','#f5a623','#f05a5a','#9b59b6','#e91e8c'];
+  EC.subjects.push({name:nm,color:cols[EC.subjects.length%cols.length],questions:[]});
+  document.getElementById('new-subj-name').value='';
+  adminSI=EC.subjects.length-1; renderAdminTabs(); renderAdminQs();
+}
+function removeCurrentSubject(){
+  if(EC.subjects.length<=1){alert('Need at least 1 subject.');return;}
+  if(!confirm('Remove "'+EC.subjects[adminSI].name+'" and all its questions?'))return;
+  EC.subjects.splice(adminSI,1); adminSI=Math.max(0,adminSI-1);
+  renderAdminTabs(); renderAdminQs();
+}
+function renderAdminQs(){
+  const subj=EC.subjects[adminSI]; if(!subj)return;
+  const el=document.getElementById('admin-q-list');
+  if(!subj.questions.length){el.innerHTML='<div style="color:var(--muted);font-size:13px;padding:10px 0">No questions yet.</div>';return;}
+  el.innerHTML=subj.questions.map((q,qi)=>`
+    <div class="q-block" id="qb-${qi}">
+      <div class="q-header">
+        <span class="q-num">Q${qi+1} · ${subj.name}</span>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-outline" style="font-size:11px;padding:3px 8px" onclick="moveQ(${qi},-1)">↑</button>
+          <button class="btn btn-outline" style="font-size:11px;padding:3px 8px" onclick="moveQ(${qi},1)">↓</button>
+          <button class="btn btn-danger" style="font-size:11px;padding:3px 8px" onclick="removeQ(${qi})">Remove</button>
+        </div>
+      </div>
+      <textarea placeholder="Question text" oninput="updateQ(${qi},'text',this.value)" style="width:100%;margin-bottom:8px">${q.text||''}</textarea>
+      <div style="margin-bottom:8px">
+        <label style="margin-bottom:4px">Question image (optional)</label>
+        <div style="display:flex;gap:6px;margin-bottom:4px">
+          <input type="text" placeholder="Paste image URL" value="${q.image&&q.image.startsWith('http')?q.image:''}" oninput="updateQ(${qi},'imageUrl',this.value)" style="flex:1">
+          <button class="btn btn-outline" style="font-size:11px;padding:4px 10px;flex-shrink:0" onclick="document.getElementById('imgfile-${qi}').click()">Upload file</button>
+          <input type="file" id="imgfile-${qi}" accept="image/*" style="display:none" onchange="uploadQImg(${qi},this)">
+        </div>
+        ${q.image?`<img src="${q.image}" class="img-preview" id="qimg-prev-${qi}">`:
+        `<div id="qimg-prev-${qi}" style="font-size:11px;color:var(--muted)">No image</div>`}
+      </div>
+      ${['A','B','C','D'].map((l,oi)=>`
+        <div class="opt-row">
+          <input type="radio" name="correct-${adminSI}-${qi}" value="${oi}" ${q.correct===oi?'checked':''} onchange="updateQ(${qi},'correct',${oi})" title="Correct answer">
+          <input type="text" placeholder="Option ${l}" value="${q.options[oi]||''}" oninput="updateQ(${qi},'opt${oi}',this.value)">
+        </div>`).join('')}
+      <div style="margin-top:4px;font-size:11px;color:var(--green)">● Radio = correct answer</div>
+    </div>`).join('');
+}
+function addQuestion(){
+  EC.subjects[adminSI].questions.push({text:'',options:['','','',''],correct:0,image:''});
+  renderAdminQs();
+  setTimeout(()=>{const el=document.getElementById('qb-'+(EC.subjects[adminSI].questions.length-1));if(el)el.scrollIntoView({behavior:'smooth'});},80);
+}
+function removeQ(qi){EC.subjects[adminSI].questions.splice(qi,1);renderAdminQs();}
+function moveQ(qi,dir){
+  const qs=EC.subjects[adminSI].questions;
+  const ni=qi+dir; if(ni<0||ni>=qs.length)return;
+  [qs[qi],qs[ni]]=[qs[ni],qs[qi]]; renderAdminQs();
+}
+function updateQ(qi,field,val){
+  const q=EC.subjects[adminSI].questions[qi];
+  if(field==='text') q.text=val;
+  else if(field==='correct') q.correct=parseInt(val);
+  else if(field==='imageUrl'){q.image=val;const el=document.getElementById('qimg-prev-'+qi);if(el){if(val){el.outerHTML=`<img src="${val}" class="img-preview" id="qimg-prev-${qi}">` }else{el.outerHTML=`<div id="qimg-prev-${qi}" style="font-size:11px;color:var(--muted)">No image</div>`;}}}
+  else{const oi=parseInt(field.replace('opt',''));q.options[oi]=val;}
+}
+function uploadQImg(qi,input){
+  const file=input.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const q=EC.subjects[adminSI].questions[qi]; q.image=e.target.result;
+    const el=document.getElementById('qimg-prev-'+qi);
+    if(el) el.outerHTML=`<img src="${e.target.result}" class="img-preview" id="qimg-prev-${qi}">`;
+  };
+  reader.readAsDataURL(file);
+}
+
+// JSON/PDF import
+function downloadJSONTemplate(){
+  const t=[{text:"Sample question text?",options:["Option A","Option B","Option C","Option D"],correct:0,image:""}];
+  const b=new Blob([JSON.stringify(t,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='questions_template.json';a.click();
+}
+function importQuestionsJSON(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const qs=JSON.parse(e.target.result);
+      if(!Array.isArray(qs)) throw new Error('Must be an array');
+      let added=0;
+      qs.forEach(q=>{
+        if(q.text&&q.options&&q.options.length>=2){
+          EC.subjects[adminSI].questions.push({text:q.text,options:(q.options.slice(0,4).concat(['','','','']).slice(0,4)),correct:parseInt(q.correct)||0,image:q.image||''});
+          added++;
+        }
+      });
+      renderAdminQs();
+      document.getElementById('import-status').innerHTML=`<span style="color:var(--green)">✓ Imported ${added} questions into ${EC.subjects[adminSI].name}</span>`;
+    }catch(err){document.getElementById('import-status').innerHTML=`<span style="color:var(--red)">Error: ${err.message}</span>`;}
+    input.value='';
+  };
+  reader.readAsText(file);
+}
+function importQuestionsPDF(input){
+  const file=input.files[0];if(!file)return;
+  const status=document.getElementById('import-status');
+  status.innerHTML='<span style="color:var(--orange)">Parsing PDF... (this may take a moment)</span>';
+  const reader=new FileReader();
+  reader.onload=async e=>{
+    try{
+      const typedArr=new Uint8Array(e.target.result);
+      // Use PDF.js from CDN
+      if(!window.pdfjsLib){
+        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      }
+      const pdf=await window.pdfjsLib.getDocument({data:typedArr}).promise;
+      let fullText='';
+      for(let p=1;p<=pdf.numPages;p++){
+        const page=await pdf.getPage(p);
+        const tc=await page.getTextContent();
+        fullText+=tc.items.map(i=>i.str).join(' ')+'\n';
+      }
+      const parsed=parsePDFQuestions(fullText);
+      let added=0;
+      parsed.forEach(q=>{EC.subjects[adminSI].questions.push(q);added++;});
+      renderAdminQs();
+      status.innerHTML=`<span style="color:var(--green)">✓ Parsed ${added} questions from PDF. Please review and fix any errors above.</span>`;
+    }catch(err){status.innerHTML=`<span style="color:var(--red)">PDF parse error: ${err.message}. Try JSON import instead.</span>`;}
+    input.value='';
+  };
+  reader.readAsArrayBuffer(file);
+}
+function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
+function parsePDFQuestions(text){
+  const qs=[];
+  // Match patterns like "1. Question text\n(A) opt\n(B) opt\n(C) opt\n(D) opt"
+  const qPattern=/(\d+)[.)]\s+(.+?)(?=\n\s*(?:\(A\)|A[.)]\s))([\s\S]+?)(?=\n\s*\d+[.)]\s|\n*$)/gi;
+  const optPat=/\(?([A-D])\)?[.)]\s*(.+?)(?=\n\s*\(?[A-D]\)?[.)]|\n*$)/gi;
+  let m;
+  while((m=qPattern.exec(text))!==null){
+    const qtext=m[2].trim();
+    const optBlock=m[3];
+    const options=[]; let om;
+    const optRe=/\(?([A-D])\)?[.)]\s*(.+?)(?=\n\s*\(?[A-D]\)?[.)]|$)/gi;
+    while((om=optRe.exec(optBlock))!==null) options.push(om[2].trim());
+    if(options.length>=2) qs.push({text:qtext,options:(options.slice(0,4).concat(['','','','']).slice(0,4)),correct:0,image:''});
+  }
+  if(!qs.length){
+    // Fallback: split by numbered lines
+    const lines=text.split('\n').map(l=>l.trim()).filter(l=>l);
+    let curQ=null;
+    lines.forEach(line=>{
+      const qm=line.match(/^(\d+)[.)]\s+(.+)/);
+      const om=line.match(/^\(?([A-Da-d])\)?[.)]\s+(.+)/);
+      if(qm&&!om){if(curQ&&curQ.text)qs.push(curQ);curQ={text:qm[2],options:[],correct:0,image:''};}
+      else if(om&&curQ){curQ.options.push(om[2]);}
+    });
+    if(curQ&&curQ.text)qs.push(curQ);
+    qs.forEach(q=>{while(q.options.length<4)q.options.push('');});
+  }
+  return qs;
+}
+
+// Students
+function renderStudents(){
+  document.getElementById('students-list').innerHTML=EC.students.map((s,i)=>`
+    <div class="student-card">
+      <div style="min-width:0">
+        <div class="sname">${s.name}</div>
+        <div class="sroll">${s.roll}</div>
+        <div class="spwd">pwd: ${s.pwd}</div>
+      </div>
+      <button class="btn btn-danger" style="font-size:11px;padding:3px 8px;flex-shrink:0" onclick="removeStudent(${i})">×</button>
+    </div>`).join('');
+}
+function addStudent(){
+  const name=document.getElementById('ns-name').value.trim();
+  const roll=document.getElementById('ns-roll').value.trim();
+  const pwd=document.getElementById('ns-pwd').value.trim();
+  if(!name||!roll||!pwd){alert('Enter name, roll number, and password.');return;}
+  if(EC.students.length>=30){alert('Maximum 30 students.');return;}
+  if(EC.students.find(s=>s.roll===roll)){alert('Roll number already exists.');return;}
+  EC.students.push({name,roll,pwd});
+  document.getElementById('ns-name').value='';document.getElementById('ns-roll').value='';document.getElementById('ns-pwd').value='';
+  renderStudents();
+}
+function removeStudent(i){EC.students.splice(i,1);renderStudents();}
+function addBulkStudents(){
+  const names=['Aditya Verma','Bhavya Joshi','Chirag Mehta','Divya Reddy','Esha Nair','Farhan Shaikh','Geet Kaur','Harsh Malhotra','Isha Tripathi','Jayesh Kulkarni','Kavya Pillai','Lokesh Chandra','Meera Rao','Nikhil Sahu','Omkar Desai'];
+  names.forEach((n,i)=>{
+    if(EC.students.length<30){const roll='STU'+(100+EC.students.length);if(!EC.students.find(s=>s.roll===roll))EC.students.push({name:n,roll,pwd:'pwd'+roll.slice(-3)});}
+  });
+  renderStudents();
+}
+function exportStudentPasswords(){
+  const rows=['Name,Roll Number,Password',...EC.students.map(s=>`"${s.name}",${s.roll},${s.pwd}`)];
+  const b=new Blob([rows.join('\n')],{type:'text/csv'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='student_passwords.csv';a.click();
+}
+
+// Config export/import
+function exportJSON(){
+  const b=new Blob([JSON.stringify(EC,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='kcetards_config.json';a.click();
+}
+function importConfig(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{try{EC=JSON.parse(e.target.result);save();loadAdminUI();alert('Config imported!');}catch(err){alert('Invalid JSON.');}};
+  reader.readAsText(file);
+}
+
+// Google Forms
+const GFIELDS=['Name','Roll Number','Exam Title','Total Score','Max Score','Percentage','Result','Correct','Wrong','Unattempted','Time Taken','Subject Scores','Tab Violations'];
+function parseGFormURL(){
+  const url=document.getElementById('a-gform-url').value.trim();
+  const st=document.getElementById('gform-status');
+  const idM=url.match(/\/forms\/d\/e\/([^/]+)\/viewform/);
+  if(!idM){st.textContent='Form ID not found.';st.style.color='var(--red)';return;}
+  const entries=[...url.matchAll(/entry\.(\d+)=/g)].map(m=>m[1]);
+  if(!entries.length){st.textContent='No entry fields found.';st.style.color='var(--red)';return;}
+  EC.gformFormId=idM[1];
+  EC.gformFields=entries.map((id,i)=>({id,name:GFIELDS[i]||'Field '+(i+1)}));
+  EC.gformUrl=url;
+  showGFormPreview(EC.gformFields);
+  st.textContent='✓ Parsed '+entries.length+' fields';st.style.color='var(--green)';
+}
+function showGFormPreview(fields){
+  document.getElementById('gform-preview').style.display='block';
+  document.getElementById('gform-fields').innerHTML=fields.map(f=>`entry.${f.id} → <span style="color:var(--text)">${f.name}</span>`).join('<br>');
+}
+
+function saveAndActivate(){
+  EC.title=document.getElementById('a-title').value;
+  EC.type=document.getElementById('a-type').value;
+  EC.duration=parseInt(document.getElementById('a-duration').value)||180;
+  EC.marks=parseFloat(document.getElementById('a-marks').value)||1;
+  EC.neg=parseFloat(document.getElementById('a-neg').value)||0;
+  EC.pass=parseInt(document.getElementById('a-pass').value)||35;
+  EC.adminpwd=document.getElementById('a-adminpwd').value||'admin123';
+  EC.strict=document.getElementById('a-strict').checked;
+  EC.windowStart=document.getElementById('a-window-start').value;
+  EC.windowEnd=document.getElementById('a-window-end').value;
+  EC.gformEnabled=document.getElementById('a-gform-enabled').checked;
+  EC.gformUrl=document.getElementById('a-gform-url').value.trim();
+  if(EC.gformEnabled&&!EC.gformFields?.length){alert('Google Forms enabled but no fields detected. Parse URL first.');return;}
+  save();
+  alert('Exam saved and activated!');
+  showScreen('s-login'); initLogin();
+}
+
+// ═══════════════════════════════════
+// LOGIN
+// ═══════════════════════════════════
+function initLogin(){
+  document.getElementById('login-title').textContent=EC.title;
+  const ws=getWindowStatus();
+  const badge=document.getElementById('window-status-badge');
+  if(ws==='open'){
+    if(EC.windowEnd) badge.innerHTML=`<span class="window-badge open">● Exam open · closes ${fmtDate(EC.windowEnd)}</span>`;
+    else badge.innerHTML='';
+  } else if(ws==='upcoming'){
+    badge.innerHTML=`<span class="window-badge upcoming">⏰ Opens ${fmtDate(EC.windowStart)}</span>`;
+  } else {
+    badge.innerHTML=`<span class="window-badge closed">✕ Exam window closed</span>`;
+  }
+}
+function doLogin(){
+  const roll=document.getElementById('l-roll').value.trim();
+  const pass=document.getElementById('l-pass').value.trim();
+  const err=document.getElementById('login-err');
+  const ws=getWindowStatus();
+  if(ws==='upcoming'){err.textContent='Exam not started yet. Opens '+fmtDate(EC.windowStart);return;}
+  if(ws==='closed'){err.textContent='Exam window has closed.';return;}
+  const s=EC.students.find(s=>s.roll===roll);
+  if(!s){err.textContent='Roll number not found.';return;}
+  if(pass!==s.pwd){err.textContent='Incorrect password.';return;}
+  student=s; err.textContent='';
+  showInstructions();
+}
+
+// ═══════════════════════════════════
+// INSTRUCTIONS
+// ═══════════════════════════════════
+function showInstructions(){
+  document.getElementById('inst-title').textContent=EC.title;
+  document.getElementById('inst-sub').textContent=student.name+' · '+student.roll;
+  document.getElementById('inst-marks').textContent='+'+EC.marks;
+  document.getElementById('inst-neg').textContent=(EC.neg>0?'−'+EC.neg:'0');
+  const ws=document.getElementById('inst-window');
+  if(EC.windowStart||EC.windowEnd){
+    ws.innerHTML=`<div style="display:flex;gap:12px;flex-wrap:wrap;font-size:13px">
+      <span>Opens: <strong style="color:var(--text)">${fmtDate(EC.windowStart)||'—'}</strong></span>
+      <span>Closes: <strong style="color:var(--text)">${fmtDate(EC.windowEnd)||'—'}</strong></span>
+    </div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px">You have ${EC.duration} minutes once you start. Start before the window closes.</div>`;
+  } else {
+    ws.textContent='No window restriction — available anytime.';
+  }
+  const rules=[
+    'Duration: '+EC.duration+' minutes. Auto-submits when time runs out.',
+    'Do not refresh or close the browser tab during the exam.',
+    EC.strict?'Strict mode ON — tab switching triggers a warning. 3 warnings = auto-submit.':'Tab-switch detection is disabled.',
+    'Select one answer per question. You can change your answer any time before submitting.',
+    'Correct: +'+EC.marks+'. '+(EC.neg>0?'Wrong: −'+EC.neg+'.':' No negative marking.')+' Unattempted: 0.',
+    'Use "Mark for review" to flag questions to revisit.',
+    'Click Submit only when you are done — this cannot be undone.',
+  ];
+  document.getElementById('inst-rules').innerHTML=rules.map(r=>`<div class="rule-item">${r}</div>`).join('');
+  document.getElementById('agree-check').checked=false;
+  const btn=document.getElementById('start-btn');
+  btn.disabled=true; btn.style.opacity='.4';
+  document.getElementById('agree-check').onchange=e=>{btn.disabled=!e.target.checked;btn.style.opacity=e.target.checked?'1':'.4';};
+  showScreen('s-instructions');
+}
+
+// ═══════════════════════════════════
+// EXAM
+// ═══════════════════════════════════
+function buildAllQ(){
+  allQ=[];
+  EC.subjects.forEach((subj,si)=>subj.questions.forEach((q,qi)=>allQ.push({...q,si,subjName:subj.name,subjColor:subj.color,gi:allQ.length})));
+}
+function startExam(){
+  buildAllQ();
+  if(!allQ.length){alert('No questions configured.');return;}
+  qStates=allQ.map(()=>'unvisited'); qAns=allQ.map(()=>-1);
+  curQ=0; warnCount=0; examStarted=true; strictMode=EC.strict;
+  timeLeft=EC.duration*60;
+  document.getElementById('exam-sname').textContent=student.name+' · '+student.roll;
+  document.getElementById('nav-sname').textContent=student.name;
+  document.getElementById('nav-sroll').textContent=student.roll;
+  buildSubjBar(); renderQ(); startTimer();
+  if(strictMode) watchVisibility();
+  showScreen('s-exam');
+}
+function buildSubjBar(){
+  document.getElementById('subj-bar').innerHTML=
+    `<button class="subj-btn active" onclick="filterSubj(-1)">All</button>`+
+    EC.subjects.map((s,i)=>`<button class="subj-btn" id="stab${i}" onclick="filterSubj(${i})">${s.name}</button>`).join('');
+}
+function filterSubj(si){
+  document.querySelectorAll('.subj-btn').forEach(b=>b.classList.remove('active'));
+  if(si===-1) document.querySelector('.subj-btn').classList.add('active');
+  else document.getElementById('stab'+si)?.classList.add('active');
+  const fi=si===-1?0:allQ.findIndex(q=>q.si===si);
+  if(fi>=0) goToQ(fi);
+}
+function renderQ(){
+  const q=allQ[curQ]; if(!q)return;
+  if(qStates[curQ]==='unvisited') qStates[curQ]='not-answered';
+  document.getElementById('q-meta').innerHTML=`
+    <span class="q-id">Q${curQ+1} / ${allQ.length}</span>
+    <span class="q-badge" style="background:${q.subjColor}22;color:${q.subjColor};border:1px solid ${q.subjColor}44">${q.subjName}</span>
+    <span class="q-badge" style="background:#22c97a18;color:var(--green);border:1px solid #22c97a30">+${EC.marks}</span>
+    ${EC.neg>0?`<span class="q-badge" style="background:#f05a5a18;color:var(--red);border:1px solid #f05a5a30">−${EC.neg}</span>`:''}
+  `;
+  document.getElementById('q-text').textContent=q.text;
+  const imgEl=document.getElementById('q-img');
+  if(q.image){imgEl.src=q.image;imgEl.style.display='block';}else{imgEl.style.display='none';}
+  document.getElementById('q-opts').innerHTML=q.options.filter(o=>o).map((o,oi)=>`
+    <div class="option${qAns[curQ]===oi?' chosen':''}" onclick="selectOpt(${oi})">
+      <div class="opt-circle">${['A','B','C','D'][oi]}</div>
+      <div class="opt-text">${o}</div>
+    </div>`).join('');
+  renderNav();
+}
+function selectOpt(oi){
+  qAns[curQ]=oi;
+  qStates[curQ]=qStates[curQ]==='marked'?'marked-answered':'answered';
+  document.querySelectorAll('.option').forEach((el,i)=>el.classList.toggle('chosen',i===oi));
+  renderNav();
+}
+function clearResponse(){qAns[curQ]=-1;qStates[curQ]='not-answered';document.querySelectorAll('.option').forEach(el=>el.classList.remove('chosen'));renderNav();}
+function toggleReview(){
+  const s=qStates[curQ];
+  qStates[curQ]=(s==='marked'||s==='marked-answered')?(qAns[curQ]>=0?'answered':'not-answered'):(qAns[curQ]>=0?'marked-answered':'marked');
+  renderNav();
+}
+function saveAndNext(){if(qAns[curQ]>=0&&qStates[curQ]==='not-answered')qStates[curQ]='answered';if(curQ<allQ.length-1)goToQ(curQ+1);else openSubmitModal();}
+function prevQ(){if(curQ>0)goToQ(curQ-1);}
+function goToQ(i){curQ=i;renderQ();document.getElementById('exam-main').scrollTop=0;}
+function renderNav(){
+  let html='';
+  EC.subjects.forEach((subj,si)=>{
+    const qs=allQ.filter(q=>q.si===si); if(!qs.length)return;
+    html+=`<div class="nav-subj-label" style="color:${subj.color}">${subj.name}</div><div class="nav-grid">`;
+    qs.forEach(q=>{
+      const s=qStates[q.gi];
+      const cls=s==='answered'?'answered':s==='not-answered'?'not-answered':s==='marked'?'marked':s==='marked-answered'?'marked-answered':'';
+      html+=`<button class="nav-btn ${cls}${q.gi===curQ?' current':''}" onclick="goToQ(${q.gi})">${q.gi+1}</button>`;
+    });
+    html+='</div>';
+  });
+  document.getElementById('nav-scroll').innerHTML=html;
+  const ans=qStates.filter(s=>s==='answered'||s==='marked-answered').length;
+  const na=qStates.filter(s=>s==='not-answered').length;
+  const mk=qStates.filter(s=>s==='marked'||s==='marked-answered').length;
+  const nv=qStates.filter(s=>s==='unvisited').length;
+  document.getElementById('nav-summary').innerHTML=`
+    <div class="nav-sum-row"><span style="color:var(--muted)">Answered</span><span class="nav-sum-val" style="color:var(--green)">${ans}</span></div>
+    <div class="nav-sum-row"><span style="color:var(--muted)">Not answered</span><span class="nav-sum-val" style="color:var(--red)">${na}</span></div>
+    <div class="nav-sum-row"><span style="color:var(--muted)">Marked</span><span class="nav-sum-val" style="color:var(--visited)">${mk}</span></div>
+    <div class="nav-sum-row"><span style="color:var(--muted)">Not visited</span><span class="nav-sum-val">${nv}</span></div>`;
+}
+
+// ═══════════════════════════════════
+// TIMER
+// ═══════════════════════════════════
+function startTimer(){
+  if(timerInt)clearInterval(timerInt);
+  timerInt=setInterval(()=>{
+    timeLeft--;
+    const h=Math.floor(timeLeft/3600),m=Math.floor((timeLeft%3600)/60),s=timeLeft%60;
+    const el=document.getElementById('exam-timer');
+    el.textContent=pad(h)+':'+pad(m)+':'+pad(s);
+    el.className='exam-timer'+(timeLeft<=300?' warn':'')+(timeLeft<=60?' danger':'');
+    if(timeLeft<=0){clearInterval(timerInt);confirmSubmit();}
+  },1000);
+}
+
+// ═══════════════════════════════════
+// STRICT MODE
+// ═══════════════════════════════════
+function watchVisibility(){
+  document.addEventListener('visibilitychange',()=>{if(examStarted&&document.hidden)trigWarn();});
+  window.addEventListener('blur',()=>{if(examStarted)trigWarn();});
+}
+function trigWarn(){
+  if(!strictMode||!examStarted)return;
+  warnCount++;
+  document.getElementById('warn-text').textContent='Warning '+warnCount+' of 3';
+  document.getElementById('tabwarn').classList.add('show');
+  if(warnCount>=3){document.getElementById('tabwarn').classList.remove('show');confirmSubmit();}
+}
+function dismissWarn(){document.getElementById('tabwarn').classList.remove('show');}
+
+// ═══════════════════════════════════
+// SUBMIT
+// ═══════════════════════════════════
+function openSubmitModal(){
+  const ans=qStates.filter(s=>s==='answered'||s==='marked-answered').length;
+  const na=qStates.filter(s=>s==='not-answered'||s==='unvisited').length;
+  const mk=qStates.filter(s=>s==='marked'||s==='marked-answered').length;
+  document.getElementById('modal-stats').innerHTML=`
+    <div class="mstat"><div class="mstat-val" style="color:var(--green)">${ans}</div><div class="mstat-label">Answered</div></div>
+    <div class="mstat"><div class="mstat-val" style="color:var(--red)">${na}</div><div class="mstat-label">Unattempted</div></div>
+    <div class="mstat"><div class="mstat-val" style="color:var(--visited)">${mk}</div><div class="mstat-label">Marked</div></div>
+    <div class="mstat"><div class="mstat-val">${allQ.length}</div><div class="mstat-label">Total</div></div>`;
+  document.getElementById('submit-modal').classList.add('open');
+}
+function closeModal(){document.getElementById('submit-modal').classList.remove('open');}
+function confirmSubmit(){
+  closeModal(); if(timerInt)clearInterval(timerInt);
+  examStarted=false; showResults(); submitGForm();
+}
+
+// ═══════════════════════════════════
+// GOOGLE FORMS SUBMIT
+// ═══════════════════════════════════
+function submitGForm(){
+  if(!EC.gformEnabled||!EC.gformFormId||!EC.gformFields?.length)return;
+  let correct=0,wrong=0,skip=0;
+  allQ.forEach((q,i)=>{const a=qAns[i];if(a<0)skip++;else if(a===q.correct)correct++;else wrong++;});
+  const total=allQ.length*EC.marks, obt=correct*EC.marks-wrong*EC.neg;
+  const pct=Math.max(0,Math.round(obt/total*100));
+  const elapsed=EC.duration*60-timeLeft, em=Math.floor(elapsed/60), es=elapsed%60;
+  const subjScores=EC.subjects.map(subj=>{
+    const qs=allQ.filter(q=>q.subjName===subj.name);let sc=0,sw=0;
+    qs.forEach(q=>{const a=qAns[q.gi];if(a===q.correct)sc++;else if(a>=0)sw++;});
+    return subj.name+':'+sc+'C/'+sw+'W';
+  }).join(' | ');
+  const vals=[student.name,student.roll,EC.title,String(obt),String(total),pct+'%',pct>=EC.pass?'Qualified':'Not Qualified',String(correct),String(wrong),String(skip),pad(em)+'m '+pad(es)+'s',subjScores,String(warnCount)];
+  const base=`https://docs.google.com/forms/d/e/${EC.gformFormId}/formResponse`;
+  const iframe=document.createElement('iframe');iframe.style.display='none';iframe.name='gf'+Date.now();document.body.appendChild(iframe);
+  const form=document.createElement('form');form.method='POST';form.action=base;form.target=iframe.name;form.style.display='none';
+  EC.gformFields.forEach((f,i)=>{const inp=document.createElement('input');inp.type='hidden';inp.name='entry.'+f.id;inp.value=vals[i]||'';form.appendChild(inp);});
+  const si=document.createElement('input');si.type='hidden';si.name='submit';si.value='Submit';form.appendChild(si);
+  document.body.appendChild(form);form.submit();
+  const sd=document.getElementById('r-gform-status');
+  if(sd){sd.style.display='block';sd.innerHTML='<span style="color:var(--green)">✓ Result submitted to Google Sheets</span>';}
+  setTimeout(()=>{try{document.body.removeChild(form);document.body.removeChild(iframe);}catch(e){}},5000);
+}
+
+// ═══════════════════════════════════
+// RESULTS
+// ═══════════════════════════════════
+function showResults(){
+  let correct=0,wrong=0,skip=0;
+  allQ.forEach((q,i)=>{const a=qAns[i];if(a<0)skip++;else if(a===q.correct)correct++;else wrong++;});
+  const total=allQ.length*EC.marks, obt=correct*EC.marks-wrong*EC.neg;
+  const pct=Math.max(0,Math.round(obt/total*100)), passed=pct>=EC.pass;
+  document.getElementById('r-name').textContent=student.name;
+  document.getElementById('r-roll').textContent=student.roll;
+  document.getElementById('r-score').textContent=obt;
+  document.getElementById('r-score-lbl').textContent='out of '+total;
+  const pb=document.getElementById('r-pass');pb.textContent=passed?'Qualified ✓':'Not qualified';pb.className='pass-badge '+(passed?'pass':'fail');
+  document.getElementById('r-summary').textContent=correct+' correct · '+wrong+' wrong · '+skip+' unattempted · '+pct+'% accuracy';
+  const elapsed=EC.duration*60-timeLeft,em=Math.floor(elapsed/60),es=elapsed%60;
+  document.getElementById('r-stats').innerHTML=`
+    <div class="res-stat"><div class="res-stat-val" style="color:var(--green)">${correct}</div><div class="res-stat-lbl">Correct</div></div>
+    <div class="res-stat"><div class="res-stat-val" style="color:var(--red)">${wrong}</div><div class="res-stat-lbl">Wrong</div></div>
+    <div class="res-stat"><div class="res-stat-val">${skip}</div><div class="res-stat-lbl">Unattempted</div></div>
+    <div class="res-stat"><div class="res-stat-val">${pad(em)}m ${pad(es)}s</div><div class="res-stat-lbl">Time taken</div></div>`;
+  document.getElementById('r-subj').innerHTML=EC.subjects.map(subj=>{
+    const qs=allQ.filter(q=>q.subjName===subj.name);let sc=0,sw=0,ss=0;
+    qs.forEach(q=>{const a=qAns[q.gi];if(a<0)ss++;else if(a===q.correct)sc++;else sw++;});
+    const sp=qs.length?Math.round(sc/qs.length*100):0;
+    return `<div class="subj-card"><div style="font-size:13px;font-weight:600;color:${subj.color};margin-bottom:6px">${subj.name}</div>
+      <div class="subj-bar-wrap"><div class="subj-bar-fill" style="width:${sp}%;background:${subj.color}"></div></div>
+      <div style="display:flex;gap:8px;font-size:11px;color:var(--muted)"><span style="color:var(--green)">${sc} correct</span><span style="color:var(--red)">${sw} wrong</span><span>${ss} skipped</span></div>
+    </div>`;
+  }).join('');
+  document.getElementById('r-review').innerHTML=allQ.map((q,i)=>{
+    const a=qAns[i],ok=a===q.correct,sk=a<0;
+    return `<div class="review-q">
+      <div class="review-q-head">
+        <span style="font-size:11px;color:var(--muted);font-family:var(--mono)">Q${i+1}</span>
+        <span class="rs ${sk?'rs-skip':ok?'rs-correct':'rs-wrong'}">${sk?'Skipped':ok?'Correct':'Incorrect'}</span>
+        <span style="font-size:11px;color:${q.subjColor};background:${q.subjColor}18;padding:2px 7px;border-radius:4px">${q.subjName}</span>
+      </div>
+      ${q.image?`<img src="${q.image}" style="max-width:100%;max-height:160px;border-radius:6px;margin-bottom:6px;display:block">` :''}
+      <div style="font-size:13px;margin-bottom:6px;line-height:1.6">${q.text}</div>
+      ${q.options.map((o,oi)=>{let c='ro-plain';if(oi===q.correct)c='ro-correct';else if(oi===a&&a!==q.correct)c='ro-wrong';return`<div class="ro ${c}">${['A','B','C','D'][oi]}. ${o}${oi===q.correct?' ✓':''}${oi===a&&a!==q.correct?' ✗':''}</div>`;}).join('')}
+    </div>`;
+  }).join('');
+  showScreen('s-results');
+}
+function goToLogin(){student=null;examStarted=false;document.getElementById('l-roll').value='';document.getElementById('l-pass').value='';showScreen('s-login');}
+
+// ═══════════════════════════════════
+// INIT
+// ═══════════════════════════════════
+load(); initLogin();
+</script>
+</body>
+</html>
