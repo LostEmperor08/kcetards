@@ -345,7 +345,18 @@ function renderQ(){
   const q=allQ[curQ];
   if(qStates[curQ]==='unvisited') qStates[curQ]='not-answered';
   document.getElementById('q-meta').innerHTML=`<span class="q-id">Q${curQ+1}/${allQ.length}</span><span class="q-badge" style="color:${q.subjColor}">${q.subjName}</span>`;
-  document.getElementById('q-text').textContent=q.text;
+  
+  // NEW IMAGE HANDLING CODE
+  const qArea = document.getElementById('q-text');
+  if (q.image && q.image.trim() !== "") {
+    qArea.innerHTML = `
+      <img src="${q.image}" style="max-width:100%; border-radius:8px; margin-bottom:1rem; display:block; border:1px solid var(--border)">
+      <div>${q.text}</div>
+    `;
+  } else {
+    qArea.textContent = q.text;
+  }
+
   document.getElementById('q-opts').innerHTML=q.options.map((o,oi)=>`<div class="option${qAns[curQ]===oi?' chosen':''}" onclick="selectOpt(${oi})"><div class="opt-circle">${['A','B','C','D'][oi]}</div><div class="opt-text">${o}</div></div>`).join('');
   renderNav();
 }
