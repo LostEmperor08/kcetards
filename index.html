@@ -253,6 +253,13 @@ window.onload = async () => {
         document.getElementById('target-score').textContent = challengeScore;
     }
 
+    // CORS Warning for local testing
+    if (window.location.protocol === 'file:') {
+        document.getElementById('login-exam-title').textContent = "⚠️ Cannot load exam_data.json locally. Please upload to GitHub Pages to test!";
+        document.getElementById('login-exam-title').style.color = "var(--red)";
+        return;
+    }
+
     // Fetch JSON
     try {
         const response = await fetch('exam_data.json');
@@ -263,7 +270,7 @@ window.onload = async () => {
             throw new Error("Not Found");
         }
     } catch (e) {
-        document.getElementById('login-exam-title').textContent = "⚠️ exam_data.json not found. Please upload it.";
+        document.getElementById('login-exam-title').textContent = "⚠️ exam_data.json not found. Please ensure it is uploaded.";
         document.getElementById('login-exam-title').style.color = "var(--red)";
     }
 }
@@ -294,7 +301,7 @@ function updateLoginUI() {
 
 // --- STUDENT & MASTER TESTER LOGIN ---
 function doLogin(){
-  if(!EC) return alert("Exam configuration not loaded yet.");
+  if(!EC) return alert("Exam configuration not loaded yet. Make sure you are viewing this on GitHub Pages.");
   
   const loginName = document.getElementById('l-name').value.trim();
   const errDiv = document.getElementById('login-err');
@@ -472,27 +479,20 @@ function goToLogin(){
 
 // Google Sheets Direct Post via Apps Script
 function submitToGoogleForms(){
-  // =========================================================================
-  // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW:
-  // =========================================================================
-  const scriptURL = https://script.google.com/macros/s/AKfycbztA9c2EYpLD3SVEt6Dml9fshC7L6blKdOIqK4agW-0UW1hnwybhFbSB1AqZ4a5g43J/exec;
-  // =========================================================================
-
-  if(!scriptURL || scriptURL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
-      console.warn("Google Sheets submission skipped: Web App URL not set.");
-      return;
-  }
+  // YOUR GOOGLE APPS SCRIPT WEB APP URL
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbztA9c2EYpLD3SVEt6Dml9fshC7L6blKdOIqK4agW-0UW1hnwybhFbSB1AqZ4a5g43J/exec';
+  
   if(currentStudent.roll === 'Master') return; // Do not send Admin Tester scores!
 
   let correct=0, wrong=0, unattempted=0;
   allQuestions.forEach((q,i)=>{ const ans=qAnswers[i]; if(ans<0) unattempted++; else if(ans===q.correct) correct++; else wrong++; });
-  const totalMarks = allQuestions.length * EC.marks;
-  const obtained = correct*EC.marks - wrong*(EC.neg||0);
+  const totalMarks = allQuestions.length * EC.marks; 
+  const obtained = correct*EC.marks - wrong*(EC.neg||0); 
   const passed = (obtained/totalMarks*100) >= EC.pass;
 
   const formData = new FormData();
   formData.append('name', currentStudent.name);
-  formData.append('roll', 'N/A'); // No roll number used in this setup
+  formData.append('roll', 'N/A'); // Not tracking roll numbers
   formData.append('examTitle', EC.title);
   formData.append('score', obtained);
   formData.append('maxScore', totalMarks);
@@ -507,7 +507,7 @@ function submitToGoogleForms(){
     .then(response => {
       const statusDiv = document.getElementById('r-gform-status');
       statusDiv.style.display = 'block';
-      statusDiv.innerHTML = '✓ Results saved to Google Sheets successfully.';
+      statusDiv.innerHTML = '✓ Results saved securely.';
     })
     .catch(error => {
       console.error('Error!', error.message);
