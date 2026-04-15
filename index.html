@@ -138,8 +138,10 @@ input{font-family:var(--sans)}
     
     <div id="login-schedule"></div>
     
-    <div class="login-field"><label>Name</label><input type="text" id="l-name" placeholder="Enter your full name" autocomplete="off"></div>
-    <div class="login-field"><label>Password</label><input type="password" id="l-pass" placeholder="Enter Password" autocomplete="off"></div>
+    <div class="login-field">
+      <label>Full Name</label>
+      <input type="text" id="l-name" placeholder="Enter your full name" autocomplete="off">
+    </div>
     
     <button class="login-btn" onclick="doLogin()">Proceed to Instructions</button>
     <div class="login-err" id="login-err"></div>
@@ -295,24 +297,22 @@ function doLogin(){
   if(!EC) return alert("Exam configuration not loaded yet.");
   
   const loginName = document.getElementById('l-name').value.trim();
-  const pass = document.getElementById('l-pass').value.trim();
   const errDiv = document.getElementById('login-err');
 
   if(!loginName) { errDiv.textContent = 'Please enter your Name.'; return; }
-  if(!pass) { errDiv.textContent = 'Please enter the Password.'; return; }
 
   // ✨ MASTER LOGIN BYPASS ✨ (Bypasses schedule entirely)
-  if(loginName === '@lostemperor' && pass === 'Samarth@2008') {
-      currentStudent = { name: "Admin Tester", roll: "Master" };
-      errDiv.textContent = '';
-      showInstructions();
-      return; 
-  }
-
-  // Universal Student Password Check
-  if(pass !== 'KCETards') {
-      errDiv.textContent = 'Incorrect password. Access denied.';
-      return;
+  if(loginName === '@lostemperor') {
+      const pass = prompt("Enter Master Passcode:");
+      if (pass === 'Samarth@2008') {
+          currentStudent = { name: "Admin Tester", roll: "Master" };
+          errDiv.textContent = '';
+          showInstructions();
+          return;
+      } else {
+          errDiv.textContent = 'Incorrect Master Passcode.';
+          return;
+      }
   }
 
   // Schedule Check Enforced for Normal Students
@@ -324,6 +324,7 @@ function doLogin(){
     if(now > new Date(EC.windowEnd).getTime()) return errDiv.textContent = 'Exam has already closed.';
   }
 
+  // Allow anyone in since there is no whitelist
   currentStudent = { name: loginName, roll: "N/A" };
   errDiv.textContent='';
   showInstructions();
@@ -466,25 +467,51 @@ function copyChallengeLink() {
 function goToLogin(){
   const url = new URL(window.location.href);
   if(url.searchParams.has('challenge')) { url.searchParams.delete('challenge'); window.history.replaceState({}, document.title, url.pathname); document.getElementById('challenge-banner').style.display = 'none'; }
-  currentStudent=null; examStarted=false; finalObtainedScore=0; document.getElementById('l-name').value=''; document.getElementById('l-pass').value=''; showScreen('s-login');
+  currentStudent=null; examStarted=false; finalObtainedScore=0; document.getElementById('l-name').value=''; showScreen('s-login');
 }
 
-// Google Forms Silent Post
+// Google Sheets Direct Post via Apps Script
 function submitToGoogleForms(){
-  if(!EC.gformEnabled || !EC.gformFormId || !EC.gformFields) return;
-  if(currentStudent.roll === 'Master') return; // Do not send Admin Tester scores to the database!
+  // =========================================================================
+  // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW:
+  // =========================================================================
+  const scriptURL = https://script.google.com/macros/s/AKfycbztA9c2EYpLD3SVEt6Dml9fshC7L6blKdOIqK4agW-0UW1hnwybhFbSB1AqZ4a5g43J/exec;
+  // =========================================================================
+
+  if(!scriptURL || scriptURL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
+      console.warn("Google Sheets submission skipped: Web App URL not set.");
+      return;
+  }
+  if(currentStudent.roll === 'Master') return; // Do not send Admin Tester scores!
 
   let correct=0, wrong=0, unattempted=0;
   allQuestions.forEach((q,i)=>{ const ans=qAnswers[i]; if(ans<0) unattempted++; else if(ans===q.correct) correct++; else wrong++; });
-  const totalMarks = allQuestions.length * EC.marks; const obtained = correct*EC.marks - wrong*(EC.neg||0); const passed = (obtained/totalMarks*100) >= EC.pass;
+  const totalMarks = allQuestions.length * EC.marks;
+  const obtained = correct*EC.marks - wrong*(EC.neg||0);
+  const passed = (obtained/totalMarks*100) >= EC.pass;
 
-  const values = [currentStudent.name, currentStudent.roll, EC.title, String(obtained), String(totalMarks), String(Math.round((obtained/totalMarks)*100))+'%', passed?'Qualified':'Not Qualified', String(correct), String(wrong), String(unattempted), String(warnCount)];
-  const iframe = document.createElement('iframe'); iframe.style.display = 'none'; iframe.name = 'gform-submit';
-  const form = document.createElement('form'); form.method = 'POST'; form.action = `https://docs.google.com/forms/d/e/${EC.gformFormId}/formResponse`; form.target = iframe.name;
-  EC.gformFields.forEach((f,i)=>{ const input = document.createElement('input'); input.type = 'hidden'; input.name = 'entry.'+f.id; input.value = values[i]||''; form.appendChild(input); });
-  
-  document.body.appendChild(iframe); document.body.appendChild(form); form.submit();
-  const statusDiv = document.getElementById('r-gform-status'); statusDiv.style.display = 'block'; statusDiv.innerHTML = '✓ Results sent to Server successfully.';
+  const formData = new FormData();
+  formData.append('name', currentStudent.name);
+  formData.append('roll', 'N/A'); // No roll number used in this setup
+  formData.append('examTitle', EC.title);
+  formData.append('score', obtained);
+  formData.append('maxScore', totalMarks);
+  formData.append('percentage', Math.round((obtained/totalMarks)*100) + '%');
+  formData.append('result', passed ? 'Qualified' : 'Not Qualified');
+  formData.append('correct', correct);
+  formData.append('wrong', wrong);
+  formData.append('unattempted', unattempted);
+  formData.append('warnings', warnCount);
+
+  fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+    .then(response => {
+      const statusDiv = document.getElementById('r-gform-status');
+      statusDiv.style.display = 'block';
+      statusDiv.innerHTML = '✓ Results saved to Google Sheets successfully.';
+    })
+    .catch(error => {
+      console.error('Error!', error.message);
+    });
 }
 </script>
 </body>
