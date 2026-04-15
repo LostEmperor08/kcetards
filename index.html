@@ -13,52 +13,52 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;font-family:var(--sans);background:var(--bg);color:var(--text);font-size:14px;line-height:1.6}
-button{font-family:var(--sans);cursor:pointer}
+button{font-family:var(--sans);cursor:pointer; transition: opacity 0.2s;}
+button:hover{opacity: 0.9;}
 input{font-family:var(--sans)}
 
-.screen{display:none;height:100vh;overflow:hidden}
+.screen{display:none;height:100vh;overflow-y:auto; overflow-x:hidden;}
 .screen.active{display:flex;flex-direction:column}
-.btn{padding:8px 18px;border-radius:6px;font-size:13px;font-weight:500;border:none;cursor:pointer; transition: opacity 0.2s;}
-.btn:hover{opacity: 0.9;}
+
+.btn{padding:8px 18px;border-radius:6px;font-size:13px;font-weight:500;border:none;}
 .btn-primary{background:var(--accent);color:#fff}
 .btn-outline{background:transparent;border:1px solid var(--border2);color:var(--text)}
 
 /* LOGIN SCREEN */
-#s-login{background:var(--bg);justify-content:center;align-items:center;flex-direction:column}
+#s-login{background:var(--bg);justify-content:center;align-items:center;}
 .login-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:2.5rem 2rem;width:100%;max-width:400px}
-.login-logo{font-size:26px;font-weight:600;color:var(--text);margin-bottom:4px;letter-spacing:-0.5px}
+.login-logo{font-size:26px;font-weight:600;color:var(--text);margin-bottom:4px;letter-spacing:-0.5px; text-align:center;}
 .login-logo span{color:var(--accent)}
-.login-sub{font-size:13px;color:var(--muted);margin-bottom:2rem}
+.login-sub{font-size:13px;color:var(--muted);margin-bottom:1rem; text-align:center;}
+#login-schedule{font-size:12px; color:var(--orange); margin-bottom:1.5rem; font-weight:600; text-align:center; background:#f5a62315; padding:8px; border-radius:6px; border:1px solid #f5a62344; display:none;}
 .login-field{margin-bottom:14px}
 .login-field label{font-size:12px;color:var(--muted);display:block;margin-bottom:5px}
 .login-field input{width:100%;padding:10px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:var(--text);font-size:14px;outline:none}
 .login-field input:focus{border-color:var(--accent)}
-.login-btn{width:100%;padding:11px;background:var(--accent);color:#fff;border:none;border-radius:7px;font-size:14px;font-weight:600;cursor:pointer;margin-top:6px}
-.login-err{font-size:12px;color:var(--red);margin-top:8px;min-height:18px}
-#challenge-banner{background:#f5a62322; border:1px solid var(--orange); color:var(--orange); padding:10px; border-radius:8px; text-align:center; font-weight:600; margin-bottom:15px; display:none;}
+.login-btn{width:100%;padding:11px;background:var(--accent);color:#fff;border:none;border-radius:7px;font-size:14px;font-weight:600;margin-top:6px}
+.login-err{font-size:12px;color:var(--red);margin-top:8px;min-height:18px; text-align:center;}
 
-/* INSTRUCTIONS */
-#s-instructions{overflow-y:auto;height:auto;min-height:100vh;}
-.inst-wrap{max-width:760px;margin:0 auto;padding:2rem 1.5rem 4rem}
+/* INSTRUCTIONS SCREEN */
+.inst-wrap{max-width:760px;margin:0 auto;padding:2rem 1.5rem 4rem; width:100%;}
 .inst-block{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.25rem;margin-bottom:1rem}
 .inst-block h3{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
 .legend-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px}
 .nl-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600}
-.start-btn{padding:12px 36px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer}
+.start-btn{padding:12px 36px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;}
 .start-btn:disabled{opacity:.4;cursor:not-allowed}
 
 /* EXAM SCREEN */
-#s-exam{flex-direction:row;}
+#s-exam{flex-direction:row; overflow:hidden;}
 .exam-topbar{position:fixed;top:0;left:0;right:0;height:52px;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:16px}
 .exam-timer{font-family:var(--mono);font-size:18px;font-weight:500;min-width:80px;text-align:right}
 .exam-timer.warn{color:var(--orange)}
 .exam-timer.danger{color:var(--red);animation:pulse 1s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
 .subj-bar{position:fixed;top:52px;left:0;right:260px;height:42px;z-index:99;background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 12px;gap:4px;overflow-x:auto}
-.subj-btn{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;white-space:nowrap;}
+.subj-btn{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid var(--border);background:transparent;color:var(--muted);white-space:nowrap;}
 .subj-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 
-.exam-main{margin-top:94px;margin-right:260px;height:calc(100vh - 94px);overflow-y:auto;padding:1.5rem 1.5rem 6rem}
+.exam-main{margin-top:94px;margin-right:260px;height:calc(100vh - 94px);overflow-y:auto;padding:1.5rem 1.5rem 6rem; width:100%;}
 .q-meta{display:flex;gap:10px;margin-bottom:14px;}
 .q-text{font-size:15px;line-height:1.7;margin-bottom:1.5rem;white-space:pre-line}
 .option{display:flex;gap:12px;padding:12px 14px;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;cursor:pointer;background:var(--surface)}
@@ -76,9 +76,8 @@ input{font-family:var(--sans)}
 .nav-btn.marked-answered{background:var(--visited);border-color:var(--visited);color:#fff}
 .nav-btn.marked-answered::after{content:'';position:absolute;bottom:0;right:0;width:8px;height:8px;background:var(--green);border-radius:50%;border:1px solid var(--surface)}
 
-/* RESULTS */
-#s-results{overflow-y:auto;height:auto;min-height:100vh;}
-.res-wrap{max-width:860px;margin:0 auto;padding:2rem 1.5rem 4rem}
+/* RESULTS SCREEN */
+.res-wrap{max-width:860px;margin:0 auto;padding:2rem 1.5rem 4rem; width:100%;}
 .score-circle{width:140px;height:140px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:4px solid var(--accent);margin:1.5rem auto;}
 .res-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
 .res-stat{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center}
@@ -106,6 +105,16 @@ input{font-family:var(--sans)}
 </head>
 <body>
 
+<div class="modal-overlay" id="tabwarn" style="z-index:999">
+  <div class="modal" style="text-align:center; border-color:var(--red)">
+    <div style="font-size:40px;margin-bottom:10px">⚠️</div>
+    <h2 style="color:var(--red)">Tab Switch Detected!</h2>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:10px">You have left the exam tab. This is a violation.</p>
+    <div id="warn-count-text" style="color:var(--orange);font-weight:600;margin-bottom:20px">Warning 1 of 3</div>
+    <button class="btn" style="background:var(--red);color:#fff;width:100%" onclick="document.getElementById('tabwarn').classList.remove('open')">Return to Exam</button>
+  </div>
+</div>
+
 <div class="modal-overlay" id="submit-modal">
   <div class="modal">
     <h2 style="margin-bottom:10px">Submit Exam?</h2>
@@ -117,23 +126,18 @@ input{font-family:var(--sans)}
   </div>
 </div>
 
-<div class="modal-overlay" id="tabwarn" style="z-index:999">
-  <div class="modal" style="text-align:center; border-color:var(--red)">
-    <div style="font-size:40px;margin-bottom:10px">⚠️</div>
-    <h2 style="color:var(--red)">Tab Switch Detected!</h2>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:10px">You have left the exam tab. This is a violation.</p>
-    <div id="warn-count-text" style="color:var(--orange);font-weight:600;margin-bottom:20px">Warning 1 of 3</div>
-    <button class="btn" style="background:var(--red);color:#fff;width:100%" onclick="document.getElementById('tabwarn').classList.remove('open')">Return to Exam</button>
-  </div>
-</div>
-
 <div id="s-login" class="screen active">
   <div class="login-box">
     <div class="login-logo">KCET<span>ARDs</span></div>
     
-    <div id="challenge-banner">🎯 Target to beat: <span id="target-score"></span></div>
+    <div id="challenge-banner" style="background:#f5a62322; border:1px solid var(--orange); color:var(--orange); padding:10px; border-radius:8px; text-align:center; font-weight:600; margin-bottom:15px; display:none;">
+      🎯 Target to beat: <span id="target-score"></span>
+    </div>
     
-    <div class="login-sub" id="login-exam-title">Searching for exam_data.json...</div>
+    <div class="login-sub" id="login-exam-title">Loading Mock Test...</div>
+    
+    <div id="login-schedule"></div>
+    
     <div class="login-field"><label>Roll Number</label><input type="text" id="l-roll" placeholder="Enter Roll Number" autocomplete="off"></div>
     <div class="login-field"><label>Password</label><input type="password" id="l-pass" placeholder="Enter Password" autocomplete="off"></div>
     <button class="login-btn" onclick="doLogin()">Proceed to Instructions</button>
@@ -226,17 +230,21 @@ input{font-family:var(--sans)}
 </div>
 
 <script>
-let examConfig = null;
-let currentStudent = null;
-let currentQIdx = 0; let currentSubjIdx = 0;
+// --- GLOBAL STATE ---
+let EC = null;
+let currentStudent = null; let currentQIdx = 0; let currentSubjIdx = 0;
 let qStates = []; let qAnswers = []; let allQuestions = [];
-let timerInterval = null; let timeLeft = 0;
-let warnCount = 0; let strictMode = false; let examStarted = false;
-let finalObtainedScore = 0;
+let timerInterval = null; let timeLeft = 0; let warnCount = 0; 
+let strictMode = false; let examStarted = false; let finalObtainedScore = 0;
 
-// Auto-Load Data & Check for Challenge Link
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// --- INIT (LOAD EXAM DATA) ---
 window.onload = async () => {
-    // Check URL for challenge parameter
+    // Check for Peer Challenge Parameter
     const urlParams = new URLSearchParams(window.location.search);
     const challengeScore = urlParams.get('challenge');
     if(challengeScore) {
@@ -244,32 +252,54 @@ window.onload = async () => {
         document.getElementById('target-score').textContent = challengeScore;
     }
 
+    // Fetch JSON
     try {
         const response = await fetch('exam_data.json');
-        if(!response.ok) throw new Error("File not found");
-        examConfig = await response.json();
-        document.getElementById('login-exam-title').textContent = examConfig.title;
-        document.getElementById('login-exam-title').style.color = "var(--green)";
+        if(response.ok) {
+            EC = await response.json();
+            updateLoginUI();
+        } else {
+            throw new Error("Not Found");
+        }
     } catch (e) {
-        document.getElementById('login-exam-title').textContent = "⚠️ Could not load exam_data.json. Make sure it is uploaded in the same folder.";
+        document.getElementById('login-exam-title').textContent = "⚠️ exam_data.json not found. Please upload it.";
         document.getElementById('login-exam-title').style.color = "var(--red)";
     }
 }
 
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+function updateLoginUI() {
+    if(!EC) return;
+    document.getElementById('login-exam-title').textContent = EC.title;
+    document.getElementById('login-exam-title').style.color = "var(--green)";
+    
+    // Formatting and Displaying Schedule
+    const schedDiv = document.getElementById('login-schedule');
+    if(EC.windowStart || EC.windowEnd) {
+        let txt = "⏱️ Scheduled: ";
+        if(EC.windowStart) {
+            const startDate = new Date(EC.windowStart);
+            txt += startDate.toLocaleString('en-IN', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'});
+        }
+        if(EC.windowEnd) {
+            const endDate = new Date(EC.windowEnd);
+            txt += " to " + endDate.toLocaleString('en-IN', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'});
+        }
+        schedDiv.textContent = txt;
+        schedDiv.style.display = "block";
+    } else {
+        schedDiv.style.display = "none";
+    }
 }
 
-// === LOGIN WITH ADMIN BYPASS ===
+// --- STUDENT & MASTER TESTER LOGIN ---
 function doLogin(){
-  if(!examConfig) return alert("Exam configuration not loaded yet.");
+  if(!EC) return alert("Exam configuration not loaded yet.");
   
   const roll = document.getElementById('l-roll').value.trim();
   const pass = document.getElementById('l-pass').value.trim();
   const errDiv = document.getElementById('login-err');
 
-  // ✨ MASTER LOGIN BYPASS ✨
+  // ✨ MASTER LOGIN BYPASS ✨ (Bypasses schedule and whitelist)
   if(roll === '@lostemperor' && pass === 'Samarth@2008') {
       currentStudent = { name: "Admin Tester", roll: "@lostemperor" };
       errDiv.textContent = '';
@@ -278,53 +308,52 @@ function doLogin(){
   }
 
   // Regular Student Login Check
-  const student = examConfig.students.find(s=>s.roll===roll);
-  if(!student){ errDiv.textContent='Roll number not found.'; return; }
+  const student = (EC.students || []).find(s=>s.roll===roll);
+  if(EC.students && EC.students.length > 0 && !student){ errDiv.textContent='Roll number not found.'; return; }
   if(pass !== roll){ errDiv.textContent='Incorrect password. Use your roll number.'; return; }
 
-  // Schedule Check (Ignored for Master Login)
+  // Schedule Check Enforced for Normal Students
   const now = Date.now();
-  if(examConfig.windowStart) {
-    if(now < new Date(examConfig.windowStart).getTime()) return errDiv.textContent = 'Exam window has not opened yet.';
+  if(EC.windowStart) {
+    if(now < new Date(EC.windowStart).getTime()) return errDiv.textContent = 'Exam has not opened yet.';
   }
-  if(examConfig.windowEnd) {
-    if(now > new Date(examConfig.windowEnd).getTime()) return errDiv.textContent = 'Exam window has already closed.';
+  if(EC.windowEnd) {
+    if(now > new Date(EC.windowEnd).getTime()) return errDiv.textContent = 'Exam has already closed.';
   }
 
-  currentStudent = student;
+  currentStudent = student || { name: "Student", roll: roll }; // Fallback if no whitelist used
   errDiv.textContent='';
   showInstructions();
 }
 
+// ==========================================
+// STUDENT TEST PORTAL
+// ==========================================
 function showInstructions(){
-  document.getElementById('inst-exam-title').textContent = examConfig.title;
+  document.getElementById('inst-exam-title').textContent = EC.title;
   document.getElementById('inst-student-info').textContent = currentStudent.name + ' · ' + currentStudent.roll;
-  document.getElementById('inst-marks').textContent = '+' + examConfig.marks;
-  document.getElementById('inst-neg').textContent = '−' + (examConfig.neg || 0);
-  document.getElementById('inst-strict-rule').textContent = examConfig.strict ? "Strict mode is ON. 3 tab switches will auto-submit the exam." : "Tab-switch detection is OFF.";
+  document.getElementById('inst-marks').textContent = '+' + EC.marks;
+  document.getElementById('inst-neg').textContent = '−' + (EC.neg || 0);
+  document.getElementById('inst-strict-rule').textContent = EC.strict ? "Strict mode is ON. 3 tab switches will auto-submit the exam." : "Tab-switch detection is OFF.";
   showScreen('s-instructions');
 }
 
 function startExam(){
   allQuestions = [];
-  examConfig.subjects.forEach((subj,si)=>{
-    subj.questions.forEach((q,qi)=>{ allQuestions.push({...q, subjIdx:si, subjName:subj.name, globalIdx:allQuestions.length}); });
-  });
-
+  EC.subjects.forEach((subj,si)=>{ subj.questions.forEach((q,qi)=>{ allQuestions.push({...q, subjIdx:si, subjName:subj.name, globalIdx:allQuestions.length}); }); });
   if(!allQuestions.length) return alert('No questions in this exam.');
   
-  qStates = allQuestions.map(()=>'unvisited');
-  qAnswers = allQuestions.map(()=>-1);
-  currentQIdx = 0; warnCount = 0;
-  examStarted = true; strictMode = examConfig.strict;
-  
-  timeLeft = examConfig.timerEnabled === false ? 9999999 : (examConfig.duration * 60);
+  qStates = allQuestions.map(()=>'unvisited'); qAnswers = allQuestions.map(()=>-1);
+  currentQIdx = 0; warnCount = 0; examStarted = true; strictMode = EC.strict;
+  timeLeft = EC.duration * 60;
 
   document.getElementById('exam-student-name').textContent = currentStudent.name + ' · ' + currentStudent.roll;
   document.getElementById('nav-student-name').textContent = currentStudent.name;
   document.getElementById('nav-student-roll').textContent = currentStudent.roll;
 
   buildSubjBar(); renderNavigator(); renderQuestion(); startTimer();
+  
+  // Attach Tab Watcher only if strict mode is ON and user is NOT the Master Admin
   if(strictMode && currentStudent.roll !== '@lostemperor') attachVisibilityWatcher();
   
   showScreen('s-exam');
@@ -332,77 +361,50 @@ function startExam(){
 
 function buildSubjBar(){
   document.getElementById('subj-bar').innerHTML = `<button class="subj-btn active" onclick="filterSubj(-1)">All</button>` +
-    examConfig.subjects.map((s,i)=>`<button class="subj-btn" id="stab-${i}" onclick="filterSubj(${i})">${s.name}</button>`).join('');
+    EC.subjects.map((s,i)=>`<button class="subj-btn" id="stab-${i}" onclick="filterSubj(${i})">${s.name}</button>`).join('');
 }
 
 function filterSubj(si){
-  currentSubjIdx = si;
-  document.querySelectorAll('.subj-btn').forEach(b=>b.classList.remove('active'));
-  if(si===-1) document.querySelector('.subj-btn').classList.add('active');
-  else document.getElementById('stab-'+si)?.classList.add('active');
-  const first = si===-1 ? 0 : allQuestions.findIndex(q=>q.subjIdx===si);
-  if(first>=0) goToQ(first);
+  currentSubjIdx = si; document.querySelectorAll('.subj-btn').forEach(b=>b.classList.remove('active'));
+  if(si===-1) document.querySelector('.subj-btn').classList.add('active'); else document.getElementById('stab-'+si)?.classList.add('active');
+  const first = si===-1 ? 0 : allQuestions.findIndex(q=>q.subjIdx===si); if(first>=0) goToQ(first);
 }
 
 function renderQuestion(){
-  const q = allQuestions[currentQIdx];
-  if(qStates[currentQIdx]==='unvisited') qStates[currentQIdx]='not-answered';
-
+  const q = allQuestions[currentQIdx]; if(qStates[currentQIdx]==='unvisited') qStates[currentQIdx]='not-answered';
   document.getElementById('q-meta').innerHTML = `<span style="font-family:var(--mono);color:var(--muted)">Q${currentQIdx+1}/${allQuestions.length}</span><span style="font-size:11px;padding:2px 8px;border-radius:4px;background:var(--surface2);color:var(--accent)">${q.subjName}</span>`;
   document.getElementById('q-text').textContent = q.text;
-  
-  // RENDER IMAGE IF IT EXISTS
   document.getElementById('q-img').innerHTML = q.image ? `<img src="${q.image}" style="max-width:100%; max-height:250px; border-radius:8px; border:1px solid var(--border); margin-bottom: 1.5rem;">` : '';
-
-  document.getElementById('q-opts').innerHTML = q.options.map((o,oi)=>`
-    <div class="option${qAnswers[currentQIdx]===oi?' chosen':''}" onclick="selectOpt(${oi})">
-      <div class="opt-circle">${['A','B','C','D'][oi]}</div>
-      <div style="font-size:14px;padding-top:3px">${o}</div>
-    </div>`).join('');
+  document.getElementById('q-opts').innerHTML = q.options.map((o,oi)=>`<div class="option${qAnswers[currentQIdx]===oi?' chosen':''}" onclick="selectOpt(${oi})"><div class="opt-circle">${['A','B','C','D'][oi]}</div><div style="font-size:14px;padding-top:3px">${o}</div></div>`).join('');
   renderNavigator();
 }
 
-function selectOpt(oi){
-  qAnswers[currentQIdx] = oi;
-  qStates[currentQIdx] = qStates[currentQIdx]==='marked' ? 'marked-answered' : 'answered';
-  renderQuestion();
-}
+function selectOpt(oi){ qAnswers[currentQIdx] = oi; qStates[currentQIdx] = qStates[currentQIdx]==='marked' ? 'marked-answered' : 'answered'; renderQuestion(); }
 function clearResponse(){ qAnswers[currentQIdx]=-1; qStates[currentQIdx]='not-answered'; renderQuestion(); }
-function toggleReview(){
-  const s = qStates[currentQIdx];
-  qStates[currentQIdx] = (s==='marked'||s==='marked-answered') ? (qAnswers[currentQIdx]>=0?'answered':'not-answered') : (qAnswers[currentQIdx]>=0?'marked-answered':'marked');
-  renderNavigator();
-}
-function saveAndNext(){
-  if(qAnswers[currentQIdx]>=0 && qStates[currentQIdx]==='not-answered') qStates[currentQIdx]='answered';
-  if(currentQIdx < allQuestions.length-1) goToQ(currentQIdx+1);
-  else document.getElementById('submit-modal').classList.add('open');
-}
+function toggleReview(){ const s = qStates[currentQIdx]; qStates[currentQIdx] = (s==='marked'||s==='marked-answered') ? (qAnswers[currentQIdx]>=0?'answered':'not-answered') : (qAnswers[currentQIdx]>=0?'marked-answered':'marked'); renderNavigator(); }
+function saveAndNext(){ if(qAnswers[currentQIdx]>=0 && qStates[currentQIdx]==='not-answered') qStates[currentQIdx]='answered'; if(currentQIdx < allQuestions.length-1) goToQ(currentQIdx+1); else document.getElementById('submit-modal').classList.add('open'); }
 function prevQ(){ if(currentQIdx>0) goToQ(currentQIdx-1); }
 function goToQ(idx){ currentQIdx=idx; renderQuestion(); document.getElementById('exam-main').scrollTop=0; }
 
 function renderNavigator(){
   let html = '';
-  examConfig.subjects.forEach((subj,si)=>{
-    const qs = allQuestions.filter(q=>q.subjIdx===si);
-    if(!qs.length)return;
+  EC.subjects.forEach((subj,si)=>{
+    const qs = allQuestions.filter(q=>q.subjIdx===si); if(!qs.length)return;
     html += `<div style="font-size:10px;font-weight:600;text-transform:uppercase;color:var(--muted);margin:8px 0 6px">${subj.name}</div><div class="nav-grid">`;
     qs.forEach(q=>{
       const gi = q.globalIdx; const s = qStates[gi];
       let cls = (s==='answered')?'answered':(s==='not-answered')?'not-answered':(s==='marked')?'marked':(s==='marked-answered')?'marked-answered':'';
       html += `<button class="nav-btn ${cls}${gi===currentQIdx?' current':''}" onclick="goToQ(${gi})">${gi+1}</button>`;
-    });
-    html += '</div>';
-  });
-  document.getElementById('nav-scroll').innerHTML = html;
+    }); html += '</div>';
+  }); document.getElementById('nav-scroll').innerHTML = html;
 }
 
-// TIMER & TAB TRACKING
+// Timer & Tab Watcher
 function startTimer(){
   if(timerInterval) clearInterval(timerInterval);
   timerInterval = setInterval(()=>{
     timeLeft--;
-    if(examConfig.timerEnabled === false) {
+    if(EC.timerEnabled === false) {
       document.getElementById('exam-timer').textContent = "Untimed";
       return;
     }
@@ -413,19 +415,16 @@ function startTimer(){
     if(timeLeft<=0){ clearInterval(timerInterval); confirmSubmit(); }
   },1000);
 }
-
 function attachVisibilityWatcher(){
   document.addEventListener('visibilitychange', () => { if(document.hidden && examStarted) triggerWarning(); });
   window.addEventListener('blur', () => { if(examStarted) triggerWarning(); });
 }
 function triggerWarning(){
-  warnCount++;
-  document.getElementById('warn-count-text').textContent = 'Warning '+warnCount+' of 3';
-  document.getElementById('tabwarn').classList.add('open');
+  warnCount++; document.getElementById('warn-count-text').textContent = 'Warning '+warnCount+' of 3'; document.getElementById('tabwarn').classList.add('open');
   if(warnCount>=3){ document.getElementById('tabwarn').classList.remove('open'); confirmSubmit(); }
 }
 
-// SUBMIT & RESULTS
+// Submit & Results
 function confirmSubmit(){
   document.getElementById('submit-modal').classList.remove('open');
   if(timerInterval) clearInterval(timerInterval);
@@ -434,14 +433,10 @@ function confirmSubmit(){
 
 function showResults(){
   let correct=0, wrong=0, unattempted=0;
-  allQuestions.forEach((q,i)=>{
-    const ans = qAnswers[i];
-    if(ans<0) unattempted++; else if(ans===q.correct) correct++; else wrong++;
-  });
-  finalObtainedScore = correct*examConfig.marks - wrong*(examConfig.neg||0);
+  allQuestions.forEach((q,i)=>{ const ans = qAnswers[i]; if(ans<0) unattempted++; else if(ans===q.correct) correct++; else wrong++; });
+  finalObtainedScore = correct*EC.marks - wrong*(EC.neg||0);
   
-  document.getElementById('r-name').textContent = currentStudent.name;
-  document.getElementById('r-roll').textContent = currentStudent.roll;
+  document.getElementById('r-name').textContent = currentStudent.name; document.getElementById('r-roll').textContent = currentStudent.roll;
   document.getElementById('r-pct').textContent = finalObtainedScore;
   document.getElementById('r-marks-summary').textContent = `${correct} Correct · ${wrong} Wrong · ${unattempted} Unattempted`;
 
@@ -455,81 +450,39 @@ function showResults(){
   document.getElementById('r-review').innerHTML = allQuestions.map((q,i)=>{
     const ans=qAnswers[i]; const isCorrect=ans===q.correct; const isSkip=ans<0;
     const reviewImg = q.image ? `<img src="${q.image}" style="max-height:100px; border-radius:6px; margin: 8px 0; border:1px solid var(--border)">` : '';
-    return `<div class="review-q">
-      <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
-        <span style="font-size:11px;font-family:var(--mono)">Q${i+1}</span>
-        <span class="${isSkip?'':isCorrect?'rs-correct':'rs-wrong'}">${isSkip?'Skipped':isCorrect?'Correct':'Wrong'}</span>
-      </div>
-      <div style="font-size:13px;margin-bottom:8px">${q.text}</div>
-      ${reviewImg}
-      ${q.options.map((o,oi)=>`<div class="${oi===q.correct?'ro-correct':(oi===ans)?'ro-wrong':''}">${['A','B','C','D'][oi]}. ${o}</div>`).join('')}
-    </div>`;
+    return `<div class="review-q"><div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><span style="font-size:11px;font-family:var(--mono)">Q${i+1}</span><span class="${isSkip?'':isCorrect?'rs-correct':'rs-wrong'}">${isSkip?'Skipped':isCorrect?'Correct':'Wrong'}</span></div><div style="font-size:13px;margin-bottom:8px">${q.text}</div>${reviewImg}${q.options.map((o,oi)=>`<div class="${oi===q.correct?'ro-correct':(oi===ans)?'ro-wrong':''}">${['A','B','C','D'][oi]}. ${o}</div>`).join('')}</div>`;
   }).join('');
-  
   showScreen('s-results');
 }
 
-// PEER CHALLENGE LINK GENERATOR
 function copyChallengeLink() {
-  const url = new URL(window.location.href);
-  url.searchParams.set('challenge', finalObtainedScore);
-  
+  const url = new URL(window.location.href); url.searchParams.set('challenge', finalObtainedScore);
   navigator.clipboard.writeText(url.href).then(() => {
-    const btn = document.getElementById('btn-challenge');
-    const originalText = btn.innerHTML;
-    btn.innerHTML = "✅ Link Copied!";
-    setTimeout(() => { btn.innerHTML = originalText; }, 2000);
-  }).catch(err => {
-    alert("Failed to copy link. Please check your browser permissions.");
+    const btn = document.getElementById('btn-challenge'); const originalText = btn.innerHTML; btn.innerHTML = "✅ Link Copied!"; setTimeout(() => { btn.innerHTML = originalText; }, 2000);
   });
 }
-
 function goToLogin(){
-  // Remove challenge param if returning to login
   const url = new URL(window.location.href);
-  if(url.searchParams.has('challenge')) {
-      url.searchParams.delete('challenge');
-      window.history.replaceState({}, document.title, url.pathname);
-      document.getElementById('challenge-banner').style.display = 'none';
-  }
-
-  currentStudent=null; examStarted=false; finalObtainedScore=0;
-  document.getElementById('l-roll').value=''; document.getElementById('l-pass').value='';
-  showScreen('s-login');
+  if(url.searchParams.has('challenge')) { url.searchParams.delete('challenge'); window.history.replaceState({}, document.title, url.pathname); document.getElementById('challenge-banner').style.display = 'none'; }
+  currentStudent=null; examStarted=false; finalObtainedScore=0; document.getElementById('l-roll').value=''; document.getElementById('l-pass').value=''; showScreen('s-login');
 }
 
-// GOOGLE FORMS SILENT SUBMISSION
+// Google Forms Silent Post
 function submitToGoogleForms(){
-  if(!examConfig.gformEnabled || !examConfig.gformFormId || !examConfig.gformFields) return;
-  if(currentStudent.roll === '@lostemperor') return; // Master Login Bypass - Do not send dummy data to sheets
+  if(!EC.gformEnabled || !EC.gformFormId || !EC.gformFields) return;
+  if(currentStudent.roll === '@lostemperor') return; // Do not send Admin Tester scores to the database!
 
   let correct=0, wrong=0, unattempted=0;
   allQuestions.forEach((q,i)=>{ const ans=qAnswers[i]; if(ans<0) unattempted++; else if(ans===q.correct) correct++; else wrong++; });
-  const totalMarks = allQuestions.length * examConfig.marks;
-  const obtained = correct*examConfig.marks - wrong*(examConfig.neg||0);
-  const passed = (obtained/totalMarks*100) >= examConfig.pass;
+  const totalMarks = allQuestions.length * EC.marks; const obtained = correct*EC.marks - wrong*(EC.neg||0); const passed = (obtained/totalMarks*100) >= EC.pass;
 
-  const values = [
-    currentStudent.name, currentStudent.roll, examConfig.title, String(obtained), String(totalMarks), 
-    String(Math.round((obtained/totalMarks)*100))+'%', passed?'Qualified':'Not Qualified',
-    String(correct), String(wrong), String(unattempted), String(warnCount)
-  ];
-
-  const params = examConfig.gformFields.map((f,i)=>`entry.${f.id}=${encodeURIComponent(values[i]||'')}`).join('&');
-  const submitUrl = `https://docs.google.com/forms/d/e/${examConfig.gformFormId}/formResponse?${params}&submit=Submit`;
-
+  const values = [currentStudent.name, currentStudent.roll, EC.title, String(obtained), String(totalMarks), String(Math.round((obtained/totalMarks)*100))+'%', passed?'Qualified':'Not Qualified', String(correct), String(wrong), String(unattempted), String(warnCount)];
   const iframe = document.createElement('iframe'); iframe.style.display = 'none'; iframe.name = 'gform-submit';
-  const form = document.createElement('form'); form.method = 'POST'; form.action = `https://docs.google.com/forms/d/e/${examConfig.gformFormId}/formResponse`; form.target = iframe.name;
-  
-  examConfig.gformFields.forEach((f,i)=>{
-    const input = document.createElement('input'); input.type = 'hidden'; input.name = 'entry.'+f.id; input.value = values[i]||'';
-    form.appendChild(input);
-  });
+  const form = document.createElement('form'); form.method = 'POST'; form.action = `https://docs.google.com/forms/d/e/${EC.gformFormId}/formResponse`; form.target = iframe.name;
+  EC.gformFields.forEach((f,i)=>{ const input = document.createElement('input'); input.type = 'hidden'; input.name = 'entry.'+f.id; input.value = values[i]||''; form.appendChild(input); });
   
   document.body.appendChild(iframe); document.body.appendChild(form); form.submit();
-  
-  const statusDiv = document.getElementById('r-gform-status');
-  statusDiv.style.display = 'block'; statusDiv.innerHTML = '✓ Results sent to Server successfully.';
+  const statusDiv = document.getElementById('r-gform-status'); statusDiv.style.display = 'block'; statusDiv.innerHTML = '✓ Results sent to Server successfully.';
 }
 </script>
 </body>
